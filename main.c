@@ -1,4 +1,8 @@
-int main()
+#include "test_headerfile.h"
+
+int	main(void)
 {
-    return (0);
+	printHello();
+	alo();
+	return (0);
 }
