@@ -1,4 +1,4 @@
-#include "test_headerfile.h"
+#include "cub3d.h"
 
 void	printHello(void)
 {
