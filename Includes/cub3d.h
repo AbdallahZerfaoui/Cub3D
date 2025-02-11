@@ -11,6 +11,7 @@
 # include <stdbool.h>
 # include <stdio.h>
 # include <stdlib.h>
+# include <math.h>
 // Includes -- END
 
 typedef struct s_point
@@ -19,10 +20,11 @@ typedef struct s_point
 	bool		key_right;
 	bool		key_left;
 	bool		key_down;
-	// bool		left_rotate;
-	// bool		right_rotate;
-	float			x;
-	float			y;
+	bool		left_rotate;
+	bool		right_rotate;
+	float		angle;
+	float		x;
+	float		y;
 }				t_point;
 
 typedef struct s_game
