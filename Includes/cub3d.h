@@ -15,30 +15,35 @@
 
 typedef struct s_point
 {
-	int		x;
-	int		y;
-}			t_point;
+	bool		key_up;
+	bool		key_right;
+	bool		key_left;
+	bool		key_down;
+	// bool		left_rotate;
+	// bool		right_rotate;
+	int			x;
+	int			y;
+}				t_point;
 
 typedef struct s_game
 {
-	mlx_t	*mlx;
-	char	map[12][12];
-	int		collectibles_collected;
-	t_point	*player_coords;
-mlx_image_t			*player;
+	mlx_t		*mlx;
+	char		map[12][12];
+	int			collectibles_collected;
+	t_point		*player_coords;
+	mlx_image_t	*player;
 
+	void		*win;
+	void		*img;
 
-    void *win;
-    void *img;
-
-    int *data;
-    int bpp;
-    int size_line;
-    int endian;
-}			t_game;
+	int			*data;
+	int			bpp;
+	int			size_line;
+	int			endian;
+}				t_game;
 
 // FNC --BEGIN
-void		printHello(void);
-void		alo(void);
+void			printHello(void);
+void			alo(void);
 // FNC --END
 #endif
