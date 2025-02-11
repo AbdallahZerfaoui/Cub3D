@@ -78,27 +78,25 @@ void	move_player(t_point *player_coords)
 	{
 		player_coords->angle = 2 * PI;
 	}
-
-
 	if (player_coords->key_up)
-	{
-		player_coords->x = player_coords->x - (cos_angle * speed);
-		player_coords->y = player_coords->y - (sin_angle * speed);
-	}
-	if (player_coords->key_down)
 	{
 		player_coords->x = player_coords->x + (cos_angle * speed);
 		player_coords->y = player_coords->y + (sin_angle * speed);
 	}
-	if (player_coords->key_left)
+	if (player_coords->key_down)
 	{
-		player_coords->x = player_coords->x - (sin_angle * speed);
-		player_coords->y = player_coords->y + (cos_angle * speed);
+		player_coords->x = player_coords->x - (cos_angle * speed);
+		player_coords->y = player_coords->y - (sin_angle * speed);
 	}
-	if (player_coords->key_right)
+	if (player_coords->key_left)
 	{
 		player_coords->x = player_coords->x + (sin_angle * speed);
 		player_coords->y = player_coords->y - (cos_angle * speed);
+	}
+	if (player_coords->key_right)
+	{
+		player_coords->x = player_coords->x - (sin_angle * speed);
+		player_coords->y = player_coords->y + (cos_angle * speed);
 	}
 }
 
@@ -130,23 +128,45 @@ void	draw_square(float x, float y, int size, t_game *game)
 		mlx_put_pixel(game->player, x + i, y + size, color);
 }
 
+bool	cast_ray(float px, float py, t_game *game)
+{
+	int	x;
+	int	y;
+
+	x = px / OBJECT;
+	y = py / OBJECT;
+	if (game->map[y][x] == '1')
+		return (true);
+	return (false);
+}
+
 void	ft_player_hook(void *param)
 {
 	t_game	*game;
+	float	ray_x;
+	float	ray_y;
+	float	cos_angle;
+	float	sin_angle;
 
-	// uint32_t	color;
-	// color = (uint32_t)ft_pixel(255, 255, 0, 255);
+	uint32_t	color;
+	color = (uint32_t)ft_pixel(255, 255, 0, 255);
+
 	game = (t_game *)param;
 	move_player(game->player_coords);
 	clear_image(game);
 	draw_square(game->player_coords->x, game->player_coords->y, 12, game);
-	// for (uint32_t i = 0; i < game->player->width; ++i)
-	// {
-	// 	for (uint32_t j = 0; j < game->player->height; ++j)
-	// 	{
-	// 		mlx_put_pixel(game->player, i, j, color);
-	// 	}
-	// }
+	ray_x = game->player_coords->x;
+	ray_y = game->player_coords->y;
+	cos_angle = cos(game->player_coords->angle);
+	sin_angle = sin(game->player_coords->angle);
+
+	while(!cast_ray(ray_x, ray_y, game))
+	{
+		// put_pixel(ray_x, ray_y, 0xFF0000, game);
+		mlx_put_pixel(game->player, ray_x, ray_y, color);
+		ray_x = cos_angle + ray_x;
+		ray_y = sin_angle + ray_y;
+	}
 	// mlx_image_to_window(game->mlx, game->player,
 	// game->player_coords->x,game->player_coords->y);
 }

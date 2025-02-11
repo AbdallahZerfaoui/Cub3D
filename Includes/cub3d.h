@@ -4,6 +4,7 @@
 # define WIDTH 516
 # define HEIGHT 516
 # define PI 3.14159265359
+# define OBJECT 43
 
 // Includes -- BEGIN
 # include "../MLX42/include/MLX42/MLX42.h"
