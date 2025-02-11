@@ -20,7 +20,7 @@ SRCS := $(MAIN_FILE) $(addprefix src/, $(SRC) $(SRC_SUBREPO))
 
 OBJS := $(addprefix $(OBJ_DIR)/, $(SRCS:%.c=%.o))
 
-CFLAGS := -Wall -Werror -Wextra -Wconversion -Wsign-conversion -g -MMD -MP $(addprefix -I, $(INC_DIRS))
+CFLAGS :=  $(addprefix -I, $(INC_DIRS))
 USER = $(shell whoami)
 MLXFLAGS := -framework Cocoa -framework OpenGL -framework IOKit -Iinclude -lglfw -L"/Users/$(USER)/.brew/opt/glfw/lib/"
 CFLAGS_SAN := $(CFLAGS) -fsanitize=address

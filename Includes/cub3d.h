@@ -3,6 +3,7 @@
 
 # define WIDTH 516
 # define HEIGHT 516
+# define PI 3.14159265359
 
 // Includes -- BEGIN
 # include "../MLX42/include/MLX42/MLX42.h"
@@ -23,7 +24,17 @@ typedef struct s_game
 	mlx_t	*mlx;
 	char	map[12][12];
 	int		collectibles_collected;
-	t_point	player_coords;
+	t_point	*player_coords;
+mlx_image_t			*player;
+
+
+    void *win;
+    void *img;
+
+    int *data;
+    int bpp;
+    int size_line;
+    int endian;
 }			t_game;
 
 // FNC --BEGIN
