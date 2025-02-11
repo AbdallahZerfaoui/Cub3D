@@ -60,7 +60,7 @@ void	move_player(t_point *player_coords)
 
 	cos_angle = cos(player_coords->angle);
 	sin_angle = sin(player_coords->angle);
-	angle_speed = 0.1;
+	angle_speed = 0.03;
 	speed = 5;
 	if (player_coords->left_rotate)
 	{
@@ -128,7 +128,7 @@ void	draw_square(float x, float y, int size, t_game *game)
 		mlx_put_pixel(game->player, x + i, y + size, color);
 }
 
-bool	cast_ray(float px, float py, t_game *game)
+bool	check_wall(float px, float py, t_game *game)
 {
 	int	x;
 	int	y;
@@ -140,35 +140,56 @@ bool	cast_ray(float px, float py, t_game *game)
 	return (false);
 }
 
-void	ft_player_hook(void *param)
+void	draw_single_ray(t_game *game, t_point *player_coords, float start_x,
+		float i)
 {
-	t_game	*game;
-	float	ray_x;
-	float	ray_y;
-	float	cos_angle;
-	float	sin_angle;
-
 	uint32_t	color;
+	float		cos_angle;
+	float		sin_angle;
+	float		ray_x;
+	float		ray_y;
+
+	ray_x = player_coords->x;
+	ray_y = player_coords->y;
+
+	(void)player_coords;
+	(void)start_x;
+	(void)i;
+
 	color = (uint32_t)ft_pixel(255, 255, 0, 255);
-
-	game = (t_game *)param;
-	move_player(game->player_coords);
-	clear_image(game);
-	draw_square(game->player_coords->x, game->player_coords->y, 12, game);
-	ray_x = game->player_coords->x;
-	ray_y = game->player_coords->y;
-	cos_angle = cos(game->player_coords->angle);
-	sin_angle = sin(game->player_coords->angle);
-
-	while(!cast_ray(ray_x, ray_y, game))
+	cos_angle = cos(start_x);
+	sin_angle = sin(start_x);
+	while (!check_wall(ray_x, ray_y, game))
 	{
-		// put_pixel(ray_x, ray_y, 0xFF0000, game);
 		mlx_put_pixel(game->player, ray_x, ray_y, color);
 		ray_x = cos_angle + ray_x;
 		ray_y = sin_angle + ray_y;
 	}
-	// mlx_image_to_window(game->mlx, game->player,
-	// game->player_coords->x,game->player_coords->y);
+}
+
+void	ft_player_hook(void *param)
+{
+	t_game	*game;
+	float	fraction;
+	float	start_x;
+	int		i;
+
+	game = (t_game *)param;
+	move_player(game->player_coords);
+	clear_image(game);
+	draw_square(game->player_coords->x, game->player_coords->y, 4, game);
+	start_x = 0;
+	fraction = PI / 3 / WIDTH;
+	(void)fraction;
+	start_x = game->player_coords->angle - PI / 6;
+	i = 0;
+	while (i < WIDTH)
+	{
+		draw_single_ray(game, game->player_coords, start_x,
+			i);
+		start_x += fraction;
+		i++;
+	}
 }
 
 char				map[12][12] = {
