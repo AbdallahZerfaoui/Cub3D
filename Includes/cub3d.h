@@ -21,8 +21,8 @@ typedef struct s_point
 	bool		key_down;
 	// bool		left_rotate;
 	// bool		right_rotate;
-	int			x;
-	int			y;
+	float			x;
+	float			y;
 }				t_point;
 
 typedef struct s_game

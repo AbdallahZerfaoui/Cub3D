@@ -31,7 +31,8 @@ void	flood_map_items(t_game *game)
 					* HEIGHT / 12);
 			// if (game->map[y][x] == 'N')
 			// {
-			// 	mlx_image_to_window(game->mlx, game->player, game->player_coords->x, game->player_coords->y);
+			// 	mlx_image_to_window(game->mlx, game->player,
+	//game->player_coords->x, game->player_coords->y);
 			// }
 			x++;
 		}
@@ -77,22 +78,62 @@ void	move_player(t_point *player_coords)
 		player_coords->x = player_coords->x + speed;
 	}
 }
+// void clear_image(t_game *game)
+// {
+// 	(void)game;
+// 	if (!game->player || !game->player->pixels)
+// 		return ;
+// 	ft_bzero(game->player->pixels, game->player->width * game->player->height
+// 		* sizeof(int));
+// }
 
-void	ft_randomize(void *param)
+void	clear_image(t_game *game)
+{
+	if (!game->player || !game->player->pixels)
+		return ;
+	ft_bzero(game->player->pixels, game->player->width * game->player->height
+		* sizeof(int));
+}
+
+void	draw_square(float x, float y, int size, t_game *game)
 {
 	uint32_t	color;
+	int			i;
+
+	color = (uint32_t)ft_pixel(255, 255, 0, 255);
+	i = -1;
+	while (++i < size)
+		mlx_put_pixel(game->player, x + i, y, color);
+	i = -1;
+	while (++i < size)
+		mlx_put_pixel(game->player, x, y + i, color);
+	i = -1;
+	while (++i < size)
+		mlx_put_pixel(game->player, x + size, y + i, color);
+	i = -1;
+	while (++i < size)
+		mlx_put_pixel(game->player, x + i, y + size, color);
+}
+
+void	ft_player_hook(void *param)
+{
 	t_game		*game;
+	// uint32_t	color;
+
+	// color = (uint32_t)ft_pixel(255, 255, 0, 255);
 	game = (t_game *)param;
 	move_player(game->player_coords);
-	color = (uint32_t)ft_pixel(255, 255, 0, 255);
-	for (uint32_t i = 0; i < game->player->width; ++i)
-	{
-		for (uint32_t j = 0; j < game->player->height; ++j)
-		{
-			mlx_put_pixel(game->player, i, j, color);
-		}
-	}
-	mlx_image_to_window(game->mlx, game->player, game->player_coords->x, game->player_coords->y);
+	clear_image(game);
+	draw_square(game->player_coords->x, game->player_coords->y, 12, game);
+	// for (uint32_t i = 0; i < game->player->width; ++i)
+	// {
+	// 	for (uint32_t j = 0; j < game->player->height; ++j)
+	// 	{
+	// 		mlx_put_pixel(game->player, i, j, color);
+	// 	}
+	// }
+	//mlx_image_to_window(game->mlx, game->player, game->player_coords->x,game->player_coords->y);
+	mlx_image_to_window(game->mlx, game->player, 0, 0);
 }
 
 char				map[12][12] = {
@@ -202,12 +243,12 @@ int	main(void)
 			game->map[i][j] = map[i][j];
 		}
 	}
-	game->player = mlx_new_image(game->mlx, 12, 12);
-	move_player(game->player_coords);
+	game->player = mlx_new_image(game->mlx, WIDTH, HEIGHT);
+	// move_player(game->player_coords);
 	flood_map_items(game);
 	// mlx_loop_hook(game->mlx, ft_hook, game);
 	mlx_key_hook(game->mlx, key_hook, game);
-	mlx_loop_hook(game->mlx, ft_randomize, game);
+	mlx_loop_hook(game->mlx, ft_player_hook, game);
 	mlx_loop(game->mlx);
 	mlx_terminate(game->mlx);
 	return (0);
