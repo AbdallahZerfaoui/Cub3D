@@ -12,15 +12,26 @@ vpath %.h $(INC_DIRS)
 vpath %.c $(SRC_DIRS)
 
 MAIN_FILE := main.c
-SRC_SUBREPO_FILES := subrepo_file.c
-SRC_SUBREPO := $(addprefix subrepo/, $(SRC_SUBREPO_FILES))
 
-SRC := test.c
-SRCS := $(MAIN_FILE) $(addprefix src/, $(SRC) $(SRC_SUBREPO))
+SRC_PARSING_FILES := parsing.c
+SRC_PARSING := $(addprefix parsing/, $(SRC_PARSING_FILES))
+
+SRC_INIT_FILES := initialize.c
+SRC_INIT := $(addprefix initialize/, $(SRC_INIT_FILES))
+
+SRC_RAYCASTING_FILES := draw_rays.c
+SRC_RAYCASTING := $(addprefix raycasting/, $(SRC_RAYCASTING_FILES))
+
+SRC_MOVEMENT_FILES := key_handle.c move.c
+SRC_MOVEMENT := $(addprefix movement/, $(SRC_MOVEMENT_FILES))
+
+SRC := 
+SRCS := $(MAIN_FILE) $(addprefix src/, $(SRC) $(SRC_PARSING) $(SRC_INIT) $(SRC_RAYCASTING) $(SRC_MOVEMENT))
 
 OBJS := $(addprefix $(OBJ_DIR)/, $(SRCS:%.c=%.o))
 
-CFLAGS := -Wall -Werror -Wextra -Wconversion -Wsign-conversion -g -MMD -MP $(addprefix -I, $(INC_DIRS))
+# CFLAGS := -Wall -Werror -Wextra -Wconversion -Wsign-conversion -g -MMD -MP $(addprefix -I, $(INC_DIRS))
+CFLAGS := -Wall -Werror -Wextra $(addprefix -I, $(INC_DIRS))
 USER = $(shell whoami)
 MLXFLAGS := -framework Cocoa -framework OpenGL -framework IOKit -Iinclude -lglfw -L"/Users/$(USER)/.brew/opt/glfw/lib/"
 CFLAGS_SAN := $(CFLAGS) -fsanitize=address
