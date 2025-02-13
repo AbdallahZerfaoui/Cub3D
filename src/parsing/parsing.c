@@ -3,14 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: macbook <macbook@student.42.fr>            +#+  +:+       +#+        */
+/*   By: auplisas <auplisas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 05:12:41 by macbook           #+#    #+#             */
-/*   Updated: 2025/02/12 05:48:34 by macbook          ###   ########.fr       */
+/*   Updated: 2025/02/13 20:18:28 by auplisas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../Includes/cub3d.h"
+
+char	**create_map(char *argv)
+{
+	char	**map;
+
+	map = initialize_map(argv);
+	if (!validate_map(map))
+	{
+		free_arofar(map, find_rows(map));
+		exit(EXIT_FAILURE);
+	}
+	return (map);
+}
 
 void	parse_map(t_game *game)
 {
