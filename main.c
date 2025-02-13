@@ -38,10 +38,10 @@ int	main(void)
 	t_game *game;
 
 	game = initialize_game_data();
-	mlx_key_hook(game->mlx, key_hook, game);
-	mlx_loop_hook(game->mlx, ft_player_hook, game);
-	mlx_image_to_window(game->mlx, game->player_data->player, 0, 0);
-	mlx_loop(game->mlx);
-	mlx_terminate(game->mlx);
+	// mlx_key_hook(game->mlx, key_hook, game);
+	// mlx_loop_hook(game->mlx, ft_player_hook, game);
+	// mlx_image_to_window(game->mlx, game->player_data->player, 0, 0);
+	// mlx_loop(game->mlx);
+	// mlx_terminate(game->mlx);
 	return (0);
 }

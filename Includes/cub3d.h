@@ -11,10 +11,15 @@
 // Includes -- BEGIN
 # include "../MLX42/include/MLX42/MLX42.h"
 # include "../lib/lib.h"
+# include <errno.h>
+# include <fcntl.h>
 # include <math.h>
 # include <stdbool.h>
 # include <stdio.h>
 # include <stdlib.h>
+# include <string.h>
+# include <unistd.h>
+
 // Includes -- END
 
 typedef struct s_point
@@ -36,7 +41,10 @@ typedef struct s_point
 typedef struct s_game
 {
 	mlx_t		*mlx;
-	char		map[12][12];
+	int			columns;
+	int			rows;
+	// char		map[12][12];
+	char		**map;
 	t_point		*player_data;
 	mlx_image_t	*background;
 	mlx_image_t	*wall;

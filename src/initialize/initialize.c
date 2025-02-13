@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initialize.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: macbook <macbook@student.42.fr>            +#+  +:+       +#+        */
+/*   By: auplisas <auplisas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 05:18:04 by macbook           #+#    #+#             */
-/*   Updated: 2025/02/12 06:02:18 by macbook          ###   ########.fr       */
+/*   Updated: 2025/02/13 21:55:15 by auplisas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,24 +42,24 @@ void	flood_map_items(t_game *game)
 	int			y;
 	int			x;
 
-	game->background = mlx_new_image(game->mlx, WIDTH / ROW_COLUMN_COUNT, WIDTH
-			/ ROW_COLUMN_COUNT);
-	game->wall = mlx_new_image(game->mlx, WIDTH / ROW_COLUMN_COUNT, WIDTH
-			/ ROW_COLUMN_COUNT);
+	game->background = mlx_new_image(game->mlx, WIDTH / game->columns, WIDTH
+			/ game->rows);
+	game->wall = mlx_new_image(game->mlx, WIDTH / game->columns, WIDTH
+			/ game->rows);
 	fill_image_pixels(game, game->background, (uint32_t)ft_pixel(25, 25, 25, 255));
 	fill_image_pixels(game, game->wall, (uint32_t)ft_pixel(255, 170, 0, 255));
 	y = 0;
-	while (y < ROW_COLUMN_COUNT)
+	while (y < game->rows)
 	{
 		x = 0;
-		while (x < ROW_COLUMN_COUNT)
+		while (x < game->columns)
 		{
 			if (game->map[y][x] == '1')
 				mlx_image_to_window(game->mlx, game->wall, x * WIDTH
-					/ ROW_COLUMN_COUNT, y * HEIGHT / ROW_COLUMN_COUNT);
+					/ game->rows, y * HEIGHT / game->columns);
 			if (game->map[y][x] == '0')
 				mlx_image_to_window(game->mlx, game->background, x * WIDTH
-					/ ROW_COLUMN_COUNT, y * HEIGHT / ROW_COLUMN_COUNT);
+					/ game->rows, y * HEIGHT / game->columns);
 			x++;
 		}
 		y++;
@@ -89,8 +89,10 @@ t_game	*initialize_game_data(void)
 	game = malloc(1 * sizeof(t_game));
 	game->player_data = malloc(sizeof(t_point));
 	game->mlx = mlx_init(WIDTH, HEIGHT, "Cub3D", true);
+	game->rows = 0;
+	game->columns = 0;
 	init_player(game, game->player_data);
 	parse_map(game);
-	flood_map_items(game);
+	// flood_map_items(game);
 	return (game);
 }
