@@ -1,10 +1,10 @@
 #ifndef TEST_HEADERFILE_H
 # define TEST_HEADERFILE_H
 
-# define WIDTH 516
-# define HEIGHT 516
+# define WIDTH 1024
+# define HEIGHT 728
 # define ROW_COLUMN_COUNT 12
-# define BLOCK_SIZE 43 // Because WIDTH / ROW_COLUMN_COUNT (516 / 12)
+# define BLOCK_SIZE 24 // Because WIDTH / ROW_COLUMN_COUNT (516 / 12)
 # define PI 3.14159265359
 # define ANGLE_OF_VIEW 60
 

@@ -6,7 +6,7 @@
 /*   By: auplisas <auplisas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 05:18:04 by macbook           #+#    #+#             */
-/*   Updated: 2025/02/13 21:55:15 by auplisas         ###   ########.fr       */
+/*   Updated: 2025/02/14 01:05:58 by auplisas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,8 @@ void	flood_map_items(t_game *game)
 	int			y;
 	int			x;
 
-	game->background = mlx_new_image(game->mlx, WIDTH / game->columns, WIDTH
-			/ game->rows);
-	game->wall = mlx_new_image(game->mlx, WIDTH / game->columns, WIDTH
-			/ game->rows);
+	game->background = mlx_new_image(game->mlx, BLOCK_SIZE, BLOCK_SIZE);
+	game->wall = mlx_new_image(game->mlx,BLOCK_SIZE, BLOCK_SIZE);
 	fill_image_pixels(game, game->background, (uint32_t)ft_pixel(25, 25, 25, 255));
 	fill_image_pixels(game, game->wall, (uint32_t)ft_pixel(255, 170, 0, 255));
 	y = 0;
@@ -55,11 +53,9 @@ void	flood_map_items(t_game *game)
 		while (x < game->columns)
 		{
 			if (game->map[y][x] == '1')
-				mlx_image_to_window(game->mlx, game->wall, x * WIDTH
-					/ game->rows, y * HEIGHT / game->columns);
+				mlx_image_to_window(game->mlx, game->wall, x * BLOCK_SIZE, y * BLOCK_SIZE);
 			if (game->map[y][x] == '0')
-				mlx_image_to_window(game->mlx, game->background, x * WIDTH
-					/ game->rows, y * HEIGHT / game->columns);
+				mlx_image_to_window(game->mlx, game->background, x * BLOCK_SIZE, y * BLOCK_SIZE);
 			x++;
 		}
 		y++;
@@ -93,6 +89,6 @@ t_game	*initialize_game_data(void)
 	game->columns = 0;
 	init_player(game, game->player_data);
 	parse_map(game);
-	// flood_map_items(game);
+	flood_map_items(game);
 	return (game);
 }

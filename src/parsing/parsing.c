@@ -6,7 +6,7 @@
 /*   By: auplisas <auplisas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 05:12:41 by macbook           #+#    #+#             */
-/*   Updated: 2025/02/13 22:05:05 by auplisas         ###   ########.fr       */
+/*   Updated: 2025/02/14 01:03:08 by auplisas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ char	**initialize_map()
 	char	*array;
 	char	**map;
 
-	fd = open("./map.ber", O_RDONLY);
+	fd = open("./map2.ber", O_RDONLY);
 	if (fd < 0)
 		return (write(1, "Error\nFile N/A\n", 15), exit(EXIT_FAILURE), NULL);
 	array = ft_strdup("");
