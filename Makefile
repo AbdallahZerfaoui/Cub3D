@@ -41,10 +41,11 @@ ARFLAGS := -rcs
 
 GREEN := \033[0;32m
 MAGENTA := \033[0;35m
+RED := \033[0;31m
 BOLD := \033[1m
 NC := \033[0m
 
-all: MLX42 lib $(NAME)
+all: MLX42 art lib $(NAME)
 
 $(NAME): $(OBJS) lib
 	$(CPP) $(LDFLAGS) $(OBJS) -o $(NAME) ./lib/lib.a ./MLX42/build/libmlx42.a $(MLXFLAGS)
@@ -90,10 +91,20 @@ submodule_rebuild:
 	git submodule deinit -f .
 	git submodule update --init --recursive
 
+art: 
+	@echo "${GREEN}                    __       _____    ____  "
+	@echo "  _____   __  __   / /_     |__  /   / __ \\ "
+	@echo " / ___/  / / / /  / __ \     /_ <   / / / / ${NC}"
+	@echo "${RED}/ /__   / /_/ /  / /_/ /   ___/ /  / /_/ /  "
+	@echo "\___/   \__,_/  /_.___/   /____/  /_____/   "
+	@echo "                                            ${NC}"
+
+
 debug: clean
 debug: CFLAGS += -DDEBUG
 debug: $(NAME)
 
+
 -include $(OBJS:%.o=%.d)
 
-.PHONY: all clean fclean re bonus re_sub submodule_rebuild san debug lib
+.PHONY: all art clean fclean re bonus re_sub submodule_rebuild san debug lib
