@@ -4,7 +4,7 @@
 # define WIDTH 1024
 # define HEIGHT 728
 # define ROW_COLUMN_COUNT 12
-# define BLOCK_SIZE 24 // Because WIDTH / ROW_COLUMN_COUNT (516 / 12)
+# define BLOCK_SIZE 36 // Because WIDTH / ROW_COLUMN_COUNT (516 / 12)
 # define PI 3.14159265359
 # define ANGLE_OF_VIEW 60
 
@@ -71,4 +71,6 @@ void			clear_image(t_game *game);
 void			draw_square(float x, float y, int size, t_game *game);
 bool			check_wall(float px, float py, t_game *game);
 // FNC --END
+void	flood_map_items(t_game *game);
+
 #endif

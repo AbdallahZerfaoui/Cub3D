@@ -31,7 +31,7 @@ SRCS := $(MAIN_FILE) $(addprefix src/, $(SRC) $(SRC_PARSING) $(SRC_INIT) $(SRC_R
 OBJS := $(addprefix $(OBJ_DIR)/, $(SRCS:%.c=%.o))
 
 # CFLAGS := -Wall -Werror -Wextra -Wconversion -Wsign-conversion -g -MMD -MP $(addprefix -I, $(INC_DIRS))
-CFLAGS := -Wall -Werror -Wextra -fsanitize=address -g $(addprefix -I, $(INC_DIRS))
+CFLAGS := -Wall -Werror -Wextra $(addprefix -I, $(INC_DIRS))
 USER = $(shell whoami)
 MLXFLAGS := -framework Cocoa -framework OpenGL -framework IOKit -Iinclude -lglfw -L"/Users/$(USER)/.brew/opt/glfw/lib/"
 CFLAGS_SAN := $(CFLAGS) -fsanitize=address
@@ -47,7 +47,7 @@ NC := \033[0m
 all: MLX42 lib $(NAME)
 
 $(NAME): $(OBJS) lib
-	$(CPP) $(LDFLAGS_SAN) $(OBJS) -o $(NAME) ./lib/lib.a ./MLX42/build/libmlx42.a $(MLXFLAGS)
+	$(CPP) $(LDFLAGS) $(OBJS) -o $(NAME) ./lib/lib.a ./MLX42/build/libmlx42.a $(MLXFLAGS)
 	@echo "$(GREEN)$(BOLD)Successful Compilation$(NC)"
 
 $(OBJ_DIR)/%.o: %.c | $(OBJ_DIR)
