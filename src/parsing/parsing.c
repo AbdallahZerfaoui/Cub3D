@@ -6,7 +6,7 @@
 /*   By: macbook <macbook@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 05:12:41 by macbook           #+#    #+#             */
-/*   Updated: 2025/02/17 03:56:20 by macbook          ###   ########.fr       */
+/*   Updated: 2025/02/17 04:07:02 by macbook          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,25 +126,28 @@ bool	legit_char(char c)
 char	*create_cleaned_new_row(char **map, int index, int row_length)
 {
 	int		i;
+	bool	in_map;
 	char	*new_string;
 
 	i = 0;
+	in_map = false;
 	new_string = (char *)malloc(sizeof(char) * (row_length + 1));
 	if (!new_string)
 		return (NULL);
 	while (map[index][i])
 	{
+		if (map[index][i] == '1')
+			in_map = !in_map;
 		if (legit_char(map[index][i]))
 			new_string[i] = map[index][i];
+		else if(in_map)
+			new_string[i] = '0';
 		else
 			new_string[i] = 'x';
 		i++;
 	}
 	while (i < row_length)
-	{
-		new_string[i] = 'x';
-		i++;
-	}
+		new_string[i++] = 'x';
 	new_string[i] = '\0';
 	return (new_string);
 }
