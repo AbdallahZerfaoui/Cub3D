@@ -24,6 +24,7 @@
 
 typedef struct s_point
 {
+	char		direction;
 	int			speed;
 	float		angle_speed;
 	bool		key_up;

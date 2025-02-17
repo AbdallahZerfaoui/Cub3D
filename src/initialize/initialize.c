@@ -6,7 +6,7 @@
 /*   By: macbook <macbook@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 05:18:04 by macbook           #+#    #+#             */
-/*   Updated: 2025/02/17 05:47:02 by macbook          ###   ########.fr       */
+/*   Updated: 2025/02/17 06:19:33 by macbook          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,10 +76,15 @@ void	flood_map_items(t_game *game)
 void	init_player(t_game *game, t_point *player_data)
 {
 	player_data->angle_speed = 0.03;
+	if (player_data->direction == 'N')
+		player_data->angle = PI * 1.5;
+	if (player_data->direction == 'S')
+		player_data->angle = PI * 0.5;
+	if (player_data->direction == 'W')
+		player_data->angle = PI;
+	if (player_data->direction == 'E')
+		player_data->angle = PI * 2;
 	player_data->speed = 2;
-	// player_data->x =  BLOCK_SIZE * 9;
-	// player_data->y = BLOCK_SIZE * 2;
-	player_data->angle = PI / 2;
 	player_data->key_up = false;
 	player_data->key_down = false;
 	player_data->key_left = false;

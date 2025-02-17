@@ -6,7 +6,7 @@
 /*   By: macbook <macbook@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 05:12:41 by macbook           #+#    #+#             */
-/*   Updated: 2025/02/17 06:00:11 by macbook          ###   ########.fr       */
+/*   Updated: 2025/02/17 06:10:58 by macbook          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -232,14 +232,13 @@ bool	check_surrounded_by_walls(char **map)
 	}
 	return (true);
 }
-bool	check_for_extra_chars(char **map)
+bool	check_for_extra_chars(t_game *game, char **map)
 {
 	int	i;
 	int	j;
 	int	player_count;
 
 	i = 0;
-	j = 0;
 	player_count = 0;
 	while (map[i])
 	{
@@ -247,7 +246,10 @@ bool	check_for_extra_chars(char **map)
 		while (map[i][j])
 		{
 			if (is_player_char(map[i][j]))
+			{
 				player_count++;
+				game->player_data->direction = map[i][j];
+			}
 			if (!legit_char(map[i][j]) && map[i][j] != ' ')
 				return (printf("Map Contains Invalid Chars\n"), false);
 			j++;
@@ -266,7 +268,7 @@ void	parse_map(t_game *game)
 	map = create_map();
 	cleaned_map = create_cleaned_map(map);
 	print_subarrays(cleaned_map);
-	if (!check_for_extra_chars(map))
+	if (!check_for_extra_chars(game, map))
 	{
 		exit(1);
 	}
