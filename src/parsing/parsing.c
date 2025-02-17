@@ -6,7 +6,7 @@
 /*   By: macbook <macbook@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 05:12:41 by macbook           #+#    #+#             */
-/*   Updated: 2025/02/17 01:22:55 by macbook          ###   ########.fr       */
+/*   Updated: 2025/02/17 03:56:20 by macbook          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,44 +20,6 @@ char	*join_str(char *buffer, char *tmp)
 	free(buffer);
 	return (str);
 }
-// char    **initialize_map()
-// {
-//     int     fd, i, len, max_len = 0;
-//     char    *line;
-//     char    *array;
-//     char    **map;
-
-//     fd = open("./map1.ber", O_RDONLY);
-//     if (fd < 0)
-//         return (write(1, "Error\nFile N/A\n", 15), exit(EXIT_FAILURE), NULL);
-//     array = ft_strdup("");
-//     line = get_next_line(fd);
-//     while (line)
-//     {
-//         len = strlen(line);
-//         if (len > max_len)
-//             max_len = len;
-//         array = join_str(array, line);
-//         free(line);
-//         line = get_next_line(fd);
-//     }
-//     close(fd);
-
-//     map = ft_split(array, '\n');
-//     free(array);
-
-//     for (i = 0; map[i]; i++)
-//     {
-//         len = strlen(map[i]);
-//         char *new_line = malloc(max_len + 1);
-//         memset(new_line, 'x', max_len);
-//         strcpy(new_line + (max_len - len), map[i]);
-//         new_line[max_len] = '\0';
-//         free(map[i]);
-//         map[i] = new_line;
-//     }
-//     return (map);
-// }
 
 void	print_subarrays(char **map)
 {
@@ -208,44 +170,69 @@ char	**create_cleaned_map(char **map)
 	new_map[i] = NULL;
 	return (new_map);
 }
+
+bool	neighbor_is_walled(char **map, int i, int j)
+{
+	int	row_length;
+	int	row_count;
+
+	row_length = find_longest_length(map);
+	row_count = find_map_row_count(map);
+	if ((i == 0 || i == row_count - 1) && (map[i][j] == '0'
+			|| map[i][j] == 'N'))
+		return (false);
+	else if ((j == 0 || j == row_length - 1) && (map[i][j] == '0'
+			|| map[i][j] == 'N'))
+	{
+		return (false);
+	}
+	else if (map[i][j] == '0' || map[i][j] == 'N')
+	{
+		if (map[i][j - 1] == 'x' || map[i][j + 1] == 'x')
+			return (false);
+		if (map[i - 1][j] == 'x' || map[i + 1][j] == 'x')
+			return (false);
+		if (map[i - 1][j - 1] == 'x' || map[i - 1][j + 1] == 'x')
+			return (false);
+		if (map[i + 1][j - 1] == 'x' || map[i + 1][j + 1] == 'x')
+			return (false);
+	}
+	return (true);
+}
+
+bool	check_surrounded_by_walls(char **map)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	while (map[i])
+	{
+		j = 0;
+		while (map[i][j])
+		{
+			if (!neighbor_is_walled(map, i, j))
+				return (false);
+			j++;
+		}
+		i++;
+	}
+	return (true);
+}
+
 void	parse_map(t_game *game)
 {
-	// int i;
-	// int j;
-
-	// i = 0;
-	// j = 0;
 	char **map;
 	char **cleaned_map;
 	map = create_map();
 	cleaned_map = create_cleaned_map(map);
 	print_subarrays(cleaned_map);
+	if (!check_surrounded_by_walls(cleaned_map))
+	{
+		printf("Error: Map not surrounded by walls\n");
+		exit(1);
+	}
 	count_rows_columns(game, cleaned_map);
-	// printf("Columns are: %d\n", game->columns);
-	// printf("Rows are: %d\n", game->rows);
 	game->map = cleaned_map;
-	// char map[ROW_COLUMN_COUNT][ROW_COLUMN_COUNT] = {
-	// 	{'1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1'},
-	// 	{'1', '0', '1', '0', '0', '0', '0', '0', '0', '0', '0', '1'},
-	// 	{'1', '0', '1', '0', '0', '0', '0', '0', '0', '0', '0', '1'},
-	// 	{'1', '0', '1', '1', '1', '0', '0', '0', '0', '0', '0', '1'},
-	// 	{'1', '0', '0', '0', '1', '1', '1', '0', '0', '0', '0', '1'},
-	// 	{'1', '0', '0', '0', '1', '0', '0', '0', '0', '1', '0', '1'},
-	// 	{'1', '0', '0', '0', '1', '0', '0', '0', '0', '1', '0', '1'},
-	// 	{'1', '0', '0', '0', '1', '0', '0', '0', '0', '1', '0', '1'},
-	// 	{'1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '1'},
-	// 	{'1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '1'},
-	// 	{'1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '1'},
-	// 	{'1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1'},
-	// };
-	// while (i < ROW_COLUMN_COUNT)
-	// {
-	// 	j = 0;
-	// 	while (j < ROW_COLUMN_COUNT)
-	// 	{
-	// 		game->map[i][j] = map[i][j];
-	// 		j++;
-	// 	}
-	// 	i++;
-	// }
 }

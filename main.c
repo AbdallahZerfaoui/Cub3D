@@ -44,5 +44,6 @@ int	main(void)
 	mlx_image_to_window(game->mlx, game->player_data->player, 0, 0);
 	mlx_loop(game->mlx);
 	mlx_terminate(game->mlx);
+	(void)game;
 	return (0);
 }
