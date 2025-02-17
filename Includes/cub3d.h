@@ -71,6 +71,6 @@ void			clear_image(t_game *game);
 void			draw_square(float x, float y, int size, t_game *game);
 bool			check_wall(float px, float py, t_game *game);
 // FNC --END
-void	flood_map_items(t_game *game);
-
+void			flood_map_items(t_game *game);
+bool			is_player_char(char c);
 #endif

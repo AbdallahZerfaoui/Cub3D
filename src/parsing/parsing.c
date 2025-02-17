@@ -6,7 +6,7 @@
 /*   By: macbook <macbook@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 05:12:41 by macbook           #+#    #+#             */
-/*   Updated: 2025/02/17 04:07:02 by macbook          ###   ########.fr       */
+/*   Updated: 2025/02/17 06:00:11 by macbook          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,11 +115,20 @@ int	find_map_row_count(char **map)
 	return (i);
 }
 
+bool	is_player_char(char c)
+{
+	if (c == 'N' || c == 'S')
+		return (true);
+	if (c == 'E' || c == 'W')
+		return (true);
+	return (false);
+}
+
 bool	legit_char(char c)
 {
 	if (c == '1' || c == '0')
 		return (true);
-	if (c == 'N')
+	if (is_player_char(c))
 		return (true);
 	return (false);
 }
@@ -140,7 +149,7 @@ char	*create_cleaned_new_row(char **map, int index, int row_length)
 			in_map = !in_map;
 		if (legit_char(map[index][i]))
 			new_string[i] = map[index][i];
-		else if(in_map)
+		else if (in_map)
 			new_string[i] = '0';
 		else
 			new_string[i] = 'x';
@@ -182,14 +191,14 @@ bool	neighbor_is_walled(char **map, int i, int j)
 	row_length = find_longest_length(map);
 	row_count = find_map_row_count(map);
 	if ((i == 0 || i == row_count - 1) && (map[i][j] == '0'
-			|| map[i][j] == 'N'))
+			|| is_player_char(map[i][j])))
 		return (false);
 	else if ((j == 0 || j == row_length - 1) && (map[i][j] == '0'
-			|| map[i][j] == 'N'))
+			|| is_player_char(map[i][j])))
 	{
 		return (false);
 	}
-	else if (map[i][j] == '0' || map[i][j] == 'N')
+	else if (map[i][j] == '0' || is_player_char(map[i][j]))
 	{
 		if (map[i][j - 1] == 'x' || map[i][j + 1] == 'x')
 			return (false);
@@ -223,6 +232,32 @@ bool	check_surrounded_by_walls(char **map)
 	}
 	return (true);
 }
+bool	check_for_extra_chars(char **map)
+{
+	int	i;
+	int	j;
+	int	player_count;
+
+	i = 0;
+	j = 0;
+	player_count = 0;
+	while (map[i])
+	{
+		j = 0;
+		while (map[i][j])
+		{
+			if (is_player_char(map[i][j]))
+				player_count++;
+			if (!legit_char(map[i][j]) && map[i][j] != ' ')
+				return (printf("Map Contains Invalid Chars\n"), false);
+			j++;
+		}
+		i++;
+	}
+	if (player_count != 1)
+		return (printf("There should be 1 player on the map\n"), false);
+	return (true);
+}
 
 void	parse_map(t_game *game)
 {
@@ -231,6 +266,10 @@ void	parse_map(t_game *game)
 	map = create_map();
 	cleaned_map = create_cleaned_map(map);
 	print_subarrays(cleaned_map);
+	if (!check_for_extra_chars(map))
+	{
+		exit(1);
+	}
 	if (!check_surrounded_by_walls(cleaned_map))
 	{
 		printf("Error: Map not surrounded by walls\n");
