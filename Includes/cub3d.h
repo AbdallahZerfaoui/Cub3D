@@ -67,10 +67,27 @@ typedef struct s_game
 void			printHello(void);
 bool			check_wall(float px, float py, t_game *game);
 // PARSING
+// parse_utils.c
+bool			legit_char(char c);
+bool			is_player_char(char c);
+int				find_map_row_count(char **map);
+size_t			find_longest_length(char **map);
+char			*join_str(char *buffer, char *tmp);
+// parse_metadata.c
+bool			is_only_whitespace(char *str);
+int				set_textures(t_textures *txtr, char **map_file);
+// parse_map.c
+char			**create_cleaned_map(char **map);
+char			*create_cleaned_new_row(char **map, int index, int row_length);
+bool			check_for_extra_chars(t_game *game, char **map);
+bool			check_surrounded_by_walls(char **map);
+bool			neighbor_is_walled(char **map, int i, int j);
+// parsing.c
 void			parse_map(t_game *game);
 // INITIALIZE
 int32_t			ft_pixel(int32_t r, int32_t g, int32_t b, int32_t a);
 t_game			*initialize_game_data(void);
+void			flood_map_items(t_game *game);
 // RAYCASTING
 void			draw_single_ray(t_game *game, t_point *player_data,
 					float ray_angle, float ray_count);
@@ -84,7 +101,4 @@ void			clear_image(t_game *game);
 void			draw_square(float x, float y, int size, t_game *game);
 bool			check_wall(float px, float py, t_game *game);
 // FNC --END
-void			flood_map_items(t_game *game);
-bool			is_player_char(char c);
-bool			is_only_whitespace(char *str);
 #endif
