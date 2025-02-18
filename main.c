@@ -39,6 +39,13 @@ int	main(void)
 	t_game *game;
 
 	game = initialize_game_data();
+	printf("North: %s\n", game->texture_data->north_path);
+	printf("South: %s\n", game->texture_data->south_path);
+	printf("West: %s\n", game->texture_data->west_path);
+	printf("East: %s\n", game->texture_data->east_path);
+	printf("Floor: %s\n", game->texture_data->floor_color);
+	printf("Ceiling: %s\n", game->texture_data->ceiling_color);
+
 	mlx_key_hook(game->mlx, key_hook, game);
 	mlx_loop_hook(game->mlx, ft_player_hook, game);
 	mlx_image_to_window(game->mlx, game->player_data->player, 0, 0);

@@ -6,7 +6,7 @@
 /*   By: macbook <macbook@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 05:18:04 by macbook           #+#    #+#             */
-/*   Updated: 2025/02/17 06:19:33 by macbook          ###   ########.fr       */
+/*   Updated: 2025/02/18 06:14:06 by macbook          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,13 +94,26 @@ void	init_player(t_game *game, t_point *player_data)
 	player_data->player = mlx_new_image(game->mlx, WIDTH, HEIGHT);
 }
 
+void	initialize_textures(t_textures *texture_data)
+{
+	texture_data->north_path = NULL;
+	texture_data->east_path = NULL;
+	texture_data->south_path = NULL;
+	texture_data->west_path = NULL;
+	texture_data->floor_color = NULL;
+	texture_data->ceiling_color = NULL;
+	texture_data->map_start_index = 0;
+}
+
 t_game	*initialize_game_data(void)
 {
 	t_game *game;
 
 	game = malloc(1 * sizeof(t_game));
 	game->player_data = malloc(sizeof(t_point));
+	game->texture_data = malloc(sizeof(t_textures));
 	game->mlx = mlx_init(WIDTH, HEIGHT, "Cub3D", true);
+	initialize_textures(game->texture_data);
 	game->rows = 0;
 	game->columns = 0;
 	parse_map(game);

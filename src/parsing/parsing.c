@@ -6,7 +6,7 @@
 /*   By: macbook <macbook@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 05:12:41 by macbook           #+#    #+#             */
-/*   Updated: 2025/02/17 06:10:58 by macbook          ###   ########.fr       */
+/*   Updated: 2025/02/18 07:38:21 by macbook          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,26 +161,31 @@ char	*create_cleaned_new_row(char **map, int index, int row_length)
 	return (new_string);
 }
 
-char	**create_cleaned_map(char **map)
+char **create_cleaned_map(char **map)
 {
-	int		longest_length;
-	int		map_row_count;
-	char	**new_map;
-	int		i;
+    int longest_length;
+    int map_row_count;
+    char **new_map;
+    int i;
+    int j;
 
-	i = 0;
-	longest_length = find_longest_length(map);
-	map_row_count = find_map_row_count(map);
-	new_map = (char **)malloc(sizeof(char *) * (longest_length + 1));
-	if (!new_map)
-		return (NULL);
-	while (i < map_row_count)
-	{
-		new_map[i] = create_cleaned_new_row(map, i, longest_length);
-		i++;
-	}
-	new_map[i] = NULL;
-	return (new_map);
+    j = 0;
+    i = 0;
+    longest_length = find_longest_length(map);
+    map_row_count = find_map_row_count(map);
+    while (is_only_whitespace(map[i]))
+        i++;
+    new_map = (char **)malloc(sizeof(char *) * (map_row_count - i + 1));
+    if (!new_map)
+        return (NULL);
+    while (i < map_row_count)
+    {
+        new_map[j] = create_cleaned_new_row(map, i, longest_length);
+        j++;
+        i++;
+    }
+    new_map[j] = NULL;
+    return (new_map);
 }
 
 bool	neighbor_is_walled(char **map, int i, int j)
@@ -260,12 +265,115 @@ bool	check_for_extra_chars(t_game *game, char **map)
 		return (printf("There should be 1 player on the map\n"), false);
 	return (true);
 }
+bool	is_only_whitespace(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] != ' ')
+		{
+			return (false);
+		}
+		i++;
+	}
+	return (true);
+}
+bool	check_all_textures_set(t_textures *texture_data)
+{
+	int	i;
+
+	i = 0;
+	if (texture_data->north_path)
+		i++;
+	if (texture_data->south_path)
+		i++;
+	if (texture_data->east_path)
+		i++;
+	if (texture_data->west_path)
+		i++;
+	if (texture_data->ceiling_color)
+		i++;
+	if (texture_data->floor_color)
+		i++;
+	if (i < 6)
+		return (false);
+	else
+		return (true);
+}
+
+int	set_textures(t_textures *txtr, char **map_file)
+{
+	int	i;
+
+	i = 0;
+	while (!check_all_textures_set(txtr))
+	{
+		if (ft_strncmp(map_file[i], "NO ", 3) == 0 && !txtr->north_path)
+			txtr->north_path = ft_strtrim(map_file[i] + 3, " \n");
+		else if (ft_strncmp(map_file[i], "SO ", 3) == 0 && !txtr->south_path)
+			txtr->south_path = ft_strtrim(map_file[i] + 3, " \n");
+		else if (ft_strncmp(map_file[i], "WE ", 3) == 0 && !txtr->west_path)
+			txtr->west_path = ft_strtrim(map_file[i] + 3, " \n");
+		else if (ft_strncmp(map_file[i], "EA ", 3) == 0 && !txtr->east_path)
+			txtr->east_path = ft_strtrim(map_file[i] + 3, " \n");
+		else if (ft_strncmp(map_file[i], "F ", 2) == 0 && !txtr->floor_color)
+			txtr->floor_color = ft_strtrim(map_file[i] + 2, " \n");
+		else if (ft_strncmp(map_file[i], "C ", 2) == 0 && !txtr->ceiling_color)
+			txtr->ceiling_color = ft_strtrim(map_file[i] + 2, " \n");
+		else if (is_only_whitespace(map_file[i]))
+			;
+		else
+			return (1);
+		i++;
+	}
+	txtr->map_start_index = i;
+	return (0);
+}
+
+char	**create_only_map(t_textures *texture_data, char **map_file)
+{
+	int		start_index;
+	char	**new_map;
+	int		i;
+	int		j;
+	int		map_length;
+
+	i = 0;
+	j = 0;
+	map_length = 0;
+	start_index = texture_data->map_start_index;
+	while (map_file[map_length] != NULL)
+	{
+		map_length++;
+	}
+	new_map = (char **)malloc((map_length - start_index + 1) * sizeof(char *));
+	if (new_map == NULL)
+	{
+		return (NULL);
+	}
+	i = start_index;
+	while (i < map_length)
+		new_map[j++] = ft_strdup(map_file[i++]);
+	new_map[j] = NULL;
+	return (new_map);
+}
 
 void	parse_map(t_game *game)
 {
-	char **map;
-	char **cleaned_map;
-	map = create_map();
+	char	**parsed_map_file;
+	char	**map;
+	char	**cleaned_map;
+
+	parsed_map_file = create_map();
+	if (set_textures(game->texture_data, parsed_map_file))
+	{
+		printf("Wrong Char Found\n");
+		exit(1);
+	}
+	map = create_only_map(game->texture_data, parsed_map_file);
+	// print_subarrays(map);
 	cleaned_map = create_cleaned_map(map);
 	print_subarrays(cleaned_map);
 	if (!check_for_extra_chars(game, map))

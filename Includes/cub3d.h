@@ -39,6 +39,17 @@ typedef struct s_point
 	mlx_image_t	*player;
 }				t_point;
 
+typedef struct s_textures
+{
+	int			map_start_index;
+	char		*north_path;
+	char		*south_path;
+	char		*west_path;
+	char		*east_path;
+	char		*floor_color;
+	char		*ceiling_color;
+}				t_textures;
+
 typedef struct s_game
 {
 	mlx_t		*mlx;
@@ -47,6 +58,7 @@ typedef struct s_game
 	// char		map[12][12];
 	char		**map;
 	t_point		*player_data;
+	t_textures	*texture_data;
 	mlx_image_t	*background;
 	mlx_image_t	*wall;
 }				t_game;
@@ -74,4 +86,5 @@ bool			check_wall(float px, float py, t_game *game);
 // FNC --END
 void			flood_map_items(t_game *game);
 bool			is_player_char(char c);
+bool			is_only_whitespace(char *str);
 #endif
