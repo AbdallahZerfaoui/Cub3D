@@ -7,7 +7,7 @@
 # define BLOCK_SIZE 36 // Because WIDTH / ROW_COLUMN_COUNT (516 / 12)
 # define PI 3.14159265359
 # define ANGLE_OF_VIEW 60
-
+# define Debug 1
 // Includes -- BEGIN
 # include "../MLX42/include/MLX42/MLX42.h"
 # include "../lib/lib.h"

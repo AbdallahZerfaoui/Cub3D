@@ -6,7 +6,7 @@
 /*   By: macbook <macbook@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 05:18:04 by macbook           #+#    #+#             */
-/*   Updated: 2025/02/18 06:14:06 by macbook          ###   ########.fr       */
+/*   Updated: 2025/02/19 04:35:46 by macbook          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,16 +54,17 @@ void	flood_map_items(t_game *game)
 		x = 0;
 		while (x < game->columns)
 		{
-			if (game->map[y][x] == '1')
+			if (game->map[y][x] == '1' && Debug)
 				mlx_image_to_window(game->mlx, game->wall, x * BLOCK_SIZE, y
 					* BLOCK_SIZE);
-			if (game->map[y][x] == '0')
+			if (game->map[y][x] == '0' && Debug)
 				mlx_image_to_window(game->mlx, game->background, x * BLOCK_SIZE,
 					y * BLOCK_SIZE);
 			if (is_player_char(game->map[y][x]))
 			{
-				mlx_image_to_window(game->mlx, game->background, x * BLOCK_SIZE,
-					y * BLOCK_SIZE);
+				if(Debug)
+					mlx_image_to_window(game->mlx, game->background, x * BLOCK_SIZE,
+						y * BLOCK_SIZE);
 				game->player_data->x = BLOCK_SIZE * x;
 				game->player_data->y = BLOCK_SIZE * y;
 			}
