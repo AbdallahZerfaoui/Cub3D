@@ -1,13 +1,14 @@
 #ifndef TEST_HEADERFILE_H
 # define TEST_HEADERFILE_H
 
-# define WIDTH 1024
-# define HEIGHT 728
+# define WIDTH 1280
+# define HEIGHT 720
 # define ROW_COLUMN_COUNT 12
-# define BLOCK_SIZE 36 // Because WIDTH / ROW_COLUMN_COUNT (516 / 12)
 # define PI 3.14159265359
 # define ANGLE_OF_VIEW 60
-# define Debug 1
+# define Debug 0
+# define BLOCK_SIZE 32 // Because WIDTH / ROW_COLUMN_COUNT (516 / 12)
+
 // Includes -- BEGIN
 # include "../MLX42/include/MLX42/MLX42.h"
 # include "../lib/lib.h"
@@ -91,6 +92,8 @@ void			flood_map_items(t_game *game);
 // RAYCASTING
 void			draw_single_ray(t_game *game, t_point *player_data,
 					float ray_angle, float ray_count);
+void			draw_single_ray_debug(t_game *game, t_point *player_data,
+					float ray_angle);
 // MOVEMENT
 // key_handle.c
 void			handle_key_press(struct mlx_key_data keydata, t_game *game);

@@ -10,15 +10,17 @@ void	ft_player_hook(void *param)
 	game = (t_game *)param;
 	handle_movement(game, game->player_data);
 	clear_image(game);
-	if(Debug)
+	if (Debug)
 		draw_square(game->player_data->x, game->player_data->y, 4, game);
-	// angle_to_add = (ANGLE_OF_VIEW * PI / 180) / WIDTH;
 	angle_to_add = (ANGLE_OF_VIEW * PI / 180) / WIDTH;
 	ray_angle = game->player_data->angle - (ANGLE_OF_VIEW * PI / 180) / 2;
 	ray_count = 0;
 	while (ray_count < WIDTH)
 	{
-		draw_single_ray(game, game->player_data, ray_angle, ray_count);
+		if (Debug)
+			draw_single_ray_debug(game, game->player_data, ray_angle);
+		else
+			draw_single_ray(game, game->player_data, ray_angle, ray_count);
 		ray_angle = ray_angle + angle_to_add;
 		ray_count++;
 	}
