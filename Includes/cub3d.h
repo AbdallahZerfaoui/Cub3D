@@ -8,6 +8,7 @@
 # define ANGLE_OF_VIEW 60
 # define Debug 0
 # define BLOCK_SIZE 32 // Because WIDTH / ROW_COLUMN_COUNT (516 / 12)
+# define FOV 1.0472f
 
 // Includes -- BEGIN
 # include "../MLX42/include/MLX42/MLX42.h"
@@ -51,6 +52,14 @@ typedef struct s_textures
 	char		*ceiling_color;
 }				t_textures;
 
+typedef struct s_color
+{
+	int			r;
+	int			g;
+	int			b;
+
+}				t_color;
+
 typedef struct s_game
 {
 	mlx_t		*mlx;
@@ -60,6 +69,8 @@ typedef struct s_game
 	char		**map;
 	t_point		*player_data;
 	t_textures	*texture_data;
+	t_color		*ceiling_color;
+	t_color		*floor_color;
 	mlx_image_t	*background;
 	mlx_image_t	*wall;
 }				t_game;

@@ -3,8 +3,8 @@
 void	ft_player_hook(void *param)
 {
 	t_game	*game;
-	float	angle_to_add;
-	float	ray_angle;
+	double	angle_to_add;
+	double	ray_angle;
 	int		ray_count;
 
 	game = (t_game *)param;
@@ -13,10 +13,11 @@ void	ft_player_hook(void *param)
 	if (Debug)
 		draw_square(game->player_data->x, game->player_data->y, 4, game);
 	angle_to_add = (ANGLE_OF_VIEW * PI / 180) / WIDTH;
-	ray_angle = game->player_data->angle - (ANGLE_OF_VIEW * PI / 180) / 2;
+	ray_angle = (double)game->player_data->angle - (ANGLE_OF_VIEW * PI / 180) / 2;
 	ray_count = 0;
 	while (ray_count < WIDTH)
 	{
+		// ray_angle = game->player_data->angle - FOV / 2 + (ray_count / (float)WIDTH * FOV);
 		if (Debug)
 			draw_single_ray_debug(game, game->player_data, ray_angle);
 		else

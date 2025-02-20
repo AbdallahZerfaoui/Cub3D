@@ -6,7 +6,7 @@
 /*   By: macbook <macbook@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 05:12:41 by macbook           #+#    #+#             */
-/*   Updated: 2025/02/19 02:37:16 by macbook          ###   ########.fr       */
+/*   Updated: 2025/02/20 12:36:56 by macbook          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,22 @@ char	**create_only_map(t_textures *texture_data, char **map_file)
 	new_map[j] = NULL;
 	return (new_map);
 }
+void	assign_colors(t_game *game)
+{
+	char	**rgb_ceiling;
+	char	**rgb_floor;
+
+	game->ceiling_color = malloc(sizeof(t_color));
+	game->floor_color = malloc(sizeof(t_color));
+	rgb_ceiling = ft_split(game->texture_data->ceiling_color, ',');
+	rgb_floor = ft_split(game->texture_data->floor_color, ',');
+	game->ceiling_color->r = ft_atoi(rgb_ceiling[0]);
+	game->ceiling_color->g = ft_atoi(rgb_ceiling[1]);
+	game->ceiling_color->b = ft_atoi(rgb_ceiling[2]);
+	game->floor_color->r = ft_atoi(rgb_floor[0]);
+	game->floor_color->g = ft_atoi(rgb_floor[1]);
+	game->floor_color->b = ft_atoi(rgb_floor[2]);
+}
 
 void	parse_map(t_game *game)
 {
@@ -112,7 +128,6 @@ void	parse_map(t_game *game)
 		exit(1);
 	}
 	map = create_only_map(game->texture_data, parsed_map_file);
-	// print_subarrays(map);
 	cleaned_map = create_cleaned_map(map);
 	print_subarrays(cleaned_map);
 	if (!check_for_extra_chars(game, map))
@@ -125,5 +140,6 @@ void	parse_map(t_game *game)
 		exit(1);
 	}
 	count_rows_columns(game, cleaned_map);
+	assign_colors(game);
 	game->map = cleaned_map;
 }
