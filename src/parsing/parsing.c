@@ -6,31 +6,11 @@
 /*   By: macbook <macbook@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 05:12:41 by macbook           #+#    #+#             */
-/*   Updated: 2025/02/21 04:29:39 by macbook          ###   ########.fr       */
+/*   Updated: 2025/02/21 06:02:46 by macbook          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../Includes/cub3d.h"
-
-void	print_subarrays(char **map)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	j = 0;
-	while (map[i])
-	{
-		j = 0;
-		while (map[i][j])
-		{
-			printf("%c", map[i][j]);
-			j++;
-		}
-		printf("\n");
-		i++;
-	}
-}
 
 char	**create_map(void)
 {
@@ -98,6 +78,7 @@ char	**create_only_map(t_textures *texture_data, char **map_file)
 	new_map[j] = NULL;
 	return (new_map);
 }
+
 void	assign_colors(t_game *game)
 {
 	char	**rgb_ceiling;
@@ -132,9 +113,7 @@ void	parse_map(t_game *game)
 	map = create_only_map(game->texture_data, parsed_map_file);
 	cleaned_map = create_cleaned_map(map);
 	if (!check_for_extra_chars(game, map))
-	{
 		exit(1);
-	}
 	if (!check_surrounded_by_walls(cleaned_map))
 	{
 		printf("Error: Map not surrounded by walls\n");

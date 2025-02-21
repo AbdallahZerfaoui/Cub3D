@@ -6,7 +6,7 @@
 /*   By: macbook <macbook@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 08:51:42 by macbook           #+#    #+#             */
-/*   Updated: 2025/02/18 08:55:18 by macbook          ###   ########.fr       */
+/*   Updated: 2025/02/21 04:31:13 by macbook          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ bool	is_only_whitespace(char *str)
 	}
 	return (true);
 }
+
 bool	check_all_textures_set(t_textures *texture_data)
 {
 	int	i;
@@ -52,7 +53,7 @@ bool	check_all_textures_set(t_textures *texture_data)
 
 int	set_textures(t_textures *txtr, char **map_file)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (!check_all_textures_set(txtr))

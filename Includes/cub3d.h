@@ -1,13 +1,25 @@
-#ifndef TEST_HEADERFILE_H
-# define TEST_HEADERFILE_H
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cub3d.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: macbook <macbook@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/21 05:21:41 by macbook           #+#    #+#             */
+/*   Updated: 2025/02/21 06:16:23 by macbook          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#ifndef CUB3D_H
+# define CUB3D_H
 
 # define WIDTH 1280
 # define HEIGHT 720
 # define ROW_COLUMN_COUNT 12
 # define PI 3.14159265359
 # define ANGLE_OF_VIEW 60
-# define Debug 0
-# define BLOCK_SIZE 32 // Because WIDTH / ROW_COLUMN_COUNT (516 / 12)
+# define DEBUG 0
+# define BLOCK_SIZE 32
 # define FOV 1.0472f
 
 // Includes -- BEGIN
@@ -97,14 +109,23 @@ bool			neighbor_is_walled(char **map, int i, int j);
 // parsing.c
 void			parse_map(t_game *game);
 // INITIALIZE
-int32_t			ft_pixel(int32_t r, int32_t g, int32_t b, int32_t a);
+// initialize.c
 t_game			*initialize_game_data(void);
 void			flood_map_items(t_game *game);
+void			init_player(t_game *game, t_point *player_data);
+// initialize_utils.c
+int32_t			ft_pixel(int32_t r, int32_t g, int32_t b, int32_t a);
+void			fill_image_pixels(t_game *game, mlx_image_t *image,
+					uint32_t color);
 // RAYCASTING
+// draw_rays.c
 void			draw_single_ray(t_game *game, t_point *player_data,
 					float ray_angle, float ray_count);
 void			draw_single_ray_debug(t_game *game, t_point *player_data,
 					float ray_angle);
+// rays_utils.c
+bool			check_wall(float px, float py, t_game *game);
+double			fixed_dist(double ray_x, double ray_y, t_game *game);
 // MOVEMENT
 // key_handle.c
 void			handle_key_press(struct mlx_key_data keydata, t_game *game);
@@ -113,12 +134,11 @@ void			handle_key_release(struct mlx_key_data keydata, t_game *game);
 void			handle_movement(t_game *game, t_point *player_data);
 void			clear_image(t_game *game);
 void			draw_square(float x, float y, int size, t_game *game);
-bool			check_wall(float px, float py, t_game *game);
-
 // FREE
 // free.c
 void			free_subarrays(char **subarrays);
 void			free_texture_data(t_textures *texture_data);
 void			free_game(t_game *game);
 // FNC --END
+void			print_subarrays(char **map);
 #endif

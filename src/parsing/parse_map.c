@@ -6,7 +6,7 @@
 /*   By: macbook <macbook@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 08:57:50 by macbook           #+#    #+#             */
-/*   Updated: 2025/02/18 09:03:51 by macbook          ###   ########.fr       */
+/*   Updated: 2025/02/21 05:57:57 by macbook          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,10 @@ bool	neighbor_is_walled(char **map, int i, int j)
 	row_length = find_longest_length(map);
 	row_count = find_map_row_count(map);
 	if ((i == 0 || i == row_count - 1) && (map[i][j] == '0'
-			|| is_player_char(map[i][j])))
+		|| is_player_char(map[i][j])))
 		return (false);
 	else if ((j == 0 || j == row_length - 1) && (map[i][j] == '0'
-			|| is_player_char(map[i][j])))
+		|| is_player_char(map[i][j])))
 	{
 		return (false);
 	}
@@ -54,7 +54,9 @@ bool	check_surrounded_by_walls(char **map)
 		while (map[i][j])
 		{
 			if (!neighbor_is_walled(map, i, j))
+			{
 				return (false);
+			}
 			j++;
 		}
 		i++;
@@ -108,8 +110,6 @@ char	*create_cleaned_new_row(char **map, int index, int row_length)
 			in_map = !in_map;
 		if (legit_char(map[index][i]))
 			new_string[i] = map[index][i];
-		else if (in_map)
-			new_string[i] = '0';
 		else
 			new_string[i] = 'x';
 		i++;
@@ -122,11 +122,11 @@ char	*create_cleaned_new_row(char **map, int index, int row_length)
 
 char	**create_cleaned_map(char **map)
 {
-	int longest_length;
-	int map_row_count;
-	char **new_map;
-	int i;
-	int j;
+	int		longest_length;
+	int		map_row_count;
+	char	**new_map;
+	int		i;
+	int		j;
 
 	j = 0;
 	i = 0;

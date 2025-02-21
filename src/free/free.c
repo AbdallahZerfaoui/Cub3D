@@ -6,7 +6,7 @@
 /*   By: macbook <macbook@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 04:12:31 by macbook           #+#    #+#             */
-/*   Updated: 2025/02/21 04:23:26 by macbook          ###   ########.fr       */
+/*   Updated: 2025/02/21 06:06:57 by macbook          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,11 +60,5 @@ void	free_game(t_game *game)
 		free(game->ceiling_color);
 	if (game->floor_color)
 		free(game->floor_color);
-	// if (game->background)
-	// 	free(game->background);
-	// if (game->wall)
-	// 	free(game->wall);
-	// if(game->mlx)
-	// 	free(game->mlx);
 	free(game);
 }
