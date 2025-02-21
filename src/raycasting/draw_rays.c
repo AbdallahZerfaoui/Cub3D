@@ -6,7 +6,7 @@
 /*   By: macbook <macbook@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 05:27:59 by macbook           #+#    #+#             */
-/*   Updated: 2025/02/20 12:29:23 by macbook          ###   ########.fr       */
+/*   Updated: 2025/02/20 12:49:04 by macbook          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,10 +65,7 @@ void	draw_3d_ray(t_game *game, double ray_x, double ray_y, float ray_count)
 	double		height;
 	int			start_y;
 	int			end;
-	uint32_t	color;
 
-	color = (uint32_t)ft_pixel(255, 255, 0, 255);
-	(void)color;
 	dist = fixed_dist(game->player_data->x, game->player_data->y, ray_x, ray_y,
 			game);
 	height = (BLOCK_SIZE * HEIGHT) / (dist * tan(FOV / 2.0));

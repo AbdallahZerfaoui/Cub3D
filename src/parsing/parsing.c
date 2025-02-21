@@ -6,7 +6,7 @@
 /*   By: macbook <macbook@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 05:12:41 by macbook           #+#    #+#             */
-/*   Updated: 2025/02/20 12:36:56 by macbook          ###   ########.fr       */
+/*   Updated: 2025/02/21 04:29:39 by macbook          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,8 @@ void	assign_colors(t_game *game)
 	game->floor_color->r = ft_atoi(rgb_floor[0]);
 	game->floor_color->g = ft_atoi(rgb_floor[1]);
 	game->floor_color->b = ft_atoi(rgb_floor[2]);
+	free_subarrays(rgb_ceiling);
+	free_subarrays(rgb_floor);
 }
 
 void	parse_map(t_game *game)
@@ -129,7 +131,6 @@ void	parse_map(t_game *game)
 	}
 	map = create_only_map(game->texture_data, parsed_map_file);
 	cleaned_map = create_cleaned_map(map);
-	print_subarrays(cleaned_map);
 	if (!check_for_extra_chars(game, map))
 	{
 		exit(1);
@@ -141,5 +142,7 @@ void	parse_map(t_game *game)
 	}
 	count_rows_columns(game, cleaned_map);
 	assign_colors(game);
+	free_subarrays(parsed_map_file);
+	free_subarrays(map);
 	game->map = cleaned_map;
 }

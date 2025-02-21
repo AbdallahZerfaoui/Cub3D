@@ -114,5 +114,11 @@ void			handle_movement(t_game *game, t_point *player_data);
 void			clear_image(t_game *game);
 void			draw_square(float x, float y, int size, t_game *game);
 bool			check_wall(float px, float py, t_game *game);
+
+// FREE
+// free.c
+void			free_subarrays(char **subarrays);
+void			free_texture_data(t_textures *texture_data);
+void			free_game(t_game *game);
 // FNC --END
 #endif
