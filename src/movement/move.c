@@ -6,23 +6,11 @@
 /*   By: macbook <macbook@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 05:37:15 by macbook           #+#    #+#             */
-/*   Updated: 2025/02/12 05:58:10 by macbook          ###   ########.fr       */
+/*   Updated: 2025/02/21 05:43:51 by macbook          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../Includes/cub3d.h"
-
-bool	check_wall(float px, float py, t_game *game)
-{
-	int	x;
-	int	y;
-
-	x = px / BLOCK_SIZE;
-	y = py / BLOCK_SIZE;
-	if (game->map[y][x] == '1')
-		return (true);
-	return (false);
-}
 
 void	rotate_player(t_game *game, t_point *player_data)
 {
@@ -44,6 +32,7 @@ void	rotate_player(t_game *game, t_point *player_data)
 		player_data->angle = 2 * PI;
 	}
 }
+
 void	move_player(t_point *player_data, float *updated_x, float *updated_y)
 {
 	float	cos_angle;
@@ -104,7 +93,7 @@ void	draw_square(float x, float y, int size, t_game *game)
 	uint32_t	color;
 	int			i;
 
-	color = (uint32_t)ft_pixel(255, 255, 255, 255);
+	color = (uint32_t)ft_pixel(128, 128, 128, 255);
 	i = 0;
 	while (i++ < size)
 		mlx_put_pixel(game->player_data->player, x + i, y, color);

@@ -6,7 +6,7 @@
 /*   By: macbook <macbook@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 05:34:00 by macbook           #+#    #+#             */
-/*   Updated: 2025/02/12 05:40:55 by macbook          ###   ########.fr       */
+/*   Updated: 2025/02/21 04:17:22 by macbook          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ void	handle_key_press(struct mlx_key_data keydata, t_game *game)
 	if (keydata.key == MLX_KEY_ESCAPE)
 	{
 		mlx_terminate(game->mlx);
+		free_game(game);
+		exit(1);
 	}
 }
 

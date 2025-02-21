@@ -13,20 +13,23 @@ vpath %.c $(SRC_DIRS)
 
 MAIN_FILE := main.c
 
-SRC_PARSING_FILES := parsing.c
+SRC_FREE_FILES := free.c
+SRC_FREE := $(addprefix free/, $(SRC_FREE_FILES))
+
+SRC_PARSING_FILES := parsing.c parsing_utils.c parse_metadata.c parse_map.c
 SRC_PARSING := $(addprefix parsing/, $(SRC_PARSING_FILES))
 
-SRC_INIT_FILES := initialize.c
+SRC_INIT_FILES := initialize.c initialize_utils.c
 SRC_INIT := $(addprefix initialize/, $(SRC_INIT_FILES))
 
-SRC_RAYCASTING_FILES := draw_rays.c
+SRC_RAYCASTING_FILES := draw_rays.c rays_utils.c
 SRC_RAYCASTING := $(addprefix raycasting/, $(SRC_RAYCASTING_FILES))
 
 SRC_MOVEMENT_FILES := key_handle.c move.c
 SRC_MOVEMENT := $(addprefix movement/, $(SRC_MOVEMENT_FILES))
 
 SRC := 
-SRCS := $(MAIN_FILE) $(addprefix src/, $(SRC) $(SRC_PARSING) $(SRC_INIT) $(SRC_RAYCASTING) $(SRC_MOVEMENT))
+SRCS := $(MAIN_FILE) $(addprefix src/, $(SRC) $(SRC_PARSING) $(SRC_INIT) $(SRC_RAYCASTING) $(SRC_MOVEMENT) $(SRC_FREE))
 
 OBJS := $(addprefix $(OBJ_DIR)/, $(SRCS:%.c=%.o))
 
