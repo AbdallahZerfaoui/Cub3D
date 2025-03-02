@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   move.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: macbook <macbook@student.42.fr>            +#+  +:+       +#+        */
+/*   By: azerfaou <azerfaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 05:37:15 by macbook           #+#    #+#             */
-/*   Updated: 2025/02/12 05:58:10 by macbook          ###   ########.fr       */
+/*   Updated: 2025/03/02 21:20:18 by azerfaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,10 @@ bool	check_wall(float px, float py, t_game *game)
 
 void	rotate_player(t_game *game, t_point *player_data)
 {
+	double	pi_value;
+
 	(void)game;
+	pi_value = atan(1.0) * 4.0;
 	if (player_data->left_rotate)
 	{
 		player_data->angle = player_data->angle - player_data->angle_speed;
@@ -35,15 +38,16 @@ void	rotate_player(t_game *game, t_point *player_data)
 	{
 		player_data->angle = player_data->angle + player_data->angle_speed;
 	}
-	if (player_data->angle > 2 * PI)
+	if (player_data->angle > 2 * pi_value)
 	{
 		player_data->angle = 0;
 	}
 	if (player_data->angle < 0)
 	{
-		player_data->angle = 2 * PI;
+		player_data->angle = 2 * pi_value;
 	}
 }
+
 void	move_player(t_point *player_data, float *updated_x, float *updated_y)
 {
 	float	cos_angle;

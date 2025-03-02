@@ -2,17 +2,19 @@
 
 void	ft_player_hook(void *param)
 {
-	t_game	*game;
-	float	angle_to_add;
-	float	ray_angle;
-	int		ray_count;
+	t_game			*game;
+	float			angle_to_add;
+	float			ray_angle;
+	int				ray_count;
+	double			pi_value;
 
+	pi_value = atan(1.0) * 4.0;
 	game = (t_game *)param;
 	handle_movement(game, game->player_data);
 	clear_image(game);
 	draw_square(game->player_data->x, game->player_data->y, 4, game);
-	angle_to_add = (ANGLE_OF_VIEW * PI / 180) / WIDTH;
-	ray_angle = game->player_data->angle - (ANGLE_OF_VIEW * PI / 180) / 2;
+	angle_to_add = (ANGLE_OF_VIEW * pi_value / 180) / WIDTH;
+	ray_angle = game->player_data->angle - (ANGLE_OF_VIEW * pi_value / 180) / 2;
 	ray_count = 0;
 	while (ray_count < WIDTH)
 	{

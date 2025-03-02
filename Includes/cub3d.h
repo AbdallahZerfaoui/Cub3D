@@ -1,11 +1,24 @@
-#ifndef TEST_HEADERFILE_H
-# define TEST_HEADERFILE_H
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cub3d.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: azerfaou <azerfaou@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/02 20:56:11 by azerfaou          #+#    #+#             */
+/*   Updated: 2025/03/02 21:07:29 by azerfaou         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#ifndef CUB3D_H
+# define CUB3D_H
 
 # define WIDTH 516
 # define HEIGHT 516
 # define ROW_COLUMN_COUNT 12
 # define BLOCK_SIZE 43 // Because WIDTH / ROW_COLUMN_COUNT (516 / 12)
-# define PI 3.14159265359
+// # define PI 3.14159265359
+// # define PI (acos(1.0) / 4.0)
 # define ANGLE_OF_VIEW 60
 
 // Includes -- BEGIN
@@ -16,6 +29,9 @@
 # include <stdio.h>
 # include <stdlib.h>
 // Includes -- END
+
+// extern const double	PI;
+// const double g_PI = acos(1.0) / 4.0;
 
 typedef struct s_point
 {
@@ -63,4 +79,5 @@ void			clear_image(t_game *game);
 void			draw_square(float x, float y, int size, t_game *game);
 bool			check_wall(float px, float py, t_game *game);
 // FNC --END
+
 #endif
