@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: azerfaou <azerfaou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: auplisas <auplisas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 05:20:16 by macbook           #+#    #+#             */
-/*   Updated: 2025/03/05 20:59:44 by azerfaou         ###   ########.fr       */
+/*   Updated: 2025/03/05 22:51:06 by auplisas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,14 +44,14 @@ void	ft_player_hook(void *param)
 	game = (t_game *)param;
 	handle_movement(game, game->player_data);
 	clear_image(game);
-	if(DEBUG)
+	if(game->debug_view)
 		draw_square(game->player_data->x, game->player_data->y, 4, game);
 	angle_to_add = (ANGLE_OF_VIEW * pi_value / 180) / WIDTH;
 	ray_angle = game->player_data->angle - (ANGLE_OF_VIEW * pi_value / 180) / 2;
 	ray_count = 0;
 	while (ray_count < WIDTH)
 	{
-		if (DEBUG)
+		if (!game->debug_view)
 			draw_single_ray_debug(game, game->player_data, ray_angle);
 		else
 			draw_single_ray(game, game->player_data, ray_angle, ray_count);

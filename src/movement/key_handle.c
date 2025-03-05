@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   key_handle.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: macbook <macbook@student.42.fr>            +#+  +:+       +#+        */
+/*   By: auplisas <auplisas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 05:34:00 by macbook           #+#    #+#             */
-/*   Updated: 2025/02/21 04:17:22 by macbook          ###   ########.fr       */
+/*   Updated: 2025/03/05 22:51:55 by auplisas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 void	handle_key_press(struct mlx_key_data keydata, t_game *game)
 {
+	if (keydata.key == MLX_KEY_C)
+		game->debug_view = !game->debug_view;
 	if (keydata.key == MLX_KEY_W)
 		game->player_data->key_up = true;
 	if (keydata.key == MLX_KEY_S)

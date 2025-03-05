@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_rays.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: azerfaou <azerfaou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: auplisas <auplisas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 05:27:59 by macbook           #+#    #+#             */
-/*   Updated: 2025/03/05 21:09:00 by azerfaou         ###   ########.fr       */
+/*   Updated: 2025/03/05 22:53:23 by auplisas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,20 @@ void	draw_ceiling_slice(t_game *game, int i, int ceiling_end)
 	}
 }
 
+void	draw_wall_slice(t_game *game, int i, int start_y, int end)
+{
+	int			j;
+	uint32_t	color;
+
+	j = start_y;
+	color = (uint32_t)ft_pixel(51, 51, 51, 255);
+	while (j < end)
+	{
+		mlx_put_pixel(game->player_data->player, i, j, color);
+		j++;
+	}
+}
+
 void	draw_3d_ray(t_game *game, double ray_x, double ray_y, float ray_count)
 {
 	double	dist;
@@ -56,6 +70,7 @@ void	draw_3d_ray(t_game *game, double ray_x, double ray_y, float ray_count)
 	start_y = (HEIGHT - height) / 2;
 	end = start_y + height;
 	draw_ceiling_slice(game, ray_count, start_y);
+	draw_wall_slice(game, ray_count, start_y, end);
 	draw_floor_slice(game, ray_count, end);
 }
 

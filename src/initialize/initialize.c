@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initialize.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: azerfaou <azerfaou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: auplisas <auplisas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 05:18:04 by macbook           #+#    #+#             */
-/*   Updated: 2025/03/05 19:11:08 by azerfaou         ###   ########.fr       */
+/*   Updated: 2025/03/05 22:52:22 by auplisas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,15 @@
 
 void	place_elements_on_map(t_game *game, int y, int x)
 {
-	if (game->map[y][x] == '1' && DEBUG)
+	if (game->map[y][x] == '1' && !game->debug_view)
 		mlx_image_to_window(game->mlx, game->wall, x * BLOCK_SIZE, y
 			* BLOCK_SIZE);
-	if (game->map[y][x] == '0' && DEBUG)
+	if (game->map[y][x] == '0' && !game->debug_view)
 		mlx_image_to_window(game->mlx, game->background, x * BLOCK_SIZE, y
 			* BLOCK_SIZE);
 	if (is_player_char(game->map[y][x]))
 	{
-		if (DEBUG)
+		if (!game->debug_view)
 			mlx_image_to_window(game->mlx, game->background, x * BLOCK_SIZE, y
 				* BLOCK_SIZE);
 		game->player_data->x = BLOCK_SIZE * x;
@@ -95,6 +95,7 @@ t_game	*initialize_game_data(char *map_file)
 	t_game	*game;
 
 	game = malloc(1 * sizeof(t_game));
+	game->debug_view = false;
 	game->player_data = malloc(sizeof(t_point));
 	game->texture_data = malloc(sizeof(t_textures));
 	game->mlx = mlx_init(WIDTH, HEIGHT, "Cub3D", true);
