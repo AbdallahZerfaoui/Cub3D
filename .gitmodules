@@ -1,4 +1,4 @@
 [submodule "MLX42"]
 	path = MLX42
-	url = https://github.com/codam-coding-college/MLX42
-	branch = main
+	url = https://github.com/codam-coding-college/MLX42.git
+	brach = master

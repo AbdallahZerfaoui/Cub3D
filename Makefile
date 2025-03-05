@@ -62,8 +62,6 @@ $(OBJ_DIR):
 	mkdir -p $(OBJ_DIR)
 
 MLX42:
-# @if [ ! -d "MLX42" ]; then git clone https://github.com/codam-coding-college/MLX42.git; fi
-# @cd MLX42 && cmake -B build && cmake --build build -j4
 	git submodule update --init --recursive
 	@cmake -C MLX42 -B build && cmake --build build -j4
 
