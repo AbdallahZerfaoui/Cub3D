@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: macbook <macbook@student.42.fr>            +#+  +:+       +#+        */
+/*   By: auplisas <auplisas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 05:20:16 by macbook           #+#    #+#             */
-/*   Updated: 2025/02/21 06:17:27 by macbook          ###   ########.fr       */
+/*   Updated: 2025/03/05 17:22:35 by auplisas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,19 +34,20 @@ void	print_subarrays(char **map)
 
 void	ft_player_hook(void *param)
 {
-	t_game	*game;
-	double	angle_to_add;
-	double	ray_angle;
-	int		ray_count;
+	t_game			*game;
+	double			angle_to_add;
+	double			ray_angle;
+	int				ray_count;
+	double			pi_value;
 
+	pi_value = atan(1.0) * 4.0;
 	game = (t_game *)param;
 	handle_movement(game, game->player_data);
 	clear_image(game);
-	if (DEBUG)
+	if(DEBUG)
 		draw_square(game->player_data->x, game->player_data->y, 4, game);
-	angle_to_add = (ANGLE_OF_VIEW * PI / 180) / WIDTH;
-	ray_angle = (double)game->player_data->angle - (ANGLE_OF_VIEW * PI / 180)
-		/ 2;
+	angle_to_add = (ANGLE_OF_VIEW * pi_value / 180) / WIDTH;
+	ray_angle = game->player_data->angle - (ANGLE_OF_VIEW * pi_value / 180) / 2;
 	ray_count = 0;
 	while (ray_count < WIDTH)
 	{
@@ -96,3 +97,4 @@ int	main(void)
 	free_game(game);
 	return (0);
 }
+

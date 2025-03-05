@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: macbook <macbook@student.42.fr>            +#+  +:+       +#+        */
+/*   By: auplisas <auplisas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/21 05:21:41 by macbook           #+#    #+#             */
-/*   Updated: 2025/02/21 06:16:23 by macbook          ###   ########.fr       */
+/*   Created: 2025/03/02 20:56:11 by azerfaou          #+#    #+#             */
+/*   Updated: 2025/03/05 17:16:35 by auplisas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,9 @@
 # define WIDTH 1280
 # define HEIGHT 720
 # define ROW_COLUMN_COUNT 12
-# define PI 3.14159265359
+// # define BLOCK_SIZE 43 // Because WIDTH / ROW_COLUMN_COUNT (516 / 12)
+// # define PI 3.14159265359
+// # define PI (acos(1.0) / 4.0)
 # define ANGLE_OF_VIEW 60
 # define DEBUG 0
 # define BLOCK_SIZE 32
@@ -35,6 +37,9 @@
 # include <unistd.h>
 
 // Includes -- END
+
+// extern const double	PI;
+// const double g_PI = acos(1.0) / 4.0;
 
 typedef struct s_point
 {
@@ -141,4 +146,5 @@ void			free_texture_data(t_textures *texture_data);
 void			free_game(t_game *game);
 // FNC --END
 void			print_subarrays(char **map);
+
 #endif

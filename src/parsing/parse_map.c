@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: macbook <macbook@student.42.fr>            +#+  +:+       +#+        */
+/*   By: auplisas <auplisas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 08:57:50 by macbook           #+#    #+#             */
-/*   Updated: 2025/02/21 05:57:57 by macbook          ###   ########.fr       */
+/*   Updated: 2025/03/05 17:13:47 by auplisas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,6 +140,7 @@ char	**create_cleaned_map(char **map)
 	while (i < map_row_count)
 	{
 		new_map[j] = create_cleaned_new_row(map, i, longest_length);
+		printf("%s\n", new_map[j]);
 		j++;
 		i++;
 	}

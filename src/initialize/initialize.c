@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initialize.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: macbook <macbook@student.42.fr>            +#+  +:+       +#+        */
+/*   By: auplisas <auplisas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 05:18:04 by macbook           #+#    #+#             */
-/*   Updated: 2025/02/21 06:17:03 by macbook          ###   ########.fr       */
+/*   Updated: 2025/03/05 17:11:04 by auplisas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,16 +57,19 @@ void	flood_map_items(t_game *game)
 
 void	init_player(t_game *game, t_point *player_data)
 {
+	double	pi_value;
+
+	pi_value = atan(1.0) * 4.0;
 	player_data->angle_speed = 0.03f;
 	player_data->speed = 1;
 	if (player_data->direction == 'N')
-		player_data->angle = PI * 1.5f;
+		player_data->angle = pi_value * 1.5f;
 	if (player_data->direction == 'S')
-		player_data->angle = PI * 0.5f;
+		player_data->angle = pi_value * 0.5f;
 	if (player_data->direction == 'W')
-		player_data->angle = PI;
+		player_data->angle = pi_value;
 	if (player_data->direction == 'E')
-		player_data->angle = PI * 2.0f;
+		player_data->angle = pi_value * 2.0f;
 	player_data->key_up = false;
 	player_data->key_down = false;
 	player_data->key_left = false;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: macbook <macbook@student.42.fr>            +#+  +:+       +#+        */
+/*   By: auplisas <auplisas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 05:12:41 by macbook           #+#    #+#             */
-/*   Updated: 2025/02/21 06:02:46 by macbook          ###   ########.fr       */
+/*   Updated: 2025/03/05 17:15:18 by auplisas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	**create_map(void)
 	char	*array;
 	char	**map;
 
-	fd = open("./map.ber", O_RDONLY);
+	fd = open("./map2.ber", O_RDONLY);
 	if (fd < 0)
 		return (write(1, "Error\nFile N/A\n", 15), exit(EXIT_FAILURE), NULL);
 	array = ft_strdup("");
