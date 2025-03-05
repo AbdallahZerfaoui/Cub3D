@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: auplisas <auplisas@student.42.fr>          +#+  +:+       +#+        */
+/*   By: azerfaou <azerfaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 20:56:11 by azerfaou          #+#    #+#             */
-/*   Updated: 2025/03/05 17:16:35 by auplisas         ###   ########.fr       */
+/*   Updated: 2025/03/05 19:12:57 by azerfaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 // # define PI 3.14159265359
 // # define PI (acos(1.0) / 4.0)
 # define ANGLE_OF_VIEW 60
-# define DEBUG 0
+# define DEBUG 1
 # define BLOCK_SIZE 32
 # define FOV 1.0472f
 
@@ -83,6 +83,7 @@ typedef struct s_game
 	int			columns;
 	int			rows;
 	// char		map[12][12];
+	char		*map_file;
 	char		**map;
 	t_point		*player_data;
 	t_textures	*texture_data;
@@ -115,7 +116,7 @@ bool			neighbor_is_walled(char **map, int i, int j);
 void			parse_map(t_game *game);
 // INITIALIZE
 // initialize.c
-t_game			*initialize_game_data(void);
+t_game			*initialize_game_data(char *map_file);
 void			flood_map_items(t_game *game);
 void			init_player(t_game *game, t_point *player_data);
 // initialize_utils.c

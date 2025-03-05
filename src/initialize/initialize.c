@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initialize.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: auplisas <auplisas@student.42.fr>          +#+  +:+       +#+        */
+/*   By: azerfaou <azerfaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 05:18:04 by macbook           #+#    #+#             */
-/*   Updated: 2025/03/05 17:11:04 by auplisas         ###   ########.fr       */
+/*   Updated: 2025/03/05 19:11:08 by azerfaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ void	initialize_textures(t_textures *texture_data)
 	texture_data->map_start_index = 0;
 }
 
-t_game	*initialize_game_data(void)
+t_game	*initialize_game_data(char *map_file)
 {
 	t_game	*game;
 
@@ -101,6 +101,7 @@ t_game	*initialize_game_data(void)
 	initialize_textures(game->texture_data);
 	game->rows = 0;
 	game->columns = 0;
+	game->map_file = map_file;
 	parse_map(game);
 	flood_map_items(game);
 	init_player(game, game->player_data);

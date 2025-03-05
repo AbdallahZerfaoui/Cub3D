@@ -3,23 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: auplisas <auplisas@student.42.fr>          +#+  +:+       +#+        */
+/*   By: azerfaou <azerfaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 05:12:41 by macbook           #+#    #+#             */
-/*   Updated: 2025/03/05 17:15:18 by auplisas         ###   ########.fr       */
+/*   Updated: 2025/03/05 19:13:49 by azerfaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../Includes/cub3d.h"
 
-char	**create_map(void)
+char	**create_map(char *map_file)
 {
 	int		fd;
 	char	*line;
 	char	*array;
 	char	**map;
 
-	fd = open("./map2.ber", O_RDONLY);
+	fd = open(map_file, O_RDONLY);
 	if (fd < 0)
 		return (write(1, "Error\nFile N/A\n", 15), exit(EXIT_FAILURE), NULL);
 	array = ft_strdup("");
@@ -104,7 +104,7 @@ void	parse_map(t_game *game)
 	char	**map;
 	char	**cleaned_map;
 
-	parsed_map_file = create_map();
+	parsed_map_file = create_map(game->map_file);
 	if (set_textures(game->texture_data, parsed_map_file))
 	{
 		printf("Wrong Char Found\n");

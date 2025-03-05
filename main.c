@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: auplisas <auplisas@student.42.fr>          +#+  +:+       +#+        */
+/*   By: azerfaou <azerfaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 05:20:16 by macbook           #+#    #+#             */
-/*   Updated: 2025/03/05 17:22:35 by auplisas         ###   ########.fr       */
+/*   Updated: 2025/03/05 19:27:16 by azerfaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,12 +83,24 @@ void	leaks(void)
 // printf("Floor: %s\n", game->texture_data->floor_color);
 // printf("Ceiling: %s\n", game->texture_data->ceiling_color);
 
-int	main(void)
+int	handle_input_errors(void)
+{
+	printf("Cub3D: Error\n");
+	printf("The correct usage is: ./cub3D [map path]\n");
+	return (0);
+}
+
+int	main(int argc, char **argv)
 {
 	t_game	*game;
+	char	*map_file;
 
+	if (argc != 2)
+		return (handle_input_errors());
+	else
+		map_file = ft_strdup(argv[1]);
 	atexit(leaks);
-	game = initialize_game_data();
+	game = initialize_game_data(map_file);
 	mlx_key_hook(game->mlx, key_hook, game);
 	mlx_loop_hook(game->mlx, ft_player_hook, game);
 	mlx_image_to_window(game->mlx, game->player_data->player, 0, 0);
