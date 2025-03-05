@@ -62,8 +62,10 @@ $(OBJ_DIR):
 	mkdir -p $(OBJ_DIR)
 
 MLX42:
-	@if [ ! -d "MLX42" ]; then git clone https://github.com/codam-coding-college/MLX42.git; fi
-	@cd MLX42 && cmake -B build && cmake --build build -j4
+# @if [ ! -d "MLX42" ]; then git clone https://github.com/codam-coding-college/MLX42.git; fi
+# @cd MLX42 && cmake -B build && cmake --build build -j4
+	git submodule update --init --recursive
+	@cmake -C MLX42 -B build && cmake --build build -j4
 
 lib:
 	@$(MAKE) -C lib
@@ -73,11 +75,12 @@ clean:
 	@$(MAKE) -C lib clean || true
 
 fclean: clean
-	$(RM) $(NAME) MLX42
+	$(RM) $(NAME)
 	@$(MAKE) -C lib fclean || true
 	@echo "$(MAGENTA)$(BOLD)Executable + Object Files cleaned$(NC)"
 
-re: fclean submodule_update all
+# re: fclean submodule_update all
+re: fclean all
 
 submodule_update:
 	git submodule update --remote --merge
@@ -101,6 +104,12 @@ art:
 	@echo "${RED}/ /__   / /_/ /  / /_/ /   ___/ /  / /_/ /  "
 	@echo "\___/   \__,_/  /_.___/   /____/  /_____/   "
 	@echo "                                            ${NC}"
+
+valgrind: re
+	valgrind --leak-check=full --show-leak-kinds=definite --track-origins=yes ./$(NAME) ./maps/map.cub
+
+cppcheck: re
+	cppcheck --enable=warning,style,performance,portability --enable=unusedFunction $(SRCS)
 
 
 debug: clean

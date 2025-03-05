@@ -6,7 +6,7 @@
 /*   By: azerfaou <azerfaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 20:56:11 by azerfaou          #+#    #+#             */
-/*   Updated: 2025/03/05 19:12:57 by azerfaou         ###   ########.fr       */
+/*   Updated: 2025/03/05 21:25:25 by azerfaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@
 # define ANGLE_OF_VIEW 60
 # define DEBUG 1
 # define BLOCK_SIZE 32
-# define FOV 1.0472f
+// # define FOV 1.0472f
+# define FOV (4 * atan(1.0) / 3.0)
 
 // Includes -- BEGIN
 # include "../MLX42/include/MLX42/MLX42.h"

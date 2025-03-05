@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_rays.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: auplisas <auplisas@student.42.fr>          +#+  +:+       +#+        */
+/*   By: azerfaou <azerfaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 05:27:59 by macbook           #+#    #+#             */
-/*   Updated: 2025/03/05 17:36:00 by auplisas         ###   ########.fr       */
+/*   Updated: 2025/03/05 21:09:00 by azerfaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ void	draw_single_ray_debug(t_game *game, t_point *player_data,
 
 	ray_x = player_data->x;
 	ray_y = player_data->y;
-	color = (uint32_t)ft_pixel(128, 128, 128, 255);
+	color = (uint32_t)ft_pixel(128, 128, 128, 255); //grey
 	cos_angle = cos(ray_angle);
 	sin_angle = sin(ray_angle);
 	while (!check_wall(ray_x, ray_y, game))
