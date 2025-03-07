@@ -48,7 +48,7 @@ RED := \033[0;31m
 BOLD := \033[1m
 NC := \033[0m
 
-all: MLX42 art lib $(NAME)
+all: mlx_42 art lib $(NAME)
 
 $(NAME): $(OBJS) lib
 	$(CPP) $(LDFLAGS) $(OBJS) -o $(NAME) ./lib/lib.a ./MLX42/build/libmlx42.a $(MLXFLAGS)
@@ -61,9 +61,9 @@ $(OBJ_DIR)/%.o: %.c | $(OBJ_DIR)
 $(OBJ_DIR):
 	mkdir -p $(OBJ_DIR)
 
-MLX42:
-	git submodule update --init --recursive
-	@cmake -C MLX42 -B build && cmake --build build -j4
+mlx_42:
+	git submodule update --init --remote --recursive
+	(cd MLX42 && cmake -B build && cmake --build build -j4)
 
 lib:
 	@$(MAKE) -C lib
