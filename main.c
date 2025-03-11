@@ -6,7 +6,7 @@
 /*   By: azerfaou <azerfaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 05:20:16 by macbook           #+#    #+#             */
-/*   Updated: 2025/03/07 14:10:38 by azerfaou         ###   ########.fr       */
+/*   Updated: 2025/03/11 16:38:01 by azerfaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,17 +39,19 @@ void	ft_player_hook(void *param)
 	double			ray_angle;
 	int				ray_count;
 	double			pi_value;
+	int				s_width;
 
 	pi_value = atan(1.0) * 4.0;
 	game = (t_game *)param;
+	s_width = game->config->s_width;
 	handle_movement(game, game->player_data);
 	clear_image(game);
 	if (game->debug_view)
 		draw_square(game->player_data->x, game->player_data->y, 4, game);
-	angle_to_add = (ANGLE_OF_VIEW * pi_value / 180) / WIDTH;
+	angle_to_add = (ANGLE_OF_VIEW * pi_value / 180) / s_width;
 	ray_angle = game->player_data->angle - (ANGLE_OF_VIEW * pi_value / 180) / 2;
 	ray_count = 0;
-	while (ray_count < WIDTH)
+	while (ray_count < s_width)
 	{
 		if (!game->debug_view)
 			draw_single_ray_debug(game, game->player_data, ray_angle);

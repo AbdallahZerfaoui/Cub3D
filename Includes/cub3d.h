@@ -6,15 +6,16 @@
 /*   By: azerfaou <azerfaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 20:56:11 by azerfaou          #+#    #+#             */
-/*   Updated: 2025/03/11 16:00:15 by azerfaou         ###   ########.fr       */
+/*   Updated: 2025/03/11 16:59:42 by azerfaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
 
-# define WIDTH 2560
-# define HEIGHT 1440
+// # define WIDTH 2560
+// # define HEIGHT 1440
+# define TMP_VALUE 666
 # define ROW_COLUMN_COUNT 12
 // # define BLOCK_SIZE 43 // Because WIDTH / ROW_COLUMN_COUNT (516 / 12)
 // # define PI 3.14159265359

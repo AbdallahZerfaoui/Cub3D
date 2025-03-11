@@ -6,7 +6,7 @@
 /*   By: azerfaou <azerfaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 05:18:04 by macbook           #+#    #+#             */
-/*   Updated: 2025/03/11 16:32:34 by azerfaou         ###   ########.fr       */
+/*   Updated: 2025/03/11 16:56:59 by azerfaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ void	flood_map_items(t_game *game)
 void	init_player(t_game *game, t_point *player_data)
 {
 	double	pi_value;
+
 	//TODO too much random values, need to be changed
 	pi_value = atan(1.0) * 4.0;
 	player_data->angle_speed = 0.03f;
@@ -83,7 +84,8 @@ void	init_player(t_game *game, t_point *player_data)
 	// player_data->key_right = false;
 	// player_data->left_rotate = false;
 	// player_data->right_rotate = false;
-	player_data->player = mlx_new_image(game->mlx, WIDTH, HEIGHT);
+	player_data->player = mlx_new_image(game->mlx,
+			game->config->s_width, game->config->s_height);
 }
 
 // void	initialize_textures(t_textures *texture_data)
@@ -102,18 +104,20 @@ t_game	*initialize_game_data(char *map_file)
 	t_game	*game;
 
 	game = ft_calloc(1, sizeof(t_game));
-	game->config = ft_calloc(sizeof(t_config));
+	game->config = ft_calloc(1, sizeof(t_config));
 	// game->debug_view = false;
 	// game->player_data = malloc(sizeof(t_point));
 	game->player_data = ft_calloc(1, sizeof(t_point));
 	game->texture_data = ft_calloc(1, sizeof(t_textures));
-	game->mlx = mlx_init(WIDTH, HEIGHT, "Cub3D", true);
+	game->mlx = mlx_init(TMP_VALUE, TMP_VALUE, "Cub3D", true);
+	mlx_get_monitor_size(0, &game->config->s_width, &game->config->s_height);
+	mlx_terminate(game->mlx);
+	game->mlx = mlx_init(game->config->s_width, game->config->s_height, "Cub3D", true);
 	// initialize_textures(game->texture_data);
 	// game->rows = 0;
 	// game->columns = 0;
 	game->map_file = map_file;
 	parse_map(game);
-	mlx_get_monitor_size(0, &game->config->s_width, &game->config->s_height);
 	game->config->block_size = calculate_block_size(game->config->s_width,
 			game->config->s_height, game->rows, game->columns);
 	flood_map_items(game);

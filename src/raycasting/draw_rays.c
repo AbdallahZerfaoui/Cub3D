@@ -6,7 +6,7 @@
 /*   By: azerfaou <azerfaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 05:27:59 by macbook           #+#    #+#             */
-/*   Updated: 2025/03/11 16:01:27 by azerfaou         ###   ########.fr       */
+/*   Updated: 2025/03/11 16:59:03 by azerfaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,13 @@ void	draw_floor_slice(t_game *game, int i, int start_y)
 {
 	int			j;
 	uint32_t	color;
+	int			s_height;
 
+	s_height = game->config->s_height;
 	j = start_y;
 	color = (uint32_t)ft_pixel(game->floor_color->r, game->floor_color->g,
 			game->floor_color->b, 255);
-	while (j < HEIGHT)
+	while (j < s_height)
 	{
 		mlx_put_pixel(game->player_data->player, i, j, color);
 		j++;
@@ -59,17 +61,19 @@ void	draw_wall_slice(t_game *game, int i, int start_y, int end)
 void	draw_3d_ray(t_game *game, double ray_x, double ray_y, float ray_count)
 {
 	double	dist;
-	double	height;
+	double	height;//TODO change the name
 	int		start_y;
 	int		end;
 	int		block_size;
+	int		s_height;
 
+	s_height = game->config->s_height;
 	block_size = game->config->block_size;
 	dist = fixed_dist(ray_x, ray_y, game);
-	height = (block_size * HEIGHT) / (dist * tan(FOV / 2.0));
-	if (height > HEIGHT)
-		height = HEIGHT;
-	start_y = (HEIGHT - height) / 2;
+	height = (block_size * s_height) / (dist * tan(FOV / 2.0));
+	if (height > s_height)
+		height = s_height;
+	start_y = (s_height - height) / 2;
 	end = start_y + height;
 	draw_ceiling_slice(game, ray_count, start_y);
 	draw_wall_slice(game, ray_count, start_y, end);
