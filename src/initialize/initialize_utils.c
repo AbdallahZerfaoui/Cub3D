@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initialize_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: macbook <macbook@student.42.fr>            +#+  +:+       +#+        */
+/*   By: azerfaou <azerfaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 05:24:43 by macbook           #+#    #+#             */
-/*   Updated: 2025/02/21 06:00:57 by macbook          ###   ########.fr       */
+/*   Updated: 2025/03/11 15:51:20 by azerfaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,4 +35,14 @@ void	fill_image_pixels(t_game *game, mlx_image_t *image, uint32_t color)
 		}
 		i++;
 	}
+}
+
+int	calculate_block_size(int width, int height, int rows, int columns)
+{
+	int	block_size;
+
+	block_size = width / columns;
+	if (block_size > height / rows)
+		block_size = height / rows;
+	return (block_size);
 }

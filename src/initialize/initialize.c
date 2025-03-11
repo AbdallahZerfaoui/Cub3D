@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initialize.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: auplisas <auplisas@student.42.fr>          +#+  +:+       +#+        */
+/*   By: azerfaou <azerfaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 05:18:04 by macbook           #+#    #+#             */
-/*   Updated: 2025/03/05 22:52:22 by auplisas         ###   ########.fr       */
+/*   Updated: 2025/03/11 15:59:26 by azerfaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,22 @@
 
 void	place_elements_on_map(t_game *game, int y, int x)
 {
+	int		block_size;
+
+	block_size = game->config->block_size;
 	if (game->map[y][x] == '1' && !game->debug_view)
-		mlx_image_to_window(game->mlx, game->wall, x * BLOCK_SIZE, y
-			* BLOCK_SIZE);
+		mlx_image_to_window(game->mlx, game->wall, x * block_size, y
+			* block_size);
 	if (game->map[y][x] == '0' && !game->debug_view)
-		mlx_image_to_window(game->mlx, game->background, x * BLOCK_SIZE, y
-			* BLOCK_SIZE);
+		mlx_image_to_window(game->mlx, game->background, x * block_size, y
+			* block_size);
 	if (is_player_char(game->map[y][x]))
 	{
 		if (!game->debug_view)
-			mlx_image_to_window(game->mlx, game->background, x * BLOCK_SIZE, y
-				* BLOCK_SIZE);
-		game->player_data->x = BLOCK_SIZE * x;
-		game->player_data->y = BLOCK_SIZE * y;
+			mlx_image_to_window(game->mlx, game->background, x * block_size, y
+				* block_size);
+		game->player_data->x = block_size * x;
+		game->player_data->y = block_size * y;
 	}
 }
 
@@ -34,15 +37,19 @@ void	flood_map_items(t_game *game)
 {
 	int	y;
 	int	x;
+	int	block_size;
 
-	game->background = mlx_new_image(game->mlx, BLOCK_SIZE, BLOCK_SIZE);
-	game->wall = mlx_new_image(game->mlx, BLOCK_SIZE, BLOCK_SIZE);
+	block_size = game->config->block_size;
+	game->background = mlx_new_image(game->mlx, block_size, block_size);
+	game->wall = mlx_new_image(game->mlx, block_size, block_size);
 	fill_image_pixels(game, game->background,
 		(uint32_t)ft_pixel(game->ceiling_color->r, game->ceiling_color->g,
 			game->ceiling_color->b, 255));
 	fill_image_pixels(game, game->wall, (uint32_t)ft_pixel(game->floor_color->r,
 			game->floor_color->g, game->floor_color->b, 255));
 	y = 0;
+	printf("Rows: %d\n", game->rows);
+	printf("Columns: %d\n", game->columns);
 	while (y < game->rows)
 	{
 		x = 0;
@@ -95,6 +102,7 @@ t_game	*initialize_game_data(char *map_file)
 	t_game	*game;
 
 	game = malloc(1 * sizeof(t_game));
+	game->config = malloc(sizeof(t_config));
 	game->debug_view = false;
 	game->player_data = malloc(sizeof(t_point));
 	game->texture_data = malloc(sizeof(t_textures));
@@ -104,6 +112,9 @@ t_game	*initialize_game_data(char *map_file)
 	game->columns = 0;
 	game->map_file = map_file;
 	parse_map(game);
+	mlx_get_monitor_size(0, &game->config->s_width, &game->config->s_height);
+	game->config->block_size = calculate_block_size(game->config->s_width,
+			game->config->s_height, game->rows, game->columns);
 	flood_map_items(game);
 	init_player(game, game->player_data);
 	return (game);

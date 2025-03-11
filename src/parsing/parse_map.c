@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: auplisas <auplisas@student.42.fr>          +#+  +:+       +#+        */
+/*   By: azerfaou <azerfaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 08:57:50 by macbook           #+#    #+#             */
-/*   Updated: 2025/03/05 17:13:47 by auplisas         ###   ########.fr       */
+/*   Updated: 2025/03/07 14:43:20 by azerfaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 bool	neighbor_is_walled(char **map, int i, int j)
 {
+
 	int	row_length;
 	int	row_count;
 
@@ -40,6 +41,7 @@ bool	neighbor_is_walled(char **map, int i, int j)
 	}
 	return (true);
 }
+
 
 bool	check_surrounded_by_walls(char **map)
 {

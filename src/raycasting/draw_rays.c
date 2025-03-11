@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_rays.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: auplisas <auplisas@student.42.fr>          +#+  +:+       +#+        */
+/*   By: azerfaou <azerfaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 05:27:59 by macbook           #+#    #+#             */
-/*   Updated: 2025/03/05 22:53:23 by auplisas         ###   ########.fr       */
+/*   Updated: 2025/03/11 16:01:27 by azerfaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,9 +62,11 @@ void	draw_3d_ray(t_game *game, double ray_x, double ray_y, float ray_count)
 	double	height;
 	int		start_y;
 	int		end;
+	int		block_size;
 
+	block_size = game->config->block_size;
 	dist = fixed_dist(ray_x, ray_y, game);
-	height = (BLOCK_SIZE * HEIGHT) / (dist * tan(FOV / 2.0));
+	height = (block_size * HEIGHT) / (dist * tan(FOV / 2.0));
 	if (height > HEIGHT)
 		height = HEIGHT;
 	start_y = (HEIGHT - height) / 2;

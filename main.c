@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: auplisas <auplisas@student.42.fr>          +#+  +:+       +#+        */
+/*   By: azerfaou <azerfaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 05:20:16 by macbook           #+#    #+#             */
-/*   Updated: 2025/03/05 22:51:06 by auplisas         ###   ########.fr       */
+/*   Updated: 2025/03/07 14:10:38 by azerfaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	ft_player_hook(void *param)
 	game = (t_game *)param;
 	handle_movement(game, game->player_data);
 	clear_image(game);
-	if(game->debug_view)
+	if (game->debug_view)
 		draw_square(game->player_data->x, game->player_data->y, 4, game);
 	angle_to_add = (ANGLE_OF_VIEW * pi_value / 180) / WIDTH;
 	ray_angle = game->player_data->angle - (ANGLE_OF_VIEW * pi_value / 180) / 2;
@@ -99,7 +99,7 @@ int	main(int argc, char **argv)
 		return (handle_input_errors());
 	else
 		map_file = ft_strdup(argv[1]);
-	atexit(leaks);
+	// atexit(leaks);
 	game = initialize_game_data(map_file);
 	mlx_key_hook(game->mlx, key_hook, game);
 	mlx_loop_hook(game->mlx, ft_player_hook, game);

@@ -3,25 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: auplisas <auplisas@student.42.fr>          +#+  +:+       +#+        */
+/*   By: azerfaou <azerfaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 20:56:11 by azerfaou          #+#    #+#             */
-/*   Updated: 2025/03/05 22:50:44 by auplisas         ###   ########.fr       */
+/*   Updated: 2025/03/11 16:00:15 by azerfaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
 
-# define WIDTH 1280
-# define HEIGHT 720
+# define WIDTH 2560
+# define HEIGHT 1440
 # define ROW_COLUMN_COUNT 12
 // # define BLOCK_SIZE 43 // Because WIDTH / ROW_COLUMN_COUNT (516 / 12)
 // # define PI 3.14159265359
 // # define PI (acos(1.0) / 4.0)
 # define ANGLE_OF_VIEW 60
-# define DEBUG 1
-# define BLOCK_SIZE 32
+// # define DEBUG 1
+// # define BLOCK_SIZE 24
 // # define FOV 1.0472f
 # define FOV (4 * atan(1.0) / 3.0)
 
@@ -36,6 +36,7 @@
 # include <stdlib.h>
 # include <string.h>
 # include <unistd.h>
+// # include <CoreGraphics/CoreGraphics.h>
 
 // Includes -- END
 
@@ -78,15 +79,24 @@ typedef struct s_color
 
 }				t_color;
 
+typedef struct s_config
+{
+	int	s_width;
+	int	s_height;
+	int	block_size;
+}				t_config;
+
 typedef struct s_game
 {
 	mlx_t		*mlx;
 	int			columns;
 	int			rows;
-	int			debug_view;
+	int			debug_view; //1: 2D, 0: 3D
 	// char		map[12][12];
+	t_config	*config;
 	char		*map_file;
 	char		**map;
+	int			block_size;
 	t_point		*player_data;
 	t_textures	*texture_data;
 	t_color		*ceiling_color;
@@ -149,5 +159,8 @@ void			free_texture_data(t_textures *texture_data);
 void			free_game(t_game *game);
 // FNC --END
 void			print_subarrays(char **map);
+
+// CONFIG
+int				calculate_block_size(int width, int height, int rows, int columns);
 
 #endif

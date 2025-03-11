@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rays_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: macbook <macbook@student.42.fr>            +#+  +:+       +#+        */
+/*   By: azerfaou <azerfaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 04:34:57 by macbook           #+#    #+#             */
-/*   Updated: 2025/02/21 05:18:13 by macbook          ###   ########.fr       */
+/*   Updated: 2025/03/11 16:01:55 by azerfaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,11 @@ bool	check_wall(float px, float py, t_game *game)
 {
 	int	x;
 	int	y;
+	int	block_size;
 
-	x = px / BLOCK_SIZE;
-	y = py / BLOCK_SIZE;
+	block_size = game->config->block_size;
+	x = px / block_size;
+	y = py / block_size;
 	if (game->map[y][x] == '1')
 		return (true);
 	return (false);
