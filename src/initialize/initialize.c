@@ -6,7 +6,7 @@
 /*   By: azerfaou <azerfaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 05:18:04 by macbook           #+#    #+#             */
-/*   Updated: 2025/03/11 15:59:26 by azerfaou         ###   ########.fr       */
+/*   Updated: 2025/03/11 16:32:34 by azerfaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,10 +65,10 @@ void	flood_map_items(t_game *game)
 void	init_player(t_game *game, t_point *player_data)
 {
 	double	pi_value;
-
+	//TODO too much random values, need to be changed
 	pi_value = atan(1.0) * 4.0;
 	player_data->angle_speed = 0.03f;
-	player_data->speed = 1;
+	player_data->speed = 4; //TODO change this value, im not sure about it
 	if (player_data->direction == 'N')
 		player_data->angle = pi_value * 1.5f;
 	if (player_data->direction == 'S')
@@ -77,39 +77,40 @@ void	init_player(t_game *game, t_point *player_data)
 		player_data->angle = pi_value;
 	if (player_data->direction == 'E')
 		player_data->angle = pi_value * 2.0f;
-	player_data->key_up = false;
-	player_data->key_down = false;
-	player_data->key_left = false;
-	player_data->key_right = false;
-	player_data->left_rotate = false;
-	player_data->right_rotate = false;
+	// player_data->key_up = false;
+	// player_data->key_down = false;
+	// player_data->key_left = false;
+	// player_data->key_right = false;
+	// player_data->left_rotate = false;
+	// player_data->right_rotate = false;
 	player_data->player = mlx_new_image(game->mlx, WIDTH, HEIGHT);
 }
 
-void	initialize_textures(t_textures *texture_data)
-{
-	texture_data->north_path = NULL;
-	texture_data->east_path = NULL;
-	texture_data->south_path = NULL;
-	texture_data->west_path = NULL;
-	texture_data->floor_color = NULL;
-	texture_data->ceiling_color = NULL;
-	texture_data->map_start_index = 0;
-}
+// void	initialize_textures(t_textures *texture_data)
+// {
+// 	texture_data->north_path = NULL;
+// 	texture_data->east_path = NULL;
+// 	texture_data->south_path = NULL;
+// 	texture_data->west_path = NULL;
+// 	texture_data->floor_color = NULL;
+// 	texture_data->ceiling_color = NULL;
+// 	texture_data->map_start_index = 0;
+// }
 
 t_game	*initialize_game_data(char *map_file)
 {
 	t_game	*game;
 
-	game = malloc(1 * sizeof(t_game));
-	game->config = malloc(sizeof(t_config));
-	game->debug_view = false;
-	game->player_data = malloc(sizeof(t_point));
-	game->texture_data = malloc(sizeof(t_textures));
+	game = ft_calloc(1, sizeof(t_game));
+	game->config = ft_calloc(sizeof(t_config));
+	// game->debug_view = false;
+	// game->player_data = malloc(sizeof(t_point));
+	game->player_data = ft_calloc(1, sizeof(t_point));
+	game->texture_data = ft_calloc(1, sizeof(t_textures));
 	game->mlx = mlx_init(WIDTH, HEIGHT, "Cub3D", true);
-	initialize_textures(game->texture_data);
-	game->rows = 0;
-	game->columns = 0;
+	// initialize_textures(game->texture_data);
+	// game->rows = 0;
+	// game->columns = 0;
 	game->map_file = map_file;
 	parse_map(game);
 	mlx_get_monitor_size(0, &game->config->s_width, &game->config->s_height);
