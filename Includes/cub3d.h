@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: azerfaou <azerfaou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: auplisas <auplisas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 20:56:11 by azerfaou          #+#    #+#             */
-/*   Updated: 2025/03/11 16:59:42 by azerfaou         ###   ########.fr       */
+/*   Updated: 2025/03/27 22:34:03 by auplisas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,9 +82,9 @@ typedef struct s_color
 
 typedef struct s_config
 {
-	int	s_width;
-	int	s_height;
-	int	block_size;
+	int			s_width;
+	int			s_height;
+	int			block_size;
 }				t_config;
 
 typedef struct s_game
@@ -92,7 +92,7 @@ typedef struct s_game
 	mlx_t		*mlx;
 	int			columns;
 	int			rows;
-	int			debug_view; //1: 2D, 0: 3D
+	int debug_view; // 1: 2D, 0: 3D
 	// char		map[12][12];
 	t_config	*config;
 	char		*map_file;
@@ -105,6 +105,40 @@ typedef struct s_game
 	mlx_image_t	*background;
 	mlx_image_t	*wall;
 }				t_game;
+
+// typedef struct s_config
+// {
+// 	int			s_width;
+// 	int			s_height;
+// 	int			block_size;
+// }				t_config;
+
+typedef struct s_dda
+{
+	double		camera_x;
+	double		ray_dir_x;
+	double		ray_dir_y;
+	double		side_dist_x;
+	double		side_dist_y;
+	double		delta_dist_x;
+	double		delta_dist_y;
+	double		perp_wall_dist;
+	int			map_x;
+	int			map_y;
+	int			step_x;
+	int			step_y;
+	int			hit;
+	int			side;
+	int			line_height;
+	int			draw_start;
+	int			draw_end;
+	double		wall_x;
+	int			tex_x;
+	double		tex_pos;
+	double		step;
+	int			tex_y;
+	int			tex_height;
+}				t_dda;
 
 // FNC --BEGIN
 void			printHello(void);
@@ -162,6 +196,7 @@ void			free_game(t_game *game);
 void			print_subarrays(char **map);
 
 // CONFIG
-int				calculate_block_size(int width, int height, int rows, int columns);
+int				calculate_block_size(int width, int height, int rows,
+					int columns);
 
 #endif
