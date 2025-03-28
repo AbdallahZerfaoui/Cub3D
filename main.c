@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: azerfaou <azerfaou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: auplisas <auplisas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 05:20:16 by macbook           #+#    #+#             */
-/*   Updated: 2025/03/11 16:38:01 by azerfaou         ###   ########.fr       */
+/*   Updated: 2025/03/28 17:23:56 by auplisas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,12 @@ void	print_subarrays(char **map)
 
 void	ft_player_hook(void *param)
 {
-	t_game			*game;
-	double			angle_to_add;
-	double			ray_angle;
-	int				ray_count;
-	double			pi_value;
-	int				s_width;
+	t_game	*game;
+	double	angle_to_add;
+	double	ray_angle;
+	int		ray_count;
+	double	pi_value;
+	int		s_width;
 
 	pi_value = atan(1.0) * 4.0;
 	game = (t_game *)param;
@@ -56,7 +56,7 @@ void	ft_player_hook(void *param)
 		if (!game->debug_view)
 			draw_single_ray_debug(game, game->player_data, ray_angle);
 		else
-			draw_single_ray(game, game->player_data, ray_angle, ray_count);
+			draw_single_ray(game, ray_count);
 		ray_angle = ray_angle + angle_to_add;
 		ray_count++;
 	}
@@ -111,4 +111,3 @@ int	main(int argc, char **argv)
 	free_game(game);
 	return (0);
 }
-

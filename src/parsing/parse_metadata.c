@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_metadata.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: macbook <macbook@student.42.fr>            +#+  +:+       +#+        */
+/*   By: auplisas <auplisas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 08:51:42 by macbook           #+#    #+#             */
-/*   Updated: 2025/02/21 04:31:13 by macbook          ###   ########.fr       */
+/*   Updated: 2025/03/28 19:40:46 by auplisas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,10 @@ int	set_textures(t_textures *txtr, char **map_file)
 		else if (ft_strncmp(map_file[i], "WE ", 3) == 0 && !txtr->west_path)
 			txtr->west_path = ft_strtrim(map_file[i] + 3, " \n");
 		else if (ft_strncmp(map_file[i], "EA ", 3) == 0 && !txtr->east_path)
+		{
 			txtr->east_path = ft_strtrim(map_file[i] + 3, " \n");
+			txtr->texture =  mlx_load_png("./texture/south.png");
+		}
 		else if (ft_strncmp(map_file[i], "F ", 2) == 0 && !txtr->floor_color)
 			txtr->floor_color = ft_strtrim(map_file[i] + 2, " \n");
 		else if (ft_strncmp(map_file[i], "C ", 2) == 0 && !txtr->ceiling_color)

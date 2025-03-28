@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initialize.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: azerfaou <azerfaou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: auplisas <auplisas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 05:18:04 by macbook           #+#    #+#             */
-/*   Updated: 2025/03/11 16:56:59 by azerfaou         ###   ########.fr       */
+/*   Updated: 2025/03/28 23:32:16 by auplisas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void	init_player(t_game *game, t_point *player_data)
 
 	//TODO too much random values, need to be changed
 	pi_value = atan(1.0) * 4.0;
-	player_data->angle_speed = 0.03f;
+	player_data->angle_speed = 0.09f;
 	player_data->speed = 4; //TODO change this value, im not sure about it
 	if (player_data->direction == 'N')
 		player_data->angle = pi_value * 1.5f;
