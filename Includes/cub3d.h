@@ -6,7 +6,7 @@
 /*   By: azerfaou <azerfaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 20:56:11 by azerfaou          #+#    #+#             */
-/*   Updated: 2025/03/29 18:18:27 by azerfaou         ###   ########.fr       */
+/*   Updated: 2025/03/29 18:20:06 by azerfaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,14 +177,15 @@ typedef struct s_dda
 	// int			side;
 	// int			hit;
 	// double		wall_x;
-	int			line_height;
-	int			draw_start;
-	int			draw_end;
-	int			tex_x;
-	double		tex_pos;
-	double		step;
-	int			tex_y;
-	int			tex_height;
+	
+	// int			line_height;
+	// int			draw_start;
+	// int			draw_end;
+	// int			tex_x;
+	// double		tex_pos;
+	// double		step;
+	// int			tex_y;
+	// int			tex_height;
 }					t_dda;
 
 // FNC --BEGIN

@@ -6,7 +6,7 @@
 /*   By: azerfaou <azerfaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 05:27:59 by macbook           #+#    #+#             */
-/*   Updated: 2025/03/29 18:14:34 by azerfaou         ###   ########.fr       */
+/*   Updated: 2025/03/29 18:24:49 by azerfaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,9 +80,10 @@ void	setup_dda(t_game *game, t_dda *dda, int x)
 	// dda->hit = 0;
 }
 
-void	perform_dda(t_game *game, t_dda *dda, t_dda_ray *ray, t_dda_state *state, t_hit_result *hit_result)
+void	perform_dda(t_game *game, t_dda *dda, t_dda_ray *ray, t_dda_state *state, t_hit_result *hit_result, t_drawing *draw)
 {
 	// Perform DDA
+	(void)dda;
 	while (hit_result->hit == 0)
 	{
 		// Jump to next map square, either in x-direction, or in y-direction
@@ -111,14 +112,14 @@ void	perform_dda(t_game *game, t_dda *dda, t_dda_ray *ray, t_dda_state *state, t
 	else
 		hit_result->perp_wall_dist = (state->side_dist_y - state->delta_dist_y);
 	// Calculate height of line to draw on screen
-	dda->line_height = (int)(game->config->s_height / hit_result->perp_wall_dist);
+	draw->line_height = (int)(game->config->s_height / hit_result->perp_wall_dist);
 	// Calculate lowest and highest pixel to fill in current stripe
-	dda->draw_start = -dda->line_height / 2 + game->config->s_height / 2;
-	if (dda->draw_start < 0)
-		dda->draw_start = 0;
-	dda->draw_end = dda->line_height / 2 + game->config->s_height / 2;
-	if (dda->draw_end >= game->config->s_height)
-		dda->draw_end = game->config->s_height - 1;
+	draw->draw_start = -draw->line_height / 2 + game->config->s_height / 2;
+	if (draw->draw_start < 0)
+		draw->draw_start = 0;
+	draw->draw_end = draw->line_height / 2 + game->config->s_height / 2;
+	if (draw->draw_end >= game->config->s_height)
+		draw->draw_end = game->config->s_height - 1;
 }
 
 void	draw_floor_slice(t_game *game, int i, int start_y)
@@ -169,8 +170,9 @@ void	draw_wall_slice(t_game *game, int i, int start_y, int end)
 	}
 }
 
-void	draw_3d_ray(t_game *game, t_dda *dda, int ray_count)
+void	draw_3d_ray(t_game *game, t_dda *dda, int ray_count, t_drawing *draw)
 {
+	(void)dda;
 	// double	dist;
 	// double	height;//TODO change the name
 	// int		start_y;
@@ -185,9 +187,9 @@ void	draw_3d_ray(t_game *game, t_dda *dda, int ray_count)
 	// 	height = s_height;
 	// start_y = (s_height - height) / 2;
 	// end = start_y + height;
-	draw_ceiling_slice(game, ray_count, dda->draw_start);
+	draw_ceiling_slice(game, ray_count, draw->draw_start);
 	// draw_wall_slice(game, ray_count, dda->draw_start);
-	draw_floor_slice(game, ray_count, dda->draw_end);
+	draw_floor_slice(game, ray_count, draw->draw_end);
 }
 
 void	draw_single_ray(t_game *game, t_point *player_data, float ray_angle,
@@ -201,7 +203,7 @@ void	draw_single_ray(t_game *game, t_point *player_data, float ray_angle,
 	(void)ray_count;
 	(void)player_data;
 	setup_dda(game, dda, ray_count);
-	perform_dda(game, dda, dda->ray, dda->state, dda->hit_result);
+	perform_dda(game, dda, dda->ray, dda->state, dda->hit_result, dda->draw);
 	// double	cos_angle;
 	// double	sin_angle;
 	// double	ray_x;
@@ -215,7 +217,7 @@ void	draw_single_ray(t_game *game, t_point *player_data, float ray_angle,
 	// 	ray_x = (cos_angle * 0.1) + ray_x;
 	// 	ray_y = (sin_angle * 0.1) + ray_y;
 	// }
-	draw_3d_ray(game, dda, ray_count);
+	draw_3d_ray(game, dda, ray_count, dda->draw);
 }
 
 void	draw_single_ray_debug(t_game *game, t_point *player_data,
