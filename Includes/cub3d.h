@@ -6,7 +6,7 @@
 /*   By: azerfaou <azerfaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 20:56:11 by azerfaou          #+#    #+#             */
-/*   Updated: 2025/03/28 22:05:20 by azerfaou         ###   ########.fr       */
+/*   Updated: 2025/03/29 18:18:27 by azerfaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,10 +156,10 @@ typedef struct s_drawing
 
 typedef struct s_dda
 {
-	t_dda_ray		ray;
-	t_dda_state		state;
-	t_hit_result	hit_result;
-	t_drawing		draw;
+	t_dda_ray		*ray;
+	t_dda_state		*state;
+	t_hit_result	*hit_result;
+	t_drawing		*draw;
 	// double		camera_x;
 	// double		ray_dir_x;
 	// double		ray_dir_y;
@@ -173,13 +173,13 @@ typedef struct s_dda
 	// double		delta_dist_x;
 	// double		delta_dist_y;
 	
-	double		perp_wall_dist;
-	int			hit;
-	int			side;
+	// double		perp_wall_dist;
+	// int			side;
+	// int			hit;
+	// double		wall_x;
 	int			line_height;
 	int			draw_start;
 	int			draw_end;
-	double		wall_x;
 	int			tex_x;
 	double		tex_pos;
 	double		step;
@@ -213,6 +213,7 @@ void			parse_map(t_game *game);
 t_game			*initialize_game_data(char *map_file);
 void			flood_map_items(t_game *game);
 void			init_player(t_game *game, t_point *player_data);
+void			init_dda(t_dda *dda);
 // initialize_utils.c
 int32_t			ft_pixel(int32_t r, int32_t g, int32_t b, int32_t a);
 void			fill_image_pixels(t_game *game, mlx_image_t *image,

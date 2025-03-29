@@ -6,7 +6,7 @@
 /*   By: azerfaou <azerfaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/29 17:33:49 by azerfaou          #+#    #+#             */
-/*   Updated: 2025/03/29 17:33:52 by azerfaou         ###   ########.fr       */
+/*   Updated: 2025/03/29 18:14:21 by azerfaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,4 +123,12 @@ t_game	*initialize_game_data(char *map_file)
 	flood_map_items(game);
 	init_player(game, game->player_data);
 	return (game);
+}
+
+void	init_dda(t_dda *dda)
+{
+	dda->ray = (t_dda_ray *)ft_calloc(1, sizeof(t_dda_ray));
+	dda->state = (t_dda_state *)ft_calloc(1, sizeof(t_dda_state));
+	dda->hit_result = (t_hit_result *)ft_calloc(1, sizeof(t_hit_result));
+	dda->draw = (t_drawing *)ft_calloc(1, sizeof(t_drawing));
 }
