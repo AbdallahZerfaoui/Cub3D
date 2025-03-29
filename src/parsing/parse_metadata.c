@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_metadata.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: auplisas <auplisas@student.42.fr>          +#+  +:+       +#+        */
+/*   By: azerfaou <azerfaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 08:51:42 by macbook           #+#    #+#             */
-/*   Updated: 2025/03/28 19:40:46 by auplisas         ###   ########.fr       */
+/*   Updated: 2025/03/29 17:46:00 by azerfaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int	set_textures(t_textures *txtr, char **map_file)
 		else if (ft_strncmp(map_file[i], "EA ", 3) == 0 && !txtr->east_path)
 		{
 			txtr->east_path = ft_strtrim(map_file[i] + 3, " \n");
-			txtr->texture =  mlx_load_png("./texture/south.png");
+			// txtr->texture =  mlx_load_png("./texture/south.png"); //TODO is it ok?
 		}
 		else if (ft_strncmp(map_file[i], "F ", 2) == 0 && !txtr->floor_color)
 			txtr->floor_color = ft_strtrim(map_file[i] + 2, " \n");

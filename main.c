@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: auplisas <auplisas@student.42.fr>          +#+  +:+       +#+        */
+/*   By: azerfaou <azerfaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 05:20:16 by macbook           #+#    #+#             */
-/*   Updated: 2025/03/28 17:23:56 by auplisas         ###   ########.fr       */
+/*   Updated: 2025/03/29 17:43:15 by azerfaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	ft_player_hook(void *param)
 		if (!game->debug_view)
 			draw_single_ray_debug(game, game->player_data, ray_angle);
 		else
-			draw_single_ray(game, ray_count);
+			draw_single_ray(game, game->player_data, ray_angle, ray_count);
 		ray_angle = ray_angle + angle_to_add;
 		ray_count++;
 	}

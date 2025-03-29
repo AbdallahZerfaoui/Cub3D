@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initialize.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: auplisas <auplisas@student.42.fr>          +#+  +:+       +#+        */
+/*   By: azerfaou <azerfaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/12 05:18:04 by macbook           #+#    #+#             */
-/*   Updated: 2025/03/28 23:32:16 by auplisas         ###   ########.fr       */
+/*   Created: 2025/03/29 17:33:49 by azerfaou          #+#    #+#             */
+/*   Updated: 2025/03/29 17:33:52 by azerfaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ t_game	*initialize_game_data(char *map_file)
 
 	game = ft_calloc(1, sizeof(t_game));
 	game->config = ft_calloc(1, sizeof(t_config));
-	// game->debug_view = false;
+	game->debug_view = INIT_DEBUG_VIEW;
 	// game->player_data = malloc(sizeof(t_point));
 	game->player_data = ft_calloc(1, sizeof(t_point));
 	game->texture_data = ft_calloc(1, sizeof(t_textures));
