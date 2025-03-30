@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_rays.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: azerfaou <azerfaou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: macbook <macbook@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 05:27:59 by macbook           #+#    #+#             */
-/*   Updated: 2025/03/29 18:24:49 by azerfaou         ###   ########.fr       */
+/*   Updated: 2025/03/30 05:33:56 by macbook          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void	state_setup(t_game *game, t_dda_state *state, t_dda_ray *ray)
 
 	player = game->player_data;
 	s_width = game->config->s_width;
+	(void)s_width;
 	// Length of ray from current position to next x or y-side
 	state->delta_dist_x = (ray->ray_dir_x == 0) ? 1e30 : fabs(1.0 / ray->ray_dir_x);
 	state->delta_dist_y = (ray->ray_dir_y == 0) ? 1e30 : fabs(1.0 / ray->ray_dir_y);
@@ -69,7 +70,8 @@ void	setup_dda(t_game *game, t_dda *dda, int x)
 {
 	t_point	*player;
 	int		s_width;
-
+	(void)player;
+	(void)s_width;
 	player = game->player_data;
 	s_width = game->config->s_width;
 
@@ -154,20 +156,49 @@ void	draw_ceiling_slice(t_game *game, int i, int ceiling_end)
 	}
 }
 
-void	draw_wall_slice(t_game *game, int i, int start_y, int end)
-{
-	int			j;
-	uint32_t	color;
-	int			s_height;
 
-	s_height = game->config->s_height;
-	j = start_y;
-	color = (uint32_t)ft_pixel(51, 51, 51, 255);
-	while (j < end)
-	{
-		mlx_put_pixel(game->player_data->player, i, j, color);
-		j++;
-	}
+void    draw_wall_slice(t_game *game, int ray_x, int start_y, int end,
+        t_dda *dda)
+{
+    mlx_texture_t   *tex;
+    float           step;
+    float           tex_pos;
+    int             tex_y;
+    int             tex_x;
+    uint32_t        color;
+    int             y;
+    double          wall_x;
+
+    tex = game->texture_data->texture;
+    step = 1.0 * tex->height / dda->draw->line_height;
+    y = start_y;
+    tex_pos = (start_y - game->mlx->height / 2 + dda->draw->line_height / 2) * step;
+    if (dda->hit_result->side == 0)
+    {
+        wall_x = game->player_data->y / game->config->block_size + dda->hit_result->perp_wall_dist
+            * dda->ray->ray_dir_y;
+    }
+    else
+    {
+        wall_x = game->player_data->x / game->config->block_size + dda->hit_result->perp_wall_dist
+            * dda->ray->ray_dir_x;
+    }
+    wall_x = wall_x - floor(wall_x);
+    tex_x = (int)(wall_x * tex->width);
+    
+	if ((dda->hit_result->side == 0 && dda->ray->ray_dir_x > 0) || (dda->hit_result->side == 1 && dda->ray->ray_dir_y < 0))
+			tex_x = tex->width - tex_x - 1;
+    tex_pos = 0;
+
+    (void)tex_x;
+    while (y < end)
+    {
+        tex_y = (int)tex_pos % tex->height;
+        color = ((uint32_t *)tex->pixels)[tex_y * tex->width + tex_x];
+        mlx_put_pixel(game->player_data->player, ray_x, y, color);
+        tex_pos += step;
+        y++;
+    }
 }
 
 void	draw_3d_ray(t_game *game, t_dda *dda, int ray_count, t_drawing *draw)
@@ -188,7 +219,7 @@ void	draw_3d_ray(t_game *game, t_dda *dda, int ray_count, t_drawing *draw)
 	// start_y = (s_height - height) / 2;
 	// end = start_y + height;
 	draw_ceiling_slice(game, ray_count, draw->draw_start);
-	// draw_wall_slice(game, ray_count, dda->draw_start);
+	draw_wall_slice(game, ray_count, draw->draw_start, draw->draw_end, dda);
 	draw_floor_slice(game, ray_count, draw->draw_end);
 }
 
