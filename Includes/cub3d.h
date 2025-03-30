@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: macbook <macbook@student.42.fr>            +#+  +:+       +#+        */
+/*   By: azerfaou <azerfaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 20:56:11 by azerfaou          #+#    #+#             */
-/*   Updated: 2025/03/30 05:26:25 by macbook          ###   ########.fr       */
+/*   Updated: 2025/03/30 17:37:33 by azerfaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 // # define BLOCK_SIZE 24
 // # define FOV 1.0472f
 # define FOV (4 * atan(1.0) / 3.0)
+# define MAX_RAY_DISTANCE 1000000
 
 // Includes -- BEGIN
 # include "../MLX42/include/MLX42/MLX42.h"

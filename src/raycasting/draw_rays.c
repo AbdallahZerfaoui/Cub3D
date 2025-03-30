@@ -3,14 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   draw_rays.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: macbook <macbook@student.42.fr>            +#+  +:+       +#+        */
+/*   By: azerfaou <azerfaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 05:27:59 by macbook           #+#    #+#             */
-/*   Updated: 2025/03/30 05:33:56 by macbook          ###   ########.fr       */
+/*   Updated: 2025/03/30 17:43:44 by azerfaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../Includes/cub3d.h"
+
+/***
+ * fmod function is there just to avoid accumulating errors ex: x=10^-17 instead of 0
+ */
+int	sign(double x)
+{
+	return ((x > 0) - (x < 0) + fmod(x, x));
+}
 
 void	setup_ray(t_game *game, t_dda_ray *ray, int x)
 {
@@ -28,6 +36,20 @@ void	setup_ray(t_game *game, t_dda_ray *ray, int x)
 	ray->map_y = (int)(player->y / game->config->block_size);	
 }
 
+void	init_delta_dists(t_dda_state *state, t_dda_ray *ray)
+{
+	double	tolerance;
+
+	tolerance = 1e-6;
+	if (fabs(ray->ray_dir_x) < tolerance)
+		state->delta_dist_x = MAX_RAY_DISTANCE;
+	else
+		state->delta_dist_x = fabs(1.0 / ray->ray_dir_x);
+	if (fabs(ray->ray_dir_y) < tolerance)
+		state->delta_dist_y = MAX_RAY_DISTANCE;
+	else
+		state->delta_dist_y = fabs(1.0 / ray->ray_dir_y);
+}
 void	state_setup(t_game *game, t_dda_state *state, t_dda_ray *ray)
 {
 	t_point	*player;
@@ -37,30 +59,30 @@ void	state_setup(t_game *game, t_dda_state *state, t_dda_ray *ray)
 	s_width = game->config->s_width;
 	(void)s_width;
 	// Length of ray from current position to next x or y-side
-	state->delta_dist_x = (ray->ray_dir_x == 0) ? 1e30 : fabs(1.0 / ray->ray_dir_x);
-	state->delta_dist_y = (ray->ray_dir_y == 0) ? 1e30 : fabs(1.0 / ray->ray_dir_y);
+	// state->delta_dist_x = (ray->ray_dir_x == 0) ? 1e30 : fabs(1.0 / ray->ray_dir_x);
+	// state->delta_dist_y = (ray->ray_dir_y == 0) ? 1e30 : fabs(1.0 / ray->ray_dir_y);
+	init_delta_dists(state, ray);
+
+	state->step_x = sign(ray->ray_dir_x);
+	state->step_y = sign(ray->ray_dir_y);
 	// Calculate step and initial side_dist
 	if (ray->ray_dir_x < 0)
 	{
-		state->step_x = -1;
 		state->side_dist_x = ((player->x / game->config->block_size) - ray->map_x)
 			* state->delta_dist_x;
 	}
 	else
 	{
-		state->step_x = 1;
 		state->side_dist_x = (ray->map_x + 1.0 - (player->x
 					/ game->config->block_size)) * state->delta_dist_x;
 	}
 	if (ray->ray_dir_y < 0)
 	{
-		state->step_y = -1;
 		state->side_dist_y = ((player->y / game->config->block_size) - ray->map_y)
 			* state->delta_dist_y;
 	}
 	else
 	{
-		state->step_y = 1;
 		state->side_dist_y = (ray->map_y + 1.0 - (player->y
 					/ game->config->block_size)) * state->delta_dist_y;
 	}
