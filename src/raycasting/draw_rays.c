@@ -6,7 +6,7 @@
 /*   By: azerfaou <azerfaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 05:27:59 by macbook           #+#    #+#             */
-/*   Updated: 2025/03/30 17:43:44 by azerfaou         ###   ########.fr       */
+/*   Updated: 2025/03/30 18:39:38 by azerfaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,58 +92,55 @@ void	setup_dda(t_game *game, t_dda *dda, int x)
 {
 	t_point	*player;
 	int		s_width;
+
 	(void)player;
 	(void)s_width;
 	player = game->player_data;
 	s_width = game->config->s_width;
-
 	setup_ray(game, dda->ray, x);
 	// Length of ray from current position to next x or y-side
 	state_setup(game, dda->state, dda->ray);
 	dda->hit_result->hit = 0;
-	// dda->hit = 0;
 }
 
-void	perform_dda(t_game *game, t_dda *dda, t_dda_ray *ray, t_dda_state *state, t_hit_result *hit_result, t_drawing *draw)
+void	perform_dda(t_game *game, t_dda *dda)
 {
-	// Perform DDA
-	(void)dda;
-	while (hit_result->hit == 0)
+	while (dda->hit_result->hit == 0)
 	{
 		// Jump to next map square, either in x-direction, or in y-direction
-		if (state->side_dist_x < state->side_dist_y)
+		if (dda->state->side_dist_x < dda->state->side_dist_y)
 		{
-			state->side_dist_x += state->delta_dist_x;
-			ray->map_x += state->step_x;
-			hit_result->side = 0;
+			dda->state->side_dist_x += dda->state->delta_dist_x;
+			dda->ray->map_x += dda->state->step_x;
+			dda->hit_result->side = 0;
 		}
 		else
 		{
-			state->side_dist_y += state->delta_dist_y;
-			ray->map_y += state->step_y;
-			hit_result->side = 1;
+			dda->state->side_dist_y += dda->state->delta_dist_y;
+			dda->ray->map_y += dda->state->step_y;
+			dda->hit_result->side = 1;
 		}
 		// Check if ray has hit a wall
-		if (ray->map_x < 0 || ray->map_y < 0 || ray->map_x >= game->columns
-			|| ray->map_y >= game->rows)
-			hit_result->hit = 1;
-		else if (game->map[ray->map_y][ray->map_x] == '1')
-			hit_result->hit = 1;
+		if (dda->ray->map_x < 0 || dda->ray->map_y < 0 || dda->ray->map_x >= game->columns
+			|| dda->ray->map_y >= game->rows)
+			dda->hit_result->hit = 1;
+		else if (game->map[dda->ray->map_y][dda->ray->map_x] == '1')
+			dda->hit_result->hit = 1;
 	}
 	// Calculate distance projected on camera direction
-	if (hit_result->side == 0)
-		hit_result->perp_wall_dist = (state->side_dist_x - state->delta_dist_x);
+	if (dda->hit_result->side == 0)
+		dda->hit_result->perp_wall_dist = (dda->state->side_dist_x - dda->state->delta_dist_x);
 	else
-		hit_result->perp_wall_dist = (state->side_dist_y - state->delta_dist_y);
+		dda->hit_result->perp_wall_dist = (dda->state->side_dist_y - dda->state->delta_dist_y);
 	// Calculate height of line to draw on screen
-	draw->line_height = (int)(game->config->s_height / hit_result->perp_wall_dist);
+	dda->draw->line_height = (int)(game->config->s_height / dda->hit_result->perp_wall_dist);
 	// Calculate lowest and highest pixel to fill in current stripe
-	draw->draw_start = -draw->line_height / 2 + game->config->s_height / 2;
-	if (draw->draw_start < 0)
-		draw->draw_start = 0;
-	draw->draw_end = draw->line_height / 2 + game->config->s_height / 2;
-	if (draw->draw_end >= game->config->s_height)
-		draw->draw_end = game->config->s_height - 1;
+	dda->draw->draw_start = -dda->draw->line_height / 2 + game->config->s_height / 2;
+	if (dda->draw->draw_start < 0)
+		dda->draw->draw_start = 0;
+	dda->draw->draw_end = dda->draw->line_height / 2 + game->config->s_height / 2;
+	if (dda->draw->draw_end >= game->config->s_height)
+		dda->draw->draw_end = game->config->s_height - 1;
 }
 
 void	draw_floor_slice(t_game *game, int i, int start_y)
@@ -179,14 +176,10 @@ void	draw_ceiling_slice(t_game *game, int i, int ceiling_end)
 }
 
 
-void    draw_wall_slice(t_game *game, int ray_x, int start_y, int end,
-        t_dda *dda)
+void    draw_wall_slice(t_game *game, int ray_x, int start_y, int end, t_dda *dda)
 {
     mlx_texture_t   *tex;
     float           step;
-    float           tex_pos;
-    int             tex_y;
-    int             tex_x;
     uint32_t        color;
     int             y;
     double          wall_x;
@@ -194,7 +187,7 @@ void    draw_wall_slice(t_game *game, int ray_x, int start_y, int end,
     tex = game->texture_data->texture;
     step = 1.0 * tex->height / dda->draw->line_height;
     y = start_y;
-    tex_pos = (start_y - game->mlx->height / 2 + dda->draw->line_height / 2) * step;
+    dda->draw->tex_pos = (start_y - game->mlx->height / 2 + dda->draw->line_height / 2) * step;
     if (dda->hit_result->side == 0)
     {
         wall_x = game->player_data->y / game->config->block_size + dda->hit_result->perp_wall_dist
@@ -206,40 +199,29 @@ void    draw_wall_slice(t_game *game, int ray_x, int start_y, int end,
             * dda->ray->ray_dir_x;
     }
     wall_x = wall_x - floor(wall_x);
-    tex_x = (int)(wall_x * tex->width);
+    dda->draw->tex_x = (int)(wall_x * tex->width);
     
 	if ((dda->hit_result->side == 0 && dda->ray->ray_dir_x > 0) || (dda->hit_result->side == 1 && dda->ray->ray_dir_y < 0))
-			tex_x = tex->width - tex_x - 1;
-    tex_pos = 0;
-
-    (void)tex_x;
+			dda->draw->tex_x = tex->width - dda->draw->tex_x - 1;
+	// printf("Perp wall dist: %f\n", dda->hit_result->perp_wall_dist);
+	// if(dda->hit_result->perp_wall_dist > 0.7)
+	// {
+	// 	dda->draw->tex_pos = 0;
+	// }
+	dda->draw->tex_pos = 0;
+    // (void)dda->draw->tex_x;
     while (y < end)
     {
-        tex_y = (int)tex_pos % tex->height;
-        color = ((uint32_t *)tex->pixels)[tex_y * tex->width + tex_x];
+        dda->draw->tex_y = (int)dda->draw->tex_pos % tex->height;
+        color = ((uint32_t *)tex->pixels)[dda->draw->tex_y * tex->width + dda->draw->tex_x];
         mlx_put_pixel(game->player_data->player, ray_x, y, color);
-        tex_pos += step;
+        dda->draw->tex_pos += step;
         y++;
     }
 }
 
 void	draw_3d_ray(t_game *game, t_dda *dda, int ray_count, t_drawing *draw)
 {
-	(void)dda;
-	// double	dist;
-	// double	height;//TODO change the name
-	// int		start_y;
-	// int		end;
-	// int		block_size;
-	// int		s_height;
-	// s_height = game->config->s_height;
-	// block_size = game->config->block_size;
-	// dist = fixed_dist(ray_x, ray_y, game);
-	// height = (block_size * s_height) / (dist * tan(FOV / 2.0));
-	// if (height > s_height)
-	// 	height = s_height;
-	// start_y = (s_height - height) / 2;
-	// end = start_y + height;
 	draw_ceiling_slice(game, ray_count, draw->draw_start);
 	draw_wall_slice(game, ray_count, draw->draw_start, draw->draw_end, dda);
 	draw_floor_slice(game, ray_count, draw->draw_end);
@@ -256,7 +238,7 @@ void	draw_single_ray(t_game *game, t_point *player_data, float ray_angle,
 	(void)ray_count;
 	(void)player_data;
 	setup_dda(game, dda, ray_count);
-	perform_dda(game, dda, dda->ray, dda->state, dda->hit_result, dda->draw);
+	perform_dda(game, dda);
 	// double	cos_angle;
 	// double	sin_angle;
 	// double	ray_x;

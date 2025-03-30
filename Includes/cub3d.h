@@ -6,7 +6,7 @@
 /*   By: azerfaou <azerfaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 20:56:11 by azerfaou          #+#    #+#             */
-/*   Updated: 2025/03/30 17:37:33 by azerfaou         ###   ########.fr       */
+/*   Updated: 2025/03/30 18:10:18 by azerfaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ typedef struct s_game
 	mlx_t			*mlx;
 	int				columns;
 	int				rows;
-	int debug_view; // 1: 2D, 0: 3D
+	int				debug_view; // 1: 2D, 0: 3D
 	// char		map[12][12];
 	t_config		*config;
 	char			*map_file;
@@ -141,7 +141,7 @@ typedef struct s_hit_result
 	double			perp_wall_dist;
 	int				side;
 	int				hit;
-	double exact_hit_x; // ex wall_x
+	double			exact_hit_x; // ex wall_x
 }					t_hit_result;
 
 typedef struct s_drawing
@@ -153,7 +153,7 @@ typedef struct s_drawing
 	int				tex_y;
 	int				tex_height;
 	double			tex_pos;
-	double tex_step; // ex step
+	double			tex_step; // ex step
 }					t_drawing;
 
 typedef struct s_dda
@@ -162,32 +162,6 @@ typedef struct s_dda
 	t_dda_state		*state;
 	t_hit_result	*hit_result;
 	t_drawing		*draw;
-	// double		camera_x;
-	// double		ray_dir_x;
-	// double		ray_dir_y;
-	// int			map_x;
-	// int			map_y;
-
-	// int			step_x;
-	// int			step_y;
-	// double		side_dist_x;
-	// double		side_dist_y;
-	// double		delta_dist_x;
-	// double		delta_dist_y;
-
-	// double		perp_wall_dist;
-	// int			side;
-	// int			hit;
-	// double		wall_x;
-
-	// int			line_height;
-	// int			draw_start;
-	// int			draw_end;
-	// int			tex_x;
-	// double		tex_pos;
-	// double		step;
-	// int			tex_y;
-	// int			tex_height;
 }					t_dda;
 
 // FNC --BEGIN
