@@ -6,7 +6,7 @@
 /*   By: azerfaou <azerfaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 04:34:57 by macbook           #+#    #+#             */
-/*   Updated: 2025/03/11 16:01:55 by azerfaou         ###   ########.fr       */
+/*   Updated: 2025/03/30 19:57:23 by azerfaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,15 @@
 double	distance(float x, float y)
 {
 	return (sqrt(x * x + y * y));
+}
+
+/***
+ * fmod function is there just to avoid accumulating
+ * errors ex: x=10^-17 instead of 0
+ */
+int	ft_sign(double x)
+{
+	return ((x > 0) - (x < 0) + fmod(x, x));
 }
 
 double	fixed_dist(double ray_x, double ray_y, t_game *game)

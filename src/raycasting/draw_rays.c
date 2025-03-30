@@ -6,19 +6,18 @@
 /*   By: azerfaou <azerfaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 05:27:59 by macbook           #+#    #+#             */
-/*   Updated: 2025/03/30 18:39:38 by azerfaou         ###   ########.fr       */
+/*   Updated: 2025/03/30 19:57:06 by azerfaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../Includes/cub3d.h"
 
-/***
- * fmod function is there just to avoid accumulating errors ex: x=10^-17 instead of 0
- */
-int	sign(double x)
-{
-	return ((x > 0) - (x < 0) + fmod(x, x));
-}
+// double	ft_max(double a, double b)
+// {
+// 	if (a > b)
+// 		return (a);
+// 	return (b);
+// }
 
 void	setup_ray(t_game *game, t_dda_ray *ray, int x)
 {
@@ -28,7 +27,7 @@ void	setup_ray(t_game *game, t_dda_ray *ray, int x)
 	player = game->player_data;
 	s_width = game->config->s_width;
 	ray->camera_x = 2.0 * x / (double)s_width - 1.0;
-		// x-coordinate in camera space
+	// x-coordinate in camera space
 	ray->ray_dir_x = cos(player->angle) - sin(player->angle) * ray->camera_x;
 	ray->ray_dir_y = sin(player->angle) + cos(player->angle) * ray->camera_x;
 	// Map position
@@ -63,8 +62,8 @@ void	state_setup(t_game *game, t_dda_state *state, t_dda_ray *ray)
 	// state->delta_dist_y = (ray->ray_dir_y == 0) ? 1e30 : fabs(1.0 / ray->ray_dir_y);
 	init_delta_dists(state, ray);
 
-	state->step_x = sign(ray->ray_dir_x);
-	state->step_y = sign(ray->ray_dir_y);
+	state->step_x = ft_sign(ray->ray_dir_x);
+	state->step_y = ft_sign(ray->ray_dir_y);
 	// Calculate step and initial side_dist
 	if (ray->ray_dir_x < 0)
 	{
@@ -78,13 +77,13 @@ void	state_setup(t_game *game, t_dda_state *state, t_dda_ray *ray)
 	}
 	if (ray->ray_dir_y < 0)
 	{
-		state->side_dist_y = ((player->y / game->config->block_size) - ray->map_y)
-			* state->delta_dist_y;
+		state->side_dist_y
+			= ((player->y / game->config->block_size) - ray->map_y) * state->delta_dist_y;
 	}
 	else
 	{
-		state->side_dist_y = (ray->map_y + 1.0 - (player->y
-					/ game->config->block_size)) * state->delta_dist_y;
+		state->side_dist_y
+			= (ray->map_y + 1.0 - (player->y / game->config->block_size)) * state->delta_dist_y;
 	}
 }
 
@@ -181,25 +180,39 @@ void    draw_wall_slice(t_game *game, int ray_x, int start_y, int end, t_dda *dd
     mlx_texture_t   *tex;
     float           step;
     uint32_t        color;
-    int             y;
-    double          wall_x;
+    // int             y;
 
     tex = game->texture_data->texture;
     step = 1.0 * tex->height / dda->draw->line_height;
-    y = start_y;
-    dda->draw->tex_pos = (start_y - game->mlx->height / 2 + dda->draw->line_height / 2) * step;
+    // y = start_y;
+	// if (dda->hit_result->perp_wall_dist > 0.5)
+	// {
+	// 	dda->draw->tex_pos = (start_y - game->mlx->height / 2 + dda->draw->line_height / 2) * step - 72.0;
+	// 	printf("tex dist long dist: %f\n", dda->draw->tex_pos);
+	// }
+	// else
+	// {
+    // 	dda->draw->tex_pos = ft_max((start_y - game->mlx->height / 2 + dda->draw->line_height / 2) * step, 1e9);
+	// 	// dda->draw->tex_pos = (start_y - game->mlx->height / 2 + dda->draw->line_height / 2) * step;
+	// }
+	// dda->draw->tex_pos = ft_max((start_y - game->mlx->height / 2 + dda->draw->line_height / 2) * step, 1000.0);
+	dda->draw->tex_pos = (start_y - game->mlx->height / 2 + dda->draw->line_height / 2) * step;
+	
+	// printf("perp_wall_dist: %f\n", dda->hit_result->perp_wall_dist);
+	// printf("start_y: %d - step : %f, line_high : %d\n", start_y, step, dda->draw->line_height);
+	// printf("Tex pos: %f\n", dda->draw->tex_pos);
     if (dda->hit_result->side == 0)
     {
-        wall_x = game->player_data->y / game->config->block_size + dda->hit_result->perp_wall_dist
+        dda->hit_result->exact_hit_x = game->player_data->y / game->config->block_size + dda->hit_result->perp_wall_dist
             * dda->ray->ray_dir_y;
     }
     else
     {
-        wall_x = game->player_data->x / game->config->block_size + dda->hit_result->perp_wall_dist
+        dda->hit_result->exact_hit_x = game->player_data->x / game->config->block_size + dda->hit_result->perp_wall_dist
             * dda->ray->ray_dir_x;
     }
-    wall_x = wall_x - floor(wall_x);
-    dda->draw->tex_x = (int)(wall_x * tex->width);
+    dda->hit_result->exact_hit_x = dda->hit_result->exact_hit_x - floor(dda->hit_result->exact_hit_x);
+    dda->draw->tex_x = (int)(dda->hit_result->exact_hit_x * tex->width);
     
 	if ((dda->hit_result->side == 0 && dda->ray->ray_dir_x > 0) || (dda->hit_result->side == 1 && dda->ray->ray_dir_y < 0))
 			dda->draw->tex_x = tex->width - dda->draw->tex_x - 1;
@@ -208,15 +221,15 @@ void    draw_wall_slice(t_game *game, int ray_x, int start_y, int end, t_dda *dd
 	// {
 	// 	dda->draw->tex_pos = 0;
 	// }
-	dda->draw->tex_pos = 0;
+	// dda->draw->tex_pos = 0;
     // (void)dda->draw->tex_x;
-    while (y < end)
+    while (start_y < end)
     {
         dda->draw->tex_y = (int)dda->draw->tex_pos % tex->height;
         color = ((uint32_t *)tex->pixels)[dda->draw->tex_y * tex->width + dda->draw->tex_x];
-        mlx_put_pixel(game->player_data->player, ray_x, y, color);
+        mlx_put_pixel(game->player_data->player, ray_x, start_y, color);
         dda->draw->tex_pos += step;
-        y++;
+        start_y++;
     }
 }
 
@@ -230,7 +243,7 @@ void	draw_3d_ray(t_game *game, t_dda *dda, int ray_count, t_drawing *draw)
 void	draw_single_ray(t_game *game, t_point *player_data, float ray_angle,
 		float ray_count)
 {
-	t_dda	*dda; //should be declated as a pointer
+	t_dda	*dda;
 
 	dda = (t_dda *)ft_calloc(1, sizeof(t_dda));
 	init_dda(dda);
@@ -239,19 +252,6 @@ void	draw_single_ray(t_game *game, t_point *player_data, float ray_angle,
 	(void)player_data;
 	setup_dda(game, dda, ray_count);
 	perform_dda(game, dda);
-	// double	cos_angle;
-	// double	sin_angle;
-	// double	ray_x;
-	// double	ray_y;
-	// ray_x = player_data->x;
-	// ray_y = player_data->y;
-	// cos_angle = cos(ray_angle);
-	// sin_angle = sin(ray_angle);
-	// while (!check_wall(ray_x, ray_y, game))
-	// {
-	// 	ray_x = (cos_angle * 0.1) + ray_x;
-	// 	ray_y = (sin_angle * 0.1) + ray_y;
-	// }
 	draw_3d_ray(game, dda, ray_count, dda->draw);
 }
 
