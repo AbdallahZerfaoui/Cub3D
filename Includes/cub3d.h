@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: macbook <macbook@student.42.fr>            +#+  +:+       +#+        */
+/*   By: azerfaou <azerfaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 20:56:11 by azerfaou          #+#    #+#             */
-/*   Updated: 2025/03/31 03:24:11 by macbook          ###   ########.fr       */
+/*   Updated: 2025/03/31 20:22:04 by azerfaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@
 // # define BLOCK_SIZE 24
 // # define FOV 1.0472f
 # define FOV (4 * atan(1.0) / 3.0)
+# define PLAYER_SPEED 4
+# define ROTATION_SPEED 0.09f
 # define MAX_RAY_DISTANCE 1000000
 
 // Includes -- BEGIN
@@ -73,6 +75,10 @@ typedef struct s_textures
 	char			*floor_color;
 	char			*ceiling_color;
 	mlx_texture_t	*texture;
+	mlx_texture_t	*north_texture;
+	mlx_texture_t	*south_texture;
+	mlx_texture_t	*west_texture;
+	mlx_texture_t	*east_texture;
 }					t_textures;
 
 typedef struct s_color
@@ -205,6 +211,8 @@ void				draw_single_ray_debug(t_game *game, t_point *player_data,
 // rays_utils.c
 bool				check_wall(float px, float py, t_game *game);
 double				fixed_dist(double ray_x, double ray_y, t_game *game);
+int					ft_sign(double x);
+
 // MOVEMENT
 // key_handle.c
 void				handle_key_press(struct mlx_key_data keydata, t_game *game);

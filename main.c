@@ -6,7 +6,7 @@
 /*   By: azerfaou <azerfaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 05:20:16 by macbook           #+#    #+#             */
-/*   Updated: 2025/03/29 17:43:15 by azerfaou         ###   ########.fr       */
+/*   Updated: 2025/03/31 20:13:13 by azerfaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ void	ft_player_hook(void *param)
 	ray_count = 0;
 	while (ray_count < s_width)
 	{
+		// printf("Ray Count: %d\n", ray_count);
+		// printf("Ray Angle: %f\n", ray_angle);
 		if (!game->debug_view)
 			draw_single_ray_debug(game, game->player_data, ray_angle);
 		else

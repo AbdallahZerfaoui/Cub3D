@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_metadata.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: macbook <macbook@student.42.fr>            +#+  +:+       +#+        */
+/*   By: azerfaou <azerfaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 08:51:42 by macbook           #+#    #+#             */
-/*   Updated: 2025/03/30 05:27:25 by macbook          ###   ########.fr       */
+/*   Updated: 2025/03/31 20:26:59 by azerfaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,16 +58,26 @@ int	set_textures(t_textures *txtr, char **map_file)
 	i = 0;
 	while (!check_all_textures_set(txtr))
 	{
+		printf("EA path: %s\n", map_file[i]);
 		if (ft_strncmp(map_file[i], "NO ", 3) == 0 && !txtr->north_path)
+		{
 			txtr->north_path = ft_strtrim(map_file[i] + 3, " \n");
+			txtr->north_texture =  mlx_load_png("./texture/tito_N.png"); //TODO is it ok?
+		}
 		else if (ft_strncmp(map_file[i], "SO ", 3) == 0 && !txtr->south_path)
+		{
 			txtr->south_path = ft_strtrim(map_file[i] + 3, " \n");
+			txtr->south_texture =  mlx_load_png("./texture/tito_S.png"); //TODO is it ok?
+		}
 		else if (ft_strncmp(map_file[i], "WE ", 3) == 0 && !txtr->west_path)
+		{
 			txtr->west_path = ft_strtrim(map_file[i] + 3, " \n");
+			txtr->west_texture =  mlx_load_png("./texture/tito_W.png"); //TODO is it ok?
+		}
 		else if (ft_strncmp(map_file[i], "EA ", 3) == 0 && !txtr->east_path)
 		{
 			txtr->east_path = ft_strtrim(map_file[i] + 3, " \n");
-			txtr->texture =  mlx_load_png("./texture/south.png"); //TODO is it ok?
+			txtr->east_texture =  mlx_load_png("./texture/tito_E.png"); //TODO is it ok?
 		}
 		else if (ft_strncmp(map_file[i], "F ", 2) == 0 && !txtr->floor_color)
 			txtr->floor_color = ft_strtrim(map_file[i] + 2, " \n");

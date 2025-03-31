@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_rays.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: macbook <macbook@student.42.fr>            +#+  +:+       +#+        */
+/*   By: azerfaou <azerfaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 05:27:59 by macbook           #+#    #+#             */
-/*   Updated: 2025/03/31 03:34:45 by macbook          ###   ########.fr       */
+/*   Updated: 2025/03/31 20:49:57 by azerfaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -200,7 +200,45 @@ void	draw_wall_slice(t_game *game, int ray_x, int start_y, int end,
 	float			step;
 	uint32_t		color;
 
-	tex = game->texture_data->texture;
+	if (dda->hit_result->side == 0) // hit vertical wall
+	{
+		if (dda->ray->ray_dir_x > 0)
+			tex = game->texture_data->west_texture;
+		else
+			tex = game->texture_data->east_texture;
+	}
+	else
+	{
+		if (dda->ray->ray_dir_y > 0)
+			tex = game->texture_data->north_texture;
+		else
+			tex = game->texture_data->south_texture;
+	}
+
+	// if (!tex || !tex->pixels) // Check if texture is loaded and valid
+    // {
+    //      // Optional: Draw a solid error color instead of crashing or doing nothing
+    //      uint32_t error_color = ft_pixel(255, 0, 255, 255); // Magenta
+    //      while (start_y < end)
+    //      {
+    //          mlx_put_pixel(game->player_data->player, ray_x, start_y, error_color);
+    //          start_y++;
+    //      }
+    //     return; // Exit if texture is missing/invalid
+    // }
+
+// 	if (dda->hit_result->side == 0)
+// 	{
+// 		printf("ray->ray_dir_x: %f\n", dda->ray->ray_dir_x);
+// 		// if (dda->ray->ray_dir_x > 0)
+// 		// 	tex = game->texture_data->west_texture;
+// 		// else
+// 		// 	tex = game->texture_data->east_texture;
+// 		tex = game->texture_data->east_texture;
+// 	}
+// else
+// 	tex = game->texture_data->south_texture;
+	// tex = game->texture_data->texture;
 	step = 1.0 * tex->height / dda->draw->line_height;
 	dda->draw->tex_pos = (start_y - game->config->s_height / 2
 			+ dda->draw->line_height / 2) * step;
@@ -230,11 +268,11 @@ void	draw_wall_slice(t_game *game, int ray_x, int start_y, int end,
 	}
 }
 
-void	draw_3d_ray(t_game *game, t_dda *dda, int ray_count, t_drawing *draw)
+void	draw_3d_ray(t_game *game, t_dda *dda, int ray_count)
 {
-	draw_ceiling_slice(game, ray_count, draw->draw_start);
-	draw_wall_slice(game, ray_count, draw->draw_start, draw->draw_end, dda);
-	draw_floor_slice(game, ray_count, draw->draw_end);
+	draw_ceiling_slice(game, ray_count, dda->draw->draw_start);
+	draw_wall_slice(game, ray_count, dda->draw->draw_start, dda->draw->draw_end, dda);
+	draw_floor_slice(game, ray_count, dda->draw->draw_end);
 }
 
 void	draw_single_ray(t_game *game, t_point *player_data, float ray_angle,
@@ -249,7 +287,8 @@ void	draw_single_ray(t_game *game, t_point *player_data, float ray_angle,
 	(void)player_data;
 	setup_dda(game, dda, ray_count);
 	perform_dda(game, dda);
-	draw_3d_ray(game, dda, ray_count, dda->draw);
+	draw_3d_ray(game, dda, ray_count);
+	free(dda);
 }
 
 void	draw_single_ray_debug(t_game *game, t_point *player_data,
