@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: azerfaou <azerfaou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: macbook <macbook@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 20:56:11 by azerfaou          #+#    #+#             */
-/*   Updated: 2025/03/30 18:10:18 by azerfaou         ###   ########.fr       */
+/*   Updated: 2025/03/31 03:24:11 by macbook          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ typedef struct s_game
 	mlx_t			*mlx;
 	int				columns;
 	int				rows;
-	int				debug_view; // 1: 2D, 0: 3D
+	int debug_view; // 1: 2D, 0: 3D
 	// char		map[12][12];
 	t_config		*config;
 	char			*map_file;
@@ -141,7 +141,7 @@ typedef struct s_hit_result
 	double			perp_wall_dist;
 	int				side;
 	int				hit;
-	double			exact_hit_x; // ex wall_x
+	double exact_hit_x; // ex wall_x
 }					t_hit_result;
 
 typedef struct s_drawing
@@ -153,7 +153,7 @@ typedef struct s_drawing
 	int				tex_y;
 	int				tex_height;
 	double			tex_pos;
-	double			tex_step; // ex step
+	double tex_step; // ex step
 }					t_drawing;
 
 typedef struct s_dda
@@ -225,5 +225,5 @@ void				print_subarrays(char **map);
 // CONFIG
 int					calculate_block_size(int width, int height, int rows,
 						int columns);
-
+int					ft_sign(double x);
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_rays.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: azerfaou <azerfaou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: macbook <macbook@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 05:27:59 by macbook           #+#    #+#             */
-/*   Updated: 2025/03/30 19:57:06 by azerfaou         ###   ########.fr       */
+/*   Updated: 2025/03/31 03:34:45 by macbook          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	setup_ray(t_game *game, t_dda_ray *ray, int x)
 	ray->ray_dir_y = sin(player->angle) + cos(player->angle) * ray->camera_x;
 	// Map position
 	ray->map_x = (int)(player->x / game->config->block_size);
-	ray->map_y = (int)(player->y / game->config->block_size);	
+	ray->map_y = (int)(player->y / game->config->block_size);
 }
 
 void	init_delta_dists(t_dda_state *state, t_dda_ray *ray)
@@ -61,14 +61,13 @@ void	state_setup(t_game *game, t_dda_state *state, t_dda_ray *ray)
 	// state->delta_dist_x = (ray->ray_dir_x == 0) ? 1e30 : fabs(1.0 / ray->ray_dir_x);
 	// state->delta_dist_y = (ray->ray_dir_y == 0) ? 1e30 : fabs(1.0 / ray->ray_dir_y);
 	init_delta_dists(state, ray);
-
 	state->step_x = ft_sign(ray->ray_dir_x);
 	state->step_y = ft_sign(ray->ray_dir_y);
 	// Calculate step and initial side_dist
 	if (ray->ray_dir_x < 0)
 	{
-		state->side_dist_x = ((player->x / game->config->block_size) - ray->map_x)
-			* state->delta_dist_x;
+		state->side_dist_x = ((player->x / game->config->block_size)
+				- ray->map_x) * state->delta_dist_x;
 	}
 	else
 	{
@@ -77,13 +76,13 @@ void	state_setup(t_game *game, t_dda_state *state, t_dda_ray *ray)
 	}
 	if (ray->ray_dir_y < 0)
 	{
-		state->side_dist_y
-			= ((player->y / game->config->block_size) - ray->map_y) * state->delta_dist_y;
+		state->side_dist_y = ((player->y / game->config->block_size)
+				- ray->map_y) * state->delta_dist_y;
 	}
 	else
 	{
-		state->side_dist_y
-			= (ray->map_y + 1.0 - (player->y / game->config->block_size)) * state->delta_dist_y;
+		state->side_dist_y = (ray->map_y + 1.0 - (player->y
+					/ game->config->block_size)) * state->delta_dist_y;
 	}
 }
 
@@ -120,7 +119,8 @@ void	perform_dda(t_game *game, t_dda *dda)
 			dda->hit_result->side = 1;
 		}
 		// Check if ray has hit a wall
-		if (dda->ray->map_x < 0 || dda->ray->map_y < 0 || dda->ray->map_x >= game->columns
+		if (dda->ray->map_x < 0 || dda->ray->map_y < 0
+			|| dda->ray->map_x >= game->columns
 			|| dda->ray->map_y >= game->rows)
 			dda->hit_result->hit = 1;
 		else if (game->map[dda->ray->map_y][dda->ray->map_x] == '1')
@@ -128,16 +128,21 @@ void	perform_dda(t_game *game, t_dda *dda)
 	}
 	// Calculate distance projected on camera direction
 	if (dda->hit_result->side == 0)
-		dda->hit_result->perp_wall_dist = (dda->state->side_dist_x - dda->state->delta_dist_x);
+		dda->hit_result->perp_wall_dist = (dda->state->side_dist_x
+				- dda->state->delta_dist_x);
 	else
-		dda->hit_result->perp_wall_dist = (dda->state->side_dist_y - dda->state->delta_dist_y);
+		dda->hit_result->perp_wall_dist = (dda->state->side_dist_y
+				- dda->state->delta_dist_y);
 	// Calculate height of line to draw on screen
-	dda->draw->line_height = (int)(game->config->s_height / dda->hit_result->perp_wall_dist);
+	dda->draw->line_height = (int)(game->config->s_height
+			/ dda->hit_result->perp_wall_dist);
 	// Calculate lowest and highest pixel to fill in current stripe
-	dda->draw->draw_start = -dda->draw->line_height / 2 + game->config->s_height / 2;
+	dda->draw->draw_start = -dda->draw->line_height / 2 + game->config->s_height
+		/ 2;
 	if (dda->draw->draw_start < 0)
 		dda->draw->draw_start = 0;
-	dda->draw->draw_end = dda->draw->line_height / 2 + game->config->s_height / 2;
+	dda->draw->draw_end = dda->draw->line_height / 2 + game->config->s_height
+		/ 2;
 	if (dda->draw->draw_end >= game->config->s_height)
 		dda->draw->draw_end = game->config->s_height - 1;
 }
@@ -174,63 +179,55 @@ void	draw_ceiling_slice(t_game *game, int i, int ceiling_end)
 	}
 }
 
-
-void    draw_wall_slice(t_game *game, int ray_x, int start_y, int end, t_dda *dda)
+uint32_t	fix_color(uint32_t color)
 {
-    mlx_texture_t   *tex;
-    float           step;
-    uint32_t        color;
-    // int             y;
+	uint8_t	red;
+	uint8_t	green;
+	uint8_t	blue;
+	uint8_t	alpha;
 
-    tex = game->texture_data->texture;
-    step = 1.0 * tex->height / dda->draw->line_height;
-    // y = start_y;
-	// if (dda->hit_result->perp_wall_dist > 0.5)
-	// {
-	// 	dda->draw->tex_pos = (start_y - game->mlx->height / 2 + dda->draw->line_height / 2) * step - 72.0;
-	// 	printf("tex dist long dist: %f\n", dda->draw->tex_pos);
-	// }
-	// else
-	// {
-    // 	dda->draw->tex_pos = ft_max((start_y - game->mlx->height / 2 + dda->draw->line_height / 2) * step, 1e9);
-	// 	// dda->draw->tex_pos = (start_y - game->mlx->height / 2 + dda->draw->line_height / 2) * step;
-	// }
-	// dda->draw->tex_pos = ft_max((start_y - game->mlx->height / 2 + dda->draw->line_height / 2) * step, 1000.0);
-	dda->draw->tex_pos = (start_y - game->mlx->height / 2 + dda->draw->line_height / 2) * step;
-	
-	// printf("perp_wall_dist: %f\n", dda->hit_result->perp_wall_dist);
-	// printf("start_y: %d - step : %f, line_high : %d\n", start_y, step, dda->draw->line_height);
-	// printf("Tex pos: %f\n", dda->draw->tex_pos);
-    if (dda->hit_result->side == 0)
-    {
-        dda->hit_result->exact_hit_x = game->player_data->y / game->config->block_size + dda->hit_result->perp_wall_dist
-            * dda->ray->ray_dir_y;
-    }
-    else
-    {
-        dda->hit_result->exact_hit_x = game->player_data->x / game->config->block_size + dda->hit_result->perp_wall_dist
-            * dda->ray->ray_dir_x;
-    }
-    dda->hit_result->exact_hit_x = dda->hit_result->exact_hit_x - floor(dda->hit_result->exact_hit_x);
-    dda->draw->tex_x = (int)(dda->hit_result->exact_hit_x * tex->width);
-    
+	red = color & 0xFF;
+	green = (color >> 8) & 0xFF;
+	blue = (color >> 16) & 0xFF;
+	alpha = (color >> 24) & 0xFF;
+	return ((red << 24) | (green << 16) | (blue << 8) | alpha);
+}
+
+void	draw_wall_slice(t_game *game, int ray_x, int start_y, int end,
+		t_dda *dda)
+{
+	mlx_texture_t	*tex;
+	float			step;
+	uint32_t		color;
+
+	tex = game->texture_data->texture;
+	step = 1.0 * tex->height / dda->draw->line_height;
+	dda->draw->tex_pos = (start_y - game->config->s_height / 2
+			+ dda->draw->line_height / 2) * step;
+	if (dda->hit_result->side == 0)
+	{
+		dda->hit_result->exact_hit_x = game->player_data->y
+			/ game->config->block_size + dda->hit_result->perp_wall_dist
+			* dda->ray->ray_dir_y;
+	}
+	else
+	{
+		dda->hit_result->exact_hit_x = game->player_data->x
+			/ game->config->block_size + dda->hit_result->perp_wall_dist
+			* dda->ray->ray_dir_x;
+	}
+	dda->hit_result->exact_hit_x = dda->hit_result->exact_hit_x - floor(dda->hit_result->exact_hit_x);
+	dda->draw->tex_x = (int)(dda->hit_result->exact_hit_x * tex->width);
 	if ((dda->hit_result->side == 0 && dda->ray->ray_dir_x > 0) || (dda->hit_result->side == 1 && dda->ray->ray_dir_y < 0))
-			dda->draw->tex_x = tex->width - dda->draw->tex_x - 1;
-	// printf("Perp wall dist: %f\n", dda->hit_result->perp_wall_dist);
-	// if(dda->hit_result->perp_wall_dist > 0.7)
-	// {
-	// 	dda->draw->tex_pos = 0;
-	// }
-	// dda->draw->tex_pos = 0;
-    // (void)dda->draw->tex_x;
-    while (start_y < end)
-    {
-        dda->draw->tex_y = (int)dda->draw->tex_pos % tex->height;
-        color = ((uint32_t *)tex->pixels)[dda->draw->tex_y * tex->width + dda->draw->tex_x];
-        mlx_put_pixel(game->player_data->player, ray_x, start_y, color);
-        dda->draw->tex_pos += step;
-        start_y++;
-    }
+		dda->draw->tex_x = tex->width - dda->draw->tex_x - 1;
+	while (start_y < end)
+	{
+		dda->draw->tex_y = (int)dda->draw->tex_pos % tex->height;
+		color = fix_color(((uint32_t *)tex->pixels)[dda->draw->tex_y * tex->width + dda->draw->tex_x]);
+		mlx_put_pixel(game->player_data->player, ray_x, start_y, color);
+		dda->draw->tex_pos += step;
+		start_y++;
+	}
 }
 
 void	draw_3d_ray(t_game *game, t_dda *dda, int ray_count, t_drawing *draw)
