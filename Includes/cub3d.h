@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: macbook <macbook@student.42.fr>            +#+  +:+       +#+        */
+/*   By: auplisas <auplisas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 20:56:11 by azerfaou          #+#    #+#             */
-/*   Updated: 2025/03/31 03:24:11 by macbook          ###   ########.fr       */
+/*   Updated: 2025/03/31 20:31:26 by auplisas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,10 +149,10 @@ typedef struct s_drawing
 	int				line_height;
 	int				draw_start;
 	int				draw_end;
-	int				tex_x;
+	int				texture_horizontal_pos;
 	int				tex_y;
 	int				tex_height;
-	double			tex_pos;
+	double			texture_vertical_pos;
 	double tex_step; // ex step
 }					t_drawing;
 
@@ -205,6 +205,9 @@ void				draw_single_ray_debug(t_game *game, t_point *player_data,
 // rays_utils.c
 bool				check_wall(float px, float py, t_game *game);
 double				fixed_dist(double ray_x, double ray_y, t_game *game);
+// texture_placement.c
+void	draw_wall_slice(t_game *game, int start_ray_x, int start_y, int end,
+	t_dda *dda);
 // MOVEMENT
 // key_handle.c
 void				handle_key_press(struct mlx_key_data keydata, t_game *game);

@@ -22,7 +22,7 @@ SRC_PARSING := $(addprefix parsing/, $(SRC_PARSING_FILES))
 SRC_INIT_FILES := initialize.c initialize_utils.c
 SRC_INIT := $(addprefix initialize/, $(SRC_INIT_FILES))
 
-SRC_RAYCASTING_FILES := draw_rays.c rays_utils.c
+SRC_RAYCASTING_FILES := draw_rays.c rays_utils.c texture_placement.c
 SRC_RAYCASTING := $(addprefix raycasting/, $(SRC_RAYCASTING_FILES))
 
 SRC_MOVEMENT_FILES := key_handle.c move.c

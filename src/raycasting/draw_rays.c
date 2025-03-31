@@ -3,21 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   draw_rays.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: macbook <macbook@student.42.fr>            +#+  +:+       +#+        */
+/*   By: auplisas <auplisas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 05:27:59 by macbook           #+#    #+#             */
-/*   Updated: 2025/03/31 03:34:45 by macbook          ###   ########.fr       */
+/*   Updated: 2025/03/31 20:30:41 by auplisas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../Includes/cub3d.h"
 
-// double	ft_max(double a, double b)
-// {
-// 	if (a > b)
-// 		return (a);
-// 	return (b);
-// }
 
 void	setup_ray(t_game *game, t_dda_ray *ray, int x)
 {
@@ -27,10 +21,8 @@ void	setup_ray(t_game *game, t_dda_ray *ray, int x)
 	player = game->player_data;
 	s_width = game->config->s_width;
 	ray->camera_x = 2.0 * x / (double)s_width - 1.0;
-	// x-coordinate in camera space
 	ray->ray_dir_x = cos(player->angle) - sin(player->angle) * ray->camera_x;
 	ray->ray_dir_y = sin(player->angle) + cos(player->angle) * ray->camera_x;
-	// Map position
 	ray->map_x = (int)(player->x / game->config->block_size);
 	ray->map_y = (int)(player->y / game->config->block_size);
 }
@@ -57,9 +49,6 @@ void	state_setup(t_game *game, t_dda_state *state, t_dda_ray *ray)
 	player = game->player_data;
 	s_width = game->config->s_width;
 	(void)s_width;
-	// Length of ray from current position to next x or y-side
-	// state->delta_dist_x = (ray->ray_dir_x == 0) ? 1e30 : fabs(1.0 / ray->ray_dir_x);
-	// state->delta_dist_y = (ray->ray_dir_y == 0) ? 1e30 : fabs(1.0 / ray->ray_dir_y);
 	init_delta_dists(state, ray);
 	state->step_x = ft_sign(ray->ray_dir_x);
 	state->step_y = ft_sign(ray->ray_dir_y);
@@ -176,57 +165,6 @@ void	draw_ceiling_slice(t_game *game, int i, int ceiling_end)
 	{
 		mlx_put_pixel(game->player_data->player, i, j, color);
 		j++;
-	}
-}
-
-uint32_t	fix_color(uint32_t color)
-{
-	uint8_t	red;
-	uint8_t	green;
-	uint8_t	blue;
-	uint8_t	alpha;
-
-	red = color & 0xFF;
-	green = (color >> 8) & 0xFF;
-	blue = (color >> 16) & 0xFF;
-	alpha = (color >> 24) & 0xFF;
-	return ((red << 24) | (green << 16) | (blue << 8) | alpha);
-}
-
-void	draw_wall_slice(t_game *game, int ray_x, int start_y, int end,
-		t_dda *dda)
-{
-	mlx_texture_t	*tex;
-	float			step;
-	uint32_t		color;
-
-	tex = game->texture_data->texture;
-	step = 1.0 * tex->height / dda->draw->line_height;
-	dda->draw->tex_pos = (start_y - game->config->s_height / 2
-			+ dda->draw->line_height / 2) * step;
-	if (dda->hit_result->side == 0)
-	{
-		dda->hit_result->exact_hit_x = game->player_data->y
-			/ game->config->block_size + dda->hit_result->perp_wall_dist
-			* dda->ray->ray_dir_y;
-	}
-	else
-	{
-		dda->hit_result->exact_hit_x = game->player_data->x
-			/ game->config->block_size + dda->hit_result->perp_wall_dist
-			* dda->ray->ray_dir_x;
-	}
-	dda->hit_result->exact_hit_x = dda->hit_result->exact_hit_x - floor(dda->hit_result->exact_hit_x);
-	dda->draw->tex_x = (int)(dda->hit_result->exact_hit_x * tex->width);
-	if ((dda->hit_result->side == 0 && dda->ray->ray_dir_x > 0) || (dda->hit_result->side == 1 && dda->ray->ray_dir_y < 0))
-		dda->draw->tex_x = tex->width - dda->draw->tex_x - 1;
-	while (start_y < end)
-	{
-		dda->draw->tex_y = (int)dda->draw->tex_pos % tex->height;
-		color = fix_color(((uint32_t *)tex->pixels)[dda->draw->tex_y * tex->width + dda->draw->tex_x]);
-		mlx_put_pixel(game->player_data->player, ray_x, start_y, color);
-		dda->draw->tex_pos += step;
-		start_y++;
 	}
 }
 
