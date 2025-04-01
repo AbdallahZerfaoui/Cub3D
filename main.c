@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: azerfaou <azerfaou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: auplisas <auplisas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 05:20:16 by macbook           #+#    #+#             */
-/*   Updated: 2025/03/31 20:13:13 by azerfaou         ###   ########.fr       */
+/*   Updated: 2025/04/01 22:53:14 by auplisas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,18 @@ void	print_subarrays(char **map)
 		printf("\n");
 		i++;
 	}
+}
+
+int	is_valid_cub_file(char *filename)
+{
+	int	len = ft_strlen(filename);
+
+	if (len < 4 || ft_strncmp(filename + len - 4, ".cub", 4) != 0)
+	{
+		printf("Error: Map file must have a .cub extension\n");
+		return (1);
+	}
+	return (0);
 }
 
 void	ft_player_hook(void *param)
@@ -101,6 +113,8 @@ int	main(int argc, char **argv)
 
 	if (argc != 2)
 		return (handle_input_errors());
+	else if(is_valid_cub_file(argv[1]))
+		return (1);
 	else
 		map_file = ft_strdup(argv[1]);
 	// atexit(leaks);
