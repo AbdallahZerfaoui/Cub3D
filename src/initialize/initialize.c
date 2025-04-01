@@ -6,7 +6,7 @@
 /*   By: auplisas <auplisas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2025/04/01 23:29:52 by auplisas         ###   ########.fr       */
+/*   Updated: 2025/04/01 23:31:37 by auplisas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ void	place_elements_on_map(t_game *game, int y, int x)
 		if (!game->debug_view)
 			mlx_image_to_window(game->mlx, game->background, x * block_size, y
 				* block_size);
-		game->player_data->x = block_size * x;
-		game->player_data->y = block_size * y;
+		game->player_data->x = block_size * x + (block_size / 2);
+		game->player_data->y = block_size * y + (block_size / 2);
 	}
 }
 
