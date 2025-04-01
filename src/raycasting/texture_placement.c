@@ -6,7 +6,7 @@
 /*   By: auplisas <auplisas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/31 18:55:44 by auplisas          #+#    #+#             */
-/*   Updated: 2025/03/31 20:31:34 by auplisas         ###   ########.fr       */
+/*   Updated: 2025/04/01 19:32:06 by auplisas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,28 +44,45 @@ void	calculate_ray_x_hit(t_game *game, t_dda *dda)
 		- floor(dda->hit_result->exact_hit_x);
 }
 
-void	draw_wall_slice(t_game *game, int start_ray_x, int start_y, int end,
-		t_dda *dda)
+void	draw_wall_slice(t_game *game, int ray_x, t_dda *dda)
 {
 	mlx_texture_t	*tex;
 	float			step;
 	uint32_t		color;
+	int				y;
 
-	tex = game->texture_data->texture;
+	y = dda->draw->draw_start;
+	if (dda->hit_result->side == 0)
+	{
+		if (dda->ray->ray_dir_x > 0)
+			tex = game->texture_data->west_texture;
+		else
+			tex = game->texture_data->east_texture;
+	}
+	else
+	{
+		if (dda->ray->ray_dir_y > 0)
+			tex = game->texture_data->north_texture;
+		else
+			tex = game->texture_data->south_texture;
+	}
 	step = 1.0 * tex->height / dda->draw->line_height;
-	dda->draw->texture_vertical_pos = (start_y - game->config->s_height / 2
+	dda->draw->texture_vertical_pos = (y - game->config->s_height / 2
 			+ dda->draw->line_height / 2) * step;
 	calculate_ray_x_hit(game, dda);
-	dda->draw->texture_horizontal_pos = (int)(dda->hit_result->exact_hit_x * tex->width);
-	if ((dda->hit_result->side == 0 && dda->ray->ray_dir_x < 0) || (dda->hit_result->side == 1 && dda->ray->ray_dir_y > 0))
-		dda->draw->texture_horizontal_pos = tex->width - dda->draw->texture_horizontal_pos - 1;
-	while (start_y < end)
+	dda->draw->texture_horizontal_pos = (int)(dda->hit_result->exact_hit_x
+			* tex->width);
+	if ((dda->hit_result->side == 0 && dda->ray->ray_dir_x < 0)
+		|| (dda->hit_result->side == 1 && dda->ray->ray_dir_y > 0))
+		dda->draw->texture_horizontal_pos = tex->width
+			- dda->draw->texture_horizontal_pos - 1;
+	while (y < dda->draw->draw_end)
 	{
 		dda->draw->tex_y = (int)dda->draw->texture_vertical_pos % tex->height;
 		color = fix_color(((uint32_t *)tex->pixels)[dda->draw->tex_y
 				* tex->width + dda->draw->texture_horizontal_pos]);
-		mlx_put_pixel(game->player_data->player, start_ray_x, start_y, color);
+		mlx_put_pixel(game->player_data->player, ray_x, y, color);
 		dda->draw->texture_vertical_pos += step;
-		start_y++;
+		y++;
 	}
 }

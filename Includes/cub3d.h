@@ -6,10 +6,9 @@
 /*   By: auplisas <auplisas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2025/04/01 18:25:56 by auplisas         ###   ########.fr       */
+/*   Updated: 2025/04/01 19:28:00 by auplisas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #ifndef CUB3D_H
 # define CUB3D_H
@@ -213,9 +212,9 @@ void				draw_single_ray_debug(t_game *game, t_point *player_data,
 bool				check_wall(float px, float py, t_game *game);
 double				fixed_dist(double ray_x, double ray_y, t_game *game);
 // texture_placement.c
-void	draw_wall_slice(t_game *game, int start_ray_x, int start_y, int end,
-	t_dda *dda);
+void				draw_wall_slice(t_game *game, int ray_x, t_dda *dda);
 int					ft_sign(double x);
+uint32_t			fix_color(uint32_t color);
 
 // MOVEMENT
 // key_handle.c

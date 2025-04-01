@@ -6,7 +6,7 @@
 /*   By: auplisas <auplisas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2025/04/01 18:25:00 by auplisas         ###   ########.fr       */
+/*   Updated: 2025/04/01 19:28:03 by auplisas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,99 +169,10 @@ void	draw_ceiling_slice(t_game *game, int i, int ceiling_end)
 	}
 }
 
-uint32_t	fix_color(uint32_t color)
-{
-	uint8_t	red;
-	uint8_t	green;
-	uint8_t	blue;
-	uint8_t	alpha;
-
-	red = color & 0xFF;
-	green = (color >> 8) & 0xFF;
-	blue = (color >> 16) & 0xFF;
-	alpha = (color >> 24) & 0xFF;
-	return ((red << 24) | (green << 16) | (blue << 8) | alpha);
-}
-
-void	draw_wall_slice(t_game *game, int ray_x, int start_y, int end,
-		t_dda *dda)
-{
-	mlx_texture_t	*tex;
-	float			step;
-	uint32_t		color;
-
-	if (dda->hit_result->side == 0) // hit vertical wall
-	{
-		if (dda->ray->ray_dir_x > 0)
-			tex = game->texture_data->west_texture;
-		else
-			tex = game->texture_data->east_texture;
-	}
-	else
-	{
-		if (dda->ray->ray_dir_y > 0)
-			tex = game->texture_data->north_texture;
-		else
-			tex = game->texture_data->south_texture;
-	}
-
-	// if (!tex || !tex->pixels) // Check if texture is loaded and valid
-    // {
-    //      // Optional: Draw a solid error color instead of crashing or doing nothing
-    //      uint32_t error_color = ft_pixel(255, 0, 255, 255); // Magenta
-    //      while (start_y < end)
-    //      {
-    //          mlx_put_pixel(game->player_data->player, ray_x, start_y, error_color);
-    //          start_y++;
-    //      }
-    //     return; // Exit if texture is missing/invalid
-    // }
-
-// 	if (dda->hit_result->side == 0)
-// 	{
-// 		printf("ray->ray_dir_x: %f\n", dda->ray->ray_dir_x);
-// 		// if (dda->ray->ray_dir_x > 0)
-// 		// 	tex = game->texture_data->west_texture;
-// 		// else
-// 		// 	tex = game->texture_data->east_texture;
-// 		tex = game->texture_data->east_texture;
-// 	}
-// else
-// 	tex = game->texture_data->south_texture;
-	// tex = game->texture_data->texture;
-	step = 1.0 * tex->height / dda->draw->line_height;
-	dda->draw->tex_pos = (start_y - game->config->s_height / 2
-			+ dda->draw->line_height / 2) * step;
-	if (dda->hit_result->side == 0)
-	{
-		dda->hit_result->exact_hit_x = game->player_data->y
-			/ game->config->block_size + dda->hit_result->perp_wall_dist
-			* dda->ray->ray_dir_y;
-	}
-	else
-	{
-		dda->hit_result->exact_hit_x = game->player_data->x
-			/ game->config->block_size + dda->hit_result->perp_wall_dist
-			* dda->ray->ray_dir_x;
-	}
-	dda->hit_result->exact_hit_x = dda->hit_result->exact_hit_x - floor(dda->hit_result->exact_hit_x);
-	dda->draw->tex_x = (int)(dda->hit_result->exact_hit_x * tex->width);
-	if ((dda->hit_result->side == 0 && dda->ray->ray_dir_x > 0) || (dda->hit_result->side == 1 && dda->ray->ray_dir_y < 0))
-		dda->draw->tex_x = tex->width - dda->draw->tex_x - 1;
-	while (start_y < end)
-	{
-		dda->draw->tex_y = (int)dda->draw->tex_pos % tex->height;
-		color = fix_color(((uint32_t *)tex->pixels)[dda->draw->tex_y * tex->width + dda->draw->tex_x]);
-		mlx_put_pixel(game->player_data->player, ray_x, start_y, color);
-		dda->draw->tex_pos += step;
-		start_y++;
-	}
-}
-
 void	draw_3d_ray(t_game *game, t_dda *dda, int ray_count)
 {
 	draw_ceiling_slice(game, ray_count, dda->draw->draw_start);
-	draw_wall_slice(game, ray_count, dda->draw->draw_start, dda->draw->draw_end, dda);
+	draw_wall_slice(game, ray_count, dda);
 	draw_floor_slice(game, ray_count, dda->draw->draw_end);
 }
 
@@ -292,7 +203,7 @@ void	draw_single_ray_debug(t_game *game, t_point *player_data,
 
 	ray_x = player_data->x;
 	ray_y = player_data->y;
-	color = (uint32_t)ft_pixel(128, 128, 128, 255); // grey
+	color = (uint32_t)ft_pixel(128, 128, 128, 255);
 	cos_angle = cos(ray_angle);
 	sin_angle = sin(ray_angle);
 	while (!check_wall(ray_x, ray_y, game))
