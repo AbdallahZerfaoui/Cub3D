@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_rays.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: auplisas <auplisas@student.42.fr>          +#+  +:+       +#+        */
+/*   By: azerfaou <azerfaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2025/04/01 23:26:04 by auplisas         ###   ########.fr       */
+/*   Updated: 2025/04/02 00:05:49 by azerfaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -186,7 +186,7 @@ void	draw_3d_ray(t_game *game, t_dda *dda, int ray_count)
 }
 
 void	draw_single_ray(t_game *game, t_point *player_data, float ray_angle,
-		float ray_count)
+		int ray_count)
 {
 	t_dda	*dda;
 

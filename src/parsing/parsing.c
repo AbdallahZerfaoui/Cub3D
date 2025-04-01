@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: auplisas <auplisas@student.42.fr>          +#+  +:+       +#+        */
+/*   By: azerfaou <azerfaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 05:12:41 by macbook           #+#    #+#             */
-/*   Updated: 2025/04/01 22:41:24 by auplisas         ###   ########.fr       */
+/*   Updated: 2025/04/02 00:21:52 by azerfaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,11 +57,11 @@ void	count_rows_columns(t_game *game, char **map)
 
 char	**create_only_map(t_textures *texture_data, char **map_file)
 {
-	int		start_index;
+	unsigned long		start_index;
 	char	**new_map;
-	int		i;
-	int		j;
-	int		map_length;
+	unsigned long		i;
+	unsigned long		j;
+	unsigned long		map_length;
 
 	i = 0;
 	j = 0;

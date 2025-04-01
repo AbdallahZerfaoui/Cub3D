@@ -1,10 +1,14 @@
+#Folders
 .DS_Store
 DS_Store
 .vscode
 vscode
 _obj/
+
+#Files
 *.o
 *.out
 *.exe
 *.obj
 *.txt
+_*

@@ -3,28 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: auplisas <auplisas@student.42.fr>          +#+  +:+       +#+        */
+/*   By: azerfaou <azerfaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2025/04/01 23:18:43 by auplisas         ###   ########.fr       */
+/*   Updated: 2025/04/02 00:04:53 by azerfaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
 
-// # define WIDTH 2560
-// # define HEIGHT 1440
 # define TMP_VALUE 666
 # define ROW_COLUMN_COUNT 12
 # define INIT_DEBUG_VIEW 1
-// # define BLOCK_SIZE 43 // Because WIDTH / ROW_COLUMN_COUNT (516 / 12)
-// # define PI 3.14159265359
-// # define PI (acos(1.0) / 4.0)
 # define ANGLE_OF_VIEW 60
-// # define DEBUG 1
-// # define BLOCK_SIZE 24
-// # define FOV 1.0472f
 # define FOV (4 * atan(1.0) / 3.0)
 # define PLAYER_SPEED 4
 # define ROTATION_SPEED 0.09f
@@ -41,12 +33,8 @@
 # include <stdlib.h>
 # include <string.h>
 # include <unistd.h>
-// # include <CoreGraphics/CoreGraphics.h>
 
 // Includes -- END
-
-// extern const double	PI;
-// const double g_PI = acos(1.0) / 4.0;
 
 typedef struct s_point
 {
@@ -101,7 +89,7 @@ typedef struct s_game
 	mlx_t			*mlx;
 	int				columns;
 	int				rows;
-	int debug_view; // 1: 2D, 0: 3D
+	int				debug_view; // 1: 2D, 0: 3D
 	// char		map[12][12];
 	t_config		*config;
 	char			*map_file;
@@ -114,13 +102,6 @@ typedef struct s_game
 	mlx_image_t		*background;
 	mlx_image_t		*wall;
 }					t_game;
-
-// typedef struct s_config
-// {
-// 	int			s_width;
-// 	int			s_height;
-// 	int			block_size;
-// }				t_config;
 
 typedef struct s_dda_ray
 {
@@ -147,7 +128,7 @@ typedef struct s_hit_result
 	double			perp_wall_dist;
 	int				side;
 	int				hit;
-	double exact_hit_x; // ex wall_x
+	double			exact_hit_x; // ex wall_x
 }					t_hit_result;
 
 typedef struct s_drawing
@@ -159,7 +140,7 @@ typedef struct s_drawing
 	int				tex_y;
 	int				tex_height;
 	double			texture_vertical_pos;
-	double tex_step; // ex step
+	double			tex_step; // ex step
 }					t_drawing;
 
 typedef struct s_dda
@@ -205,7 +186,7 @@ void				fill_image_pixels(t_game *game, mlx_image_t *image,
 // RAYCASTING
 // draw_rays.c
 void				draw_single_ray(t_game *game, t_point *player_data,
-						float ray_angle, float ray_count);
+						float ray_angle, int ray_count);
 void				draw_single_ray_debug(t_game *game, t_point *player_data,
 						float ray_angle);
 // rays_utils.c

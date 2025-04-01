@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: auplisas <auplisas@student.42.fr>          +#+  +:+       +#+        */
+/*   By: azerfaou <azerfaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 05:20:16 by macbook           #+#    #+#             */
-/*   Updated: 2025/04/01 22:53:14 by auplisas         ###   ########.fr       */
+/*   Updated: 2025/04/02 00:07:03 by azerfaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	print_subarrays(char **map)
 
 int	is_valid_cub_file(char *filename)
 {
-	int	len = ft_strlen(filename);
+	size_t	len = ft_strlen(filename);
 
 	if (len < 4 || ft_strncmp(filename + len - 4, ".cub", 4) != 0)
 	{
@@ -47,13 +47,13 @@ int	is_valid_cub_file(char *filename)
 void	ft_player_hook(void *param)
 {
 	t_game	*game;
-	double	angle_to_add;
-	double	ray_angle;
+	float	angle_to_add;
+	float	ray_angle;
 	int		ray_count;
-	double	pi_value;
+	float	pi_value;
 	int		s_width;
 
-	pi_value = atan(1.0) * 4.0;
+	pi_value = (float)(atan(1.0) * 4.0);
 	game = (t_game *)param;
 	s_width = game->config->s_width;
 	handle_movement(game, game->player_data);
@@ -65,8 +65,6 @@ void	ft_player_hook(void *param)
 	ray_count = 0;
 	while (ray_count < s_width)
 	{
-		// printf("Ray Count: %d\n", ray_count);
-		// printf("Ray Angle: %f\n", ray_angle);
 		if (!game->debug_view)
 			draw_single_ray_debug(game, game->player_data, ray_angle);
 		else
@@ -91,13 +89,6 @@ void	leaks(void)
 {
 	system("leaks cub3D");
 }
-
-// printf("North: %s\n", game->texture_data->north_path);
-// printf("South: %s\n", game->texture_data->south_path);
-// printf("West: %s\n", game->texture_data->west_path);
-// printf("East: %s\n", game->texture_data->east_path);
-// printf("Floor: %s\n", game->texture_data->floor_color);
-// printf("Ceiling: %s\n", game->texture_data->ceiling_color);
 
 int	handle_input_errors(void)
 {

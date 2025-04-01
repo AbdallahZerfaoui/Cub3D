@@ -6,7 +6,7 @@
 /*   By: azerfaou <azerfaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 08:57:50 by macbook           #+#    #+#             */
-/*   Updated: 2025/03/07 14:43:20 by azerfaou         ###   ########.fr       */
+/*   Updated: 2025/04/02 00:22:19 by azerfaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,10 @@
 
 bool	neighbor_is_walled(char **map, int i, int j)
 {
-
 	int	row_length;
 	int	row_count;
 
-	row_length = find_longest_length(map);
+	row_length = (int)find_longest_length(map);
 	row_count = find_map_row_count(map);
 	if ((i == 0 || i == row_count - 1) && (map[i][j] == '0'
 		|| is_player_char(map[i][j])))
@@ -56,9 +55,7 @@ bool	check_surrounded_by_walls(char **map)
 		while (map[i][j])
 		{
 			if (!neighbor_is_walled(map, i, j))
-			{
 				return (false);
-			}
 			j++;
 		}
 		i++;
@@ -124,7 +121,7 @@ char	*create_cleaned_new_row(char **map, int index, int row_length)
 
 char	**create_cleaned_map(char **map)
 {
-	int		longest_length;
+	size_t		longest_length;
 	int		map_row_count;
 	char	**new_map;
 	int		i;
@@ -141,7 +138,7 @@ char	**create_cleaned_map(char **map)
 		return (NULL);
 	while (i < map_row_count)
 	{
-		new_map[j] = create_cleaned_new_row(map, i, longest_length);
+		new_map[j] = create_cleaned_new_row(map, i, (int)longest_length);
 		printf("%s\n", new_map[j]);
 		j++;
 		i++;

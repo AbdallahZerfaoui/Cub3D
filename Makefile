@@ -28,18 +28,46 @@ SRC_RAYCASTING := $(addprefix raycasting/, $(SRC_RAYCASTING_FILES))
 SRC_MOVEMENT_FILES := key_handle.c move.c
 SRC_MOVEMENT := $(addprefix movement/, $(SRC_MOVEMENT_FILES))
 
-SRC := 
+SRC := # Add any root src files here if needed, e.g., utils.c
 SRCS := $(MAIN_FILE) $(addprefix src/, $(SRC) $(SRC_PARSING) $(SRC_INIT) $(SRC_RAYCASTING) $(SRC_MOVEMENT) $(SRC_FREE))
 
 OBJS := $(addprefix $(OBJ_DIR)/, $(SRCS:%.c=%.o))
 
-# CFLAGS := -Wall -Werror -Wextra -Wconversion -Wsign-conversion -g -MMD -MP $(addprefix -I, $(INC_DIRS))
-CFLAGS := -Wall -Werror -Wextra $(addprefix -I, $(INC_DIRS))
-USER = $(shell whoami)
-MLXFLAGS := -framework Cocoa -framework OpenGL -framework IOKit -Iinclude -lglfw -L"/Users/$(USER)/.brew/opt/glfw/lib/"
-CFLAGS_SAN := $(CFLAGS) -fsanitize=address
-LDFLAGS := -lncurses
-LDFLAGS_SAN := -lncurses -fsanitize=address
+# Base CFLAGS - Add -MMD -MP for dependency generation
+BASE_CFLAGS := -Wall -Werror -Wextra -g -MMD -MP $(addprefix -I, $(INC_DIRS))
+CFLAGS := $(BASE_CFLAGS)
+
+# Base LDFLAGS
+BASE_LDFLAGS := -lncurses # Keep if ncurses is actually used, otherwise remove
+
+# --- OS Detection ---
+UNAME_S := $(shell uname -s)
+
+ifeq ($(UNAME_S), Darwin) # macOS
+	MLX_LIB_PATH := ./MLX42/build/libmlx42.a
+	# Assuming glfw installed via Homebrew and findable by linker, or MLX42 handles it.
+	# If linker fails to find glfw, you might need: -L/path/to/glfw/lib
+	MLXFLAGS := -framework Cocoa -framework OpenGL -framework IOKit -lglfw
+	# Add MLX lib path and lib itself
+	LDFLAGS := $(BASE_LDFLAGS) -L./MLX42/build -lmlx42 $(MLXFLAGS)
+	LDFLAGS_SAN := $(LDFLAGS) -fsanitize=address
+	CFLAGS_SAN := $(BASE_CFLAGS) -fsanitize=address
+# @echo "Detected macOS (Darwin). Using specific frameworks."
+else ifeq ($(UNAME_S), Linux) # Linux
+	MLX_LIB_PATH := ./MLX42/build/libmlx42.a
+	# Basic Linux libs for OpenGL/GLFW/X11. Adjust if needed.
+	MLXFLAGS := -lglfw -lGL -lX11 -lpthread -lm -ldl
+	# Add MLX lib path and lib itself
+	LDFLAGS := $(BASE_LDFLAGS) -L./MLX42/build -lmlx42 $(MLXFLAGS)
+	LDFLAGS_SAN := $(LDFLAGS) -fsanitize=address
+	CFLAGS_SAN := $(BASE_CFLAGS) -fsanitize=address
+# @echo "Detected Linux. Using standard libraries."
+else
+	$(error Unsupported OS: $(UNAME_S))
+endif
+# --- End OS Detection ---
+
+
 ARFLAGS := -rcs
 
 GREEN := \033[0;32m
@@ -50,34 +78,48 @@ NC := \033[0m
 
 all: mlx_42 art lib $(NAME)
 
-$(NAME): $(OBJS) lib
-	$(CPP) $(LDFLAGS) $(OBJS) -o $(NAME) ./lib/lib.a ./MLX42/build/libmlx42.a $(MLXFLAGS)
-	@echo "$(GREEN)$(BOLD)Successful Compilation$(NC)"
+$(NAME): $(OBJS) lib $(MLX_LIB_PATH)
+	@echo "Linking $(NAME) with flags: $(LDFLAGS)"
+	$(CPP) $(OBJS) ./lib/lib.a $(LDFLAGS) -o $(NAME)
+	@echo "$(GREEN)$(BOLD)Successful Compilation on $(UNAME_S)$(NC)"
 
 $(OBJ_DIR)/%.o: %.c | $(OBJ_DIR)
-	mkdir -p $(@D)
+	@mkdir -p $(@D)
+	@echo "Compiling $<"
 	$(CPP) $(CFLAGS) -c $< -o $@
 
 $(OBJ_DIR):
 	mkdir -p $(OBJ_DIR)
 
+# Target to ensure MLX library exists before linking main executable
+$(MLX_LIB_PATH): mlx_42
+	@echo "MLX42 library built."
+
 mlx_42:
-	git submodule update --init --remote --recursive
-	(cd MLX42 && cmake -B build && cmake --build build -j4)
+	@echo "Building MLX42 submodule..."
+	@git submodule update --init --remote --recursive
+	@(cd MLX42 && cmake -B build && cmake --build build -j4)
 
 lib:
+	@echo "Building lib submodule..."
 	@$(MAKE) -C lib
 
 clean:
+	@echo "Cleaning project objects..."
 	$(RM) $(OBJ_DIR)
+	@echo "Cleaning lib submodule..."
 	@$(MAKE) -C lib clean || true
+	@echo "Cleaning MLX42 build..."
+	@$(RM) -r ./MLX42/build || true
 
 fclean: clean
+	@echo "Cleaning executable $(NAME)..."
 	$(RM) $(NAME)
+	@echo "Cleaning lib submodule (fclean)..."
 	@$(MAKE) -C lib fclean || true
-	@echo "$(MAGENTA)$(BOLD)Executable + Object Files cleaned$(NC)"
+	# No need to fclean MLX42 typically, build dir removal in clean is enough
+	@echo "$(MAGENTA)$(BOLD)Executable + Object Files + Submodule libs cleaned$(NC)"
 
-# re: fclean submodule_update all
 re: fclean all
 
 submodule_update:
@@ -85,8 +127,10 @@ submodule_update:
 
 bonus: all
 
+# Note: The san target re-runs make with different flags
 san: fclean
-	make CFLAGS="$(CFLAGS_SAN)" LDFLAGS="$(LDFLAGS_SAN)"
+	@echo "$(MAGENTA)Recompiling with Address Sanitizer...$(NC)"
+	$(MAKE) CFLAGS="$(CFLAGS_SAN)" LDFLAGS="$(LDFLAGS_SAN)" all
 	@echo "$(GREEN)$(BOLD)Successful Compilation with fsan$(NC)"
 
 re_sub: submodule_rebuild
@@ -95,7 +139,7 @@ submodule_rebuild:
 	git submodule deinit -f .
 	git submodule update --init --recursive
 
-art: 
+art:
 	@echo "${GREEN}                    __       _____    ____  "
 	@echo "  _____   __  __   / /_     |__  /   / __ \\ "
 	@echo " / ___/  / / / /  / __ \     /_ <   / / / / ${NC}"
@@ -114,7 +158,7 @@ debug: clean
 debug: CFLAGS += -DDEBUG
 debug: $(NAME)
 
-
+# Include dependency files
 -include $(OBJS:%.o=%.d)
 
-.PHONY: all art clean fclean re bonus re_sub submodule_rebuild san debug lib
+.PHONY: all art clean fclean re bonus re_sub submodule_rebuild san debug lib mlx_42 submodule_update valgrind cppcheck
