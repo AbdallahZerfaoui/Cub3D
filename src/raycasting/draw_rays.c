@@ -6,7 +6,7 @@
 /*   By: azerfaou <azerfaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2025/04/02 00:05:49 by azerfaou         ###   ########.fr       */
+/*   Updated: 2025/04/02 01:33:47 by azerfaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,13 +78,13 @@ void	state_setup(t_game *game, t_dda_state *state, t_dda_ray *ray)
 
 void	setup_dda(t_game *game, t_dda *dda, int x)
 {
-	t_point	*player;
-	int		s_width;
+	// t_point	*player;
+	// int		s_width;
 
-	(void)player;
-	(void)s_width;
-	player = game->player_data;
-	s_width = game->config->s_width;
+	// (void)player;
+	// (void)s_width;
+	// player = game->player_data;
+	// s_width = game->config->s_width;
 	setup_ray(game, dda->ray, x);
 	// Length of ray from current position to next x or y-side
 	state_setup(game, dda->state, dda->ray);

@@ -6,7 +6,7 @@
 /*   By: azerfaou <azerfaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 05:12:41 by macbook           #+#    #+#             */
-/*   Updated: 2025/04/02 00:21:52 by azerfaou         ###   ########.fr       */
+/*   Updated: 2025/04/02 01:27:25 by azerfaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ char	**create_map(char *map_file)
 	while (line != NULL)
 	{
 		array = join_str(array, line);
-		if (line != NULL)
-			free(line);
+		// if (line != NULL)
+		free(line);
 		line = get_next_line(fd);
 	}
 	close(fd);

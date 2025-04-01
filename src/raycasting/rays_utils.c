@@ -6,16 +6,16 @@
 /*   By: azerfaou <azerfaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 04:34:57 by macbook           #+#    #+#             */
-/*   Updated: 2025/03/30 19:57:23 by azerfaou         ###   ########.fr       */
+/*   Updated: 2025/04/02 01:35:56 by azerfaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../Includes/cub3d.h"
 
-double	distance(float x, float y)
-{
-	return (sqrt(x * x + y * y));
-}
+// double	distance(float x, float y)
+// {
+// 	return (sqrt(x * x + y * y));
+// }
 
 /***
  * fmod function is there just to avoid accumulating
@@ -26,19 +26,19 @@ int	ft_sign(double x)
 	return ((x > 0) - (x < 0) + fmod(x, x));
 }
 
-double	fixed_dist(double ray_x, double ray_y, t_game *game)
-{
-	double	delta_x;
-	double	delta_y;
-	double	angle;
-	double	fix_dist;
+// double	fixed_dist(double ray_x, double ray_y, t_game *game)
+// {
+// 	double	delta_x;
+// 	double	delta_y;
+// 	double	angle;
+// 	double	fix_dist;
 
-	delta_x = ray_x - game->player_data->x;
-	delta_y = ray_y - game->player_data->y;
-	angle = atan2(delta_y, delta_x) - game->player_data->angle;
-	fix_dist = distance(delta_x, delta_y) * cos(angle);
-	return (fix_dist);
-}
+// 	delta_x = ray_x - game->player_data->x;
+// 	delta_y = ray_y - game->player_data->y;
+// 	angle = atan2(delta_y, delta_x) - game->player_data->angle;
+// 	fix_dist = distance(delta_x, delta_y) * cos(angle);
+// 	return (fix_dist);
+// }
 
 bool	check_wall(float px, float py, t_game *game)
 {

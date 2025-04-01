@@ -148,7 +148,7 @@ art:
 	@echo "                                            ${NC}"
 
 valgrind: re
-	valgrind --leak-check=full --show-leak-kinds=definite --track-origins=yes ./$(NAME) ./maps/map.cub
+	valgrind --leak-check=full --show-leak-kinds=definite --track-origins=yes ./$(NAME) ./maps/map2.cub
 
 cppcheck: re
 	cppcheck --enable=warning,style,performance,portability --enable=unusedFunction $(SRCS)

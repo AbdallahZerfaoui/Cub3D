@@ -6,7 +6,7 @@
 /*   By: azerfaou <azerfaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 08:57:50 by macbook           #+#    #+#             */
-/*   Updated: 2025/04/02 00:22:19 by azerfaou         ###   ########.fr       */
+/*   Updated: 2025/04/02 01:27:01 by azerfaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ bool	check_surrounded_by_walls(char **map)
 	int	j;
 
 	i = 0;
-	j = 0;
+	// j = 0;
 	while (map[i])
 	{
 		j = 0;

@@ -6,31 +6,31 @@
 /*   By: azerfaou <azerfaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 05:20:16 by macbook           #+#    #+#             */
-/*   Updated: 2025/04/02 00:07:03 by azerfaou         ###   ########.fr       */
+/*   Updated: 2025/04/02 01:34:21 by azerfaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	print_subarrays(char **map)
-{
-	int	i;
-	int	j;
+// void	print_subarrays(char **map)
+// {
+// 	int	i;
+// 	int	j;
 
-	i = 0;
-	j = 0;
-	while (map[i])
-	{
-		j = 0;
-		while (map[i][j])
-		{
-			printf("%c", map[i][j]);
-			j++;
-		}
-		printf("\n");
-		i++;
-	}
-}
+// 	i = 0;
+// 	// j = 0;
+// 	while (map[i])
+// 	{
+// 		j = 0;
+// 		while (map[i][j])
+// 		{
+// 			printf("%c", map[i][j]);
+// 			j++;
+// 		}
+// 		printf("\n");
+// 		i++;
+// 	}
+// }
 
 int	is_valid_cub_file(char *filename)
 {
@@ -85,10 +85,10 @@ void	key_hook(struct mlx_key_data keydata, void *param)
 		handle_key_release(keydata, game);
 }
 
-void	leaks(void)
-{
-	system("leaks cub3D");
-}
+// void	leaks(void)
+// {
+// 	system("leaks cub3D");
+// }
 
 int	handle_input_errors(void)
 {

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: macbook <macbook@student.42.fr>            +#+  +:+       +#+        */
+/*   By: azerfaou <azerfaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 04:12:31 by macbook           #+#    #+#             */
-/*   Updated: 2025/02/21 06:06:57 by macbook          ###   ########.fr       */
+/*   Updated: 2025/04/02 01:32:13 by azerfaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ void	free_subarrays(char **subarrays)
 		return ;
 	while (subarrays[i])
 	{
-		if (subarrays[i])
-			free(subarrays[i]);
+		// if (subarrays[i])
+		free(subarrays[i]);
 		i++;
 	}
 	free(subarrays);
@@ -60,5 +60,9 @@ void	free_game(t_game *game)
 		free(game->ceiling_color);
 	if (game->floor_color)
 		free(game->floor_color);
+	// if (game->mlx)
+	// 	mlx_terminate(game->mlx);
+	// if (game->config)
+	// 	free(game->config);
 	free(game);
 }
