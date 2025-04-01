@@ -6,36 +6,17 @@
 /*   By: azerfaou <azerfaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 05:20:16 by macbook           #+#    #+#             */
-/*   Updated: 2025/04/02 01:34:21 by azerfaou         ###   ########.fr       */
+/*   Updated: 2025/04/02 01:47:56 by azerfaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-// void	print_subarrays(char **map)
-// {
-// 	int	i;
-// 	int	j;
-
-// 	i = 0;
-// 	// j = 0;
-// 	while (map[i])
-// 	{
-// 		j = 0;
-// 		while (map[i][j])
-// 		{
-// 			printf("%c", map[i][j]);
-// 			j++;
-// 		}
-// 		printf("\n");
-// 		i++;
-// 	}
-// }
-
 int	is_valid_cub_file(char *filename)
 {
-	size_t	len = ft_strlen(filename);
+	size_t	len;
 
+	len = ft_strlen(filename);
 	if (len < 4 || ft_strncmp(filename + len - 4, ".cub", 4) != 0)
 	{
 		printf("Error: Map file must have a .cub extension\n");
@@ -85,11 +66,6 @@ void	key_hook(struct mlx_key_data keydata, void *param)
 		handle_key_release(keydata, game);
 }
 
-// void	leaks(void)
-// {
-// 	system("leaks cub3D");
-// }
-
 int	handle_input_errors(void)
 {
 	printf("Cub3D: Error\n");
@@ -104,11 +80,10 @@ int	main(int argc, char **argv)
 
 	if (argc != 2)
 		return (handle_input_errors());
-	else if(is_valid_cub_file(argv[1]))
+	else if (is_valid_cub_file(argv[1]))
 		return (1);
 	else
 		map_file = ft_strdup(argv[1]);
-	// atexit(leaks);
 	game = initialize_game_data(map_file);
 	mlx_key_hook(game->mlx, key_hook, game);
 	mlx_loop_hook(game->mlx, ft_player_hook, game);

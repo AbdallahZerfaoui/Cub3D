@@ -6,13 +6,11 @@
 /*   By: azerfaou <azerfaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2025/04/02 01:33:47 by azerfaou         ###   ########.fr       */
+/*   Updated: 2025/04/02 01:53:33 by azerfaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "../../Includes/cub3d.h"
-
 
 void	setup_ray(t_game *game, t_dda_ray *ray, int x)
 {
@@ -42,6 +40,7 @@ void	init_delta_dists(t_dda_state *state, t_dda_ray *ray)
 	else
 		state->delta_dist_y = fabs(1.0 / ray->ray_dir_y);
 }
+
 void	state_setup(t_game *game, t_dda_state *state, t_dda_ray *ray)
 {
 	t_point	*player;
@@ -53,7 +52,6 @@ void	state_setup(t_game *game, t_dda_state *state, t_dda_ray *ray)
 	init_delta_dists(state, ray);
 	state->step_x = ft_sign(ray->ray_dir_x);
 	state->step_y = ft_sign(ray->ray_dir_y);
-	// Calculate step and initial side_dist
 	if (ray->ray_dir_x < 0)
 	{
 		state->side_dist_x = ((player->x / game->config->block_size)
@@ -78,15 +76,7 @@ void	state_setup(t_game *game, t_dda_state *state, t_dda_ray *ray)
 
 void	setup_dda(t_game *game, t_dda *dda, int x)
 {
-	// t_point	*player;
-	// int		s_width;
-
-	// (void)player;
-	// (void)s_width;
-	// player = game->player_data;
-	// s_width = game->config->s_width;
 	setup_ray(game, dda->ray, x);
-	// Length of ray from current position to next x or y-side
 	state_setup(game, dda->state, dda->ray);
 	dda->hit_result->hit = 0;
 }
@@ -148,10 +138,10 @@ void	draw_floor_slice(t_game *game, int i, int start_y)
 	s_width = game->config->s_width;
 
 	if (!game->player_data->player || !game->floor_color)
-		return;
+		return ;
 
 	if (i < 0 || i >= s_width || start_y >= s_height)
-		return;
+		return ;
 
 	j = (start_y < 0) ? 0 : start_y;
 	color = (uint32_t)ft_pixel(game->floor_color->r, game->floor_color->g,

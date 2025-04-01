@@ -6,7 +6,7 @@
 /*   By: azerfaou <azerfaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 08:57:50 by macbook           #+#    #+#             */
-/*   Updated: 2025/04/02 01:27:01 by azerfaou         ###   ########.fr       */
+/*   Updated: 2025/04/02 01:50:52 by azerfaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,14 +41,12 @@ bool	neighbor_is_walled(char **map, int i, int j)
 	return (true);
 }
 
-
 bool	check_surrounded_by_walls(char **map)
 {
 	int	i;
 	int	j;
 
 	i = 0;
-	// j = 0;
 	while (map[i])
 	{
 		j = 0;
@@ -121,7 +119,7 @@ char	*create_cleaned_new_row(char **map, int index, int row_length)
 
 char	**create_cleaned_map(char **map)
 {
-	size_t		longest_length;
+	size_t	longest_length;
 	int		map_row_count;
 	char	**new_map;
 	int		i;

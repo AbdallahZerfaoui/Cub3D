@@ -5,11 +5,10 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: azerfaou <azerfaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2025/04/02 01:23:43 by azerfaou         ###   ########.fr       */
+/*   Created: 2025/04/02 01:55:04 by azerfaou          #+#    #+#             */
+/*   Updated: 2025/04/02 01:55:05 by azerfaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "../../Includes/cub3d.h"
 

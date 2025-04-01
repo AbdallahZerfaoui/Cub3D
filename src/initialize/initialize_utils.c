@@ -6,7 +6,7 @@
 /*   By: azerfaou <azerfaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 05:24:43 by macbook           #+#    #+#             */
-/*   Updated: 2025/04/02 01:26:32 by azerfaou         ###   ########.fr       */
+/*   Updated: 2025/04/02 01:50:03 by azerfaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ void	fill_image_pixels(t_game *game, mlx_image_t *image, uint32_t color)
 	uint32_t	j;
 
 	i = 0;
-	// j = 0;
 	(void)game;
 	while (i < image->width)
 	{
