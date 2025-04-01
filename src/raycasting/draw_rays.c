@@ -6,7 +6,7 @@
 /*   By: auplisas <auplisas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2025/04/01 19:28:03 by auplisas         ###   ########.fr       */
+/*   Updated: 2025/04/01 23:26:04 by auplisas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,9 +142,18 @@ void	draw_floor_slice(t_game *game, int i, int start_y)
 	int			j;
 	uint32_t	color;
 	int			s_height;
+	int			s_width;
 
 	s_height = game->config->s_height;
-	j = start_y;
+	s_width = game->config->s_width;
+
+	if (!game->player_data->player || !game->floor_color)
+		return;
+
+	if (i < 0 || i >= s_width || start_y >= s_height)
+		return;
+
+	j = (start_y < 0) ? 0 : start_y;
 	color = (uint32_t)ft_pixel(game->floor_color->r, game->floor_color->g,
 			game->floor_color->b, 255);
 	while (j < s_height)
