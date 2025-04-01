@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: azerfaou <azerfaou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: auplisas <auplisas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 05:12:41 by macbook           #+#    #+#             */
-/*   Updated: 2025/03/31 19:57:41 by azerfaou         ###   ########.fr       */
+/*   Updated: 2025/04/01 22:41:24 by auplisas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ void	parse_map(t_game *game)
 	parsed_map_file = create_map(game->map_file);
 	if (set_textures(game->texture_data, parsed_map_file))
 	{
-		printf("Wrong Char Found\n");
+		printf("Wrong Char or File Found\n");
 		exit(1);
 	}
 	map = create_only_map(game->texture_data, parsed_map_file);

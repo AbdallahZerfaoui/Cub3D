@@ -6,7 +6,7 @@
 /*   By: auplisas <auplisas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2025/04/01 21:10:21 by auplisas         ###   ########.fr       */
+/*   Updated: 2025/04/01 22:36:16 by auplisas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,21 +64,29 @@ int	set_textures(t_textures *txtr, char **map_file)
 		{
 			txtr->north_path = ft_strtrim(map_file[i] + 3, " \n");
 			txtr->north_texture =  mlx_load_png(txtr->north_path); //TODO is it ok?
+			if (!txtr->north_texture)
+				return (1);
 		}
 		else if (ft_strncmp(map_file[i], "SO ", 3) == 0 && !txtr->south_path)
 		{
 			txtr->south_path = ft_strtrim(map_file[i] + 3, " \n");
 			txtr->south_texture =  mlx_load_png(txtr->south_path); //TODO is it ok?
+			if(!txtr->south_texture)
+				return (1);
 		}
 		else if (ft_strncmp(map_file[i], "WE ", 3) == 0 && !txtr->west_path)
 		{
 			txtr->west_path = ft_strtrim(map_file[i] + 3, " \n");
 			txtr->west_texture =  mlx_load_png(txtr->west_path); //TODO is it ok?
+			if(!txtr->west_texture)
+				return (1);
 		}
 		else if (ft_strncmp(map_file[i], "EA ", 3) == 0 && !txtr->east_path)
 		{
 			txtr->east_path = ft_strtrim(map_file[i] + 3, " \n");
 			txtr->east_texture =  mlx_load_png(txtr->east_path); //TODO is it ok?
+			if(!txtr->east_texture)
+				return (1);
 		}
 		else if (ft_strncmp(map_file[i], "F ", 2) == 0 && !txtr->floor_color)
 			txtr->floor_color = ft_strtrim(map_file[i] + 2, " \n");
