@@ -5,10 +5,11 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: auplisas <auplisas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/02 20:56:11 by azerfaou          #+#    #+#             */
-/*   Updated: 2025/03/31 20:31:26 by auplisas         ###   ########.fr       */
+/*   Created: Invalid date        by                   #+#    #+#             */
+/*   Updated: 2025/04/01 18:25:56 by auplisas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #ifndef CUB3D_H
 # define CUB3D_H
@@ -26,6 +27,8 @@
 // # define BLOCK_SIZE 24
 // # define FOV 1.0472f
 # define FOV (4 * atan(1.0) / 3.0)
+# define PLAYER_SPEED 4
+# define ROTATION_SPEED 0.09f
 # define MAX_RAY_DISTANCE 1000000
 
 // Includes -- BEGIN
@@ -73,6 +76,10 @@ typedef struct s_textures
 	char			*floor_color;
 	char			*ceiling_color;
 	mlx_texture_t	*texture;
+	mlx_texture_t	*north_texture;
+	mlx_texture_t	*south_texture;
+	mlx_texture_t	*west_texture;
+	mlx_texture_t	*east_texture;
 }					t_textures;
 
 typedef struct s_color
@@ -208,6 +215,8 @@ double				fixed_dist(double ray_x, double ray_y, t_game *game);
 // texture_placement.c
 void	draw_wall_slice(t_game *game, int start_ray_x, int start_y, int end,
 	t_dda *dda);
+int					ft_sign(double x);
+
 // MOVEMENT
 // key_handle.c
 void				handle_key_press(struct mlx_key_data keydata, t_game *game);
