@@ -6,7 +6,7 @@
 /*   By: auplisas <auplisas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 05:12:41 by macbook           #+#    #+#             */
-/*   Updated: 2025/04/02 22:26:00 by auplisas         ###   ########.fr       */
+/*   Updated: 2025/04/02 22:30:39 by auplisas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ void	assign_colors(t_game *game)
 	game->floor_color->r = ft_atoi(rgb_floor[0]);
 	game->floor_color->g = ft_atoi(rgb_floor[1]);
 	game->floor_color->b = ft_atoi(rgb_floor[2]);
-	if(check_rgb_values(rgb_ceiling, rgb_floor))
+	if (check_rgb_values(rgb_ceiling, rgb_floor))
 	{
 		free_subarrays(rgb_ceiling);
 		free_subarrays(rgb_floor);

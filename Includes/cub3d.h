@@ -6,7 +6,7 @@
 /*   By: auplisas <auplisas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 02:46:21 by azerfaou          #+#    #+#             */
-/*   Updated: 2025/04/02 22:25:19 by auplisas         ###   ########.fr       */
+/*   Updated: 2025/04/02 22:31:27 by auplisas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ typedef struct s_game
 	mlx_t			*mlx;
 	int				columns;
 	int				rows;
-	int debug_view; // 1: 2D, 0: 3D
+	int				debug_view;
 	t_config		*config;
 	char			*map_file;
 	char			**map;

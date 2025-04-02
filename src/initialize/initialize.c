@@ -6,7 +6,7 @@
 /*   By: auplisas <auplisas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 01:55:04 by azerfaou          #+#    #+#             */
-/*   Updated: 2025/04/02 22:19:58 by auplisas         ###   ########.fr       */
+/*   Updated: 2025/04/02 22:30:57 by auplisas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	place_elements_on_map(t_game *game, int y, int x)
 {
-	int		block_size;
+	int	block_size;
 
 	block_size = game->config->block_size;
 	if (game->map[y][x] == '1' && !game->debug_view)
@@ -75,8 +75,8 @@ void	init_player(t_game *game, t_point *player_data)
 		player_data->angle = pi_value;
 	if (player_data->direction == 'E')
 		player_data->angle = pi_value * 2.0f;
-	player_data->player = mlx_new_image(game->mlx,
-			game->config->s_width, game->config->s_height);
+	player_data->player = mlx_new_image(game->mlx, game->config->s_width,
+			game->config->s_height);
 }
 
 t_game	*initialize_game_data(char *map_file)
@@ -92,7 +92,8 @@ t_game	*initialize_game_data(char *map_file)
 	game->mlx = mlx_init(TMP_VALUE, TMP_VALUE, "Cub3D", true);
 	mlx_get_monitor_size(0, &game->config->s_width, &game->config->s_height);
 	mlx_terminate(game->mlx);
-	game->mlx = mlx_init(game->config->s_width, game->config->s_height, "Cub3D", true);
+	game->mlx = mlx_init(game->config->s_width, game->config->s_height, "Cub3D",
+			true);
 	game->map_file = ft_strdup(map_file);
 	parse_map(game);
 	game->config->block_size = calculate_block_size(game->config->s_width,
