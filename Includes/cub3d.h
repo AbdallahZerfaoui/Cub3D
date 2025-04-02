@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: azerfaou <azerfaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2025/04/02 02:40:20 by azerfaou         ###   ########.fr       */
+/*   Created: 2025/04/02 02:46:21 by azerfaou          #+#    #+#             */
+/*   Updated: 2025/04/02 02:47:16 by azerfaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 # define ROW_COLUMN_COUNT 12
 # define INIT_DEBUG_VIEW 1
 # define ANGLE_OF_VIEW 60
-# define FOV (4 * atan(1.0) / 3.0)
 # define PLAYER_SPEED 4
 # define ROTATION_SPEED 0.09f
 # define MAX_RAY_DISTANCE 1000000
