@@ -6,7 +6,7 @@
 /*   By: auplisas <auplisas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 05:12:41 by macbook           #+#    #+#             */
-/*   Updated: 2025/04/02 22:30:39 by auplisas         ###   ########.fr       */
+/*   Updated: 2025/04/02 22:42:48 by auplisas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ void	assign_colors(t_game *game)
 
 	if (is_not_valid_color_format(game->texture_data->ceiling_color)
 		|| is_not_valid_color_format(game->texture_data->floor_color))
-		return (printf("Error: Colors data is not set correctly\n"), exit(1));
+		return (printf("Error\nColors data is not set correctly\n"), exit(1));
 	game->ceiling_color = malloc(sizeof(t_color));
 	game->floor_color = malloc(sizeof(t_color));
 	rgb_ceiling = ft_split(game->texture_data->ceiling_color, ',');
@@ -115,7 +115,7 @@ void	parse_map(t_game *game)
 	parsed_map_file = create_map(game->map_file);
 	if (set_textures(game->texture_data, parsed_map_file))
 	{
-		printf("Wrong Char or File Found\n");
+		printf("Error\nWrong Char or File Found\n");
 		exit(1);
 	}
 	map = create_only_map(game->texture_data, parsed_map_file);
@@ -124,7 +124,7 @@ void	parse_map(t_game *game)
 		exit(1);
 	if (!check_surrounded_by_walls(cleaned_map))
 	{
-		printf("Error: Map not surrounded by walls\n");
+		printf("Error\nMap not surrounded by walls\n");
 		exit(1);
 	}
 	count_rows_columns(game, cleaned_map);

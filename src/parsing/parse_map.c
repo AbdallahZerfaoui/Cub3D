@@ -6,7 +6,7 @@
 /*   By: auplisas <auplisas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 08:57:50 by macbook           #+#    #+#             */
-/*   Updated: 2025/04/02 20:58:54 by auplisas         ###   ########.fr       */
+/*   Updated: 2025/04/02 22:42:25 by auplisas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,13 +80,13 @@ bool	check_for_extra_chars(t_game *game, char **map)
 				game->player_data->direction = map[i][j];
 			}
 			if (!legit_char(map[i][j]) && map[i][j] != ' ')
-				return (printf("Map Contains Invalid Chars\n"), false);
+				return (printf("Error\nMap Contains Invalid Chars\n"), false);
 			j++;
 		}
 		i++;
 	}
 	if (player_count != 1)
-		return (printf("There should be 1 player on the map\n"), false);
+		return (printf("Error\nThere should be 1 player on the map\n"), false);
 	return (true);
 }
 
