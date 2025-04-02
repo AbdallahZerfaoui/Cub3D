@@ -6,7 +6,7 @@
 /*   By: azerfaou <azerfaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2025/04/02 00:04:53 by azerfaou         ###   ########.fr       */
+/*   Updated: 2025/04/02 02:40:20 by azerfaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,6 @@ typedef struct s_game
 	int				columns;
 	int				rows;
 	int				debug_view; // 1: 2D, 0: 3D
-	// char		map[12][12];
 	t_config		*config;
 	char			*map_file;
 	char			**map;
@@ -128,7 +127,7 @@ typedef struct s_hit_result
 	double			perp_wall_dist;
 	int				side;
 	int				hit;
-	double			exact_hit_x; // ex wall_x
+	double			exact_hit_x;
 }					t_hit_result;
 
 typedef struct s_drawing
@@ -140,7 +139,7 @@ typedef struct s_drawing
 	int				tex_y;
 	int				tex_height;
 	double			texture_vertical_pos;
-	double			tex_step; // ex step
+	double			tex_step;
 }					t_drawing;
 
 typedef struct s_dda
@@ -152,8 +151,8 @@ typedef struct s_dda
 }					t_dda;
 
 // FNC --BEGIN
-void				printHello(void);
-bool				check_wall(float px, float py, t_game *game);
+// void				printHello(void);
+// bool				check_wall(float px, float py, t_game *game);
 // PARSING
 // parse_utils.c
 bool				legit_char(char c);
@@ -191,11 +190,29 @@ void				draw_single_ray_debug(t_game *game, t_point *player_data,
 						float ray_angle);
 // rays_utils.c
 bool				check_wall(float px, float py, t_game *game);
-double				fixed_dist(double ray_x, double ray_y, t_game *game);
 // texture_placement.c
 void				draw_wall_slice(t_game *game, int ray_x, t_dda *dda);
 int					ft_sign(double x);
 uint32_t			fix_color(uint32_t color);
+
+// ray_init.c
+void				setup_ray(t_game *game, t_dda_ray *ray, int x);
+void				init_delta_dists(t_dda_state *state, t_dda_ray *ray);
+void				set_side_dist_x(t_dda_state *state, t_dda_ray *ray,
+						t_game *game);
+void				set_side_dist_y(t_dda_state *state, t_dda_ray *ray,
+						t_game *game);
+void				state_setup(t_game *game, t_dda_state *state,
+						t_dda_ray *ray);
+
+// dda.c
+void				setup_dda(t_game *game, t_dda *dda, int x);
+void				perform_dda(t_game *game, t_dda *dda);
+
+// draw_utils.c
+void				draw_floor_slice(t_game *game, int i, int start_y);
+void				draw_ceiling_slice(t_game *game, int i, int ceiling_end);
+void				draw_3d_ray(t_game *game, t_dda *dda, int ray_count);
 
 // MOVEMENT
 // key_handle.c
@@ -212,7 +229,6 @@ void				free_subarrays(char **subarrays);
 void				free_texture_data(t_textures *texture_data);
 void				free_game(t_game *game);
 // FNC --END
-void				print_subarrays(char **map);
 
 // CONFIG
 int					calculate_block_size(int width, int height, int rows,

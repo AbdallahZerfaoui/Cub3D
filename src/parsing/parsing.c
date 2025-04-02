@@ -6,7 +6,7 @@
 /*   By: azerfaou <azerfaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 05:12:41 by macbook           #+#    #+#             */
-/*   Updated: 2025/04/02 01:27:25 by azerfaou         ###   ########.fr       */
+/*   Updated: 2025/04/02 02:40:54 by azerfaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ char	**create_map(char *map_file)
 	while (line != NULL)
 	{
 		array = join_str(array, line);
-		// if (line != NULL)
 		free(line);
 		line = get_next_line(fd);
 	}
@@ -58,7 +57,7 @@ void	count_rows_columns(t_game *game, char **map)
 char	**create_only_map(t_textures *texture_data, char **map_file)
 {
 	unsigned long		start_index;
-	char	**new_map;
+	char				**new_map;
 	unsigned long		i;
 	unsigned long		j;
 	unsigned long		map_length;
