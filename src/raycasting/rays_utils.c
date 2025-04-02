@@ -6,7 +6,7 @@
 /*   By: auplisas <auplisas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 04:34:57 by macbook           #+#    #+#             */
-/*   Updated: 2025/04/02 22:30:21 by auplisas         ###   ########.fr       */
+/*   Updated: 2025/04/02 22:42:56 by auplisas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,13 +66,13 @@ int	check_rgb_values(char **rgb_ceiling, char **rgb_floor)
 		value = ft_atoi(rgb_ceiling[i]);
 		if (value < 0 || value > 255)
 		{
-			printf("Error: Invalid ceiling RGB value: %d\n", value);
+			printf("Error\nInvalid ceiling RGB value: %d\n", value);
 			return (1);
 		}
 		value = ft_atoi(rgb_floor[i]);
 		if (value < 0 || value > 255)
 		{
-			printf("Error: Invalid floor RGB value: %d\n", value);
+			printf("Error\nInvalid floor RGB value: %d\n", value);
 			return (1);
 		}
 		i++;
