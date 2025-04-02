@@ -6,7 +6,7 @@
 /*   By: auplisas <auplisas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 05:34:00 by macbook           #+#    #+#             */
-/*   Updated: 2025/04/02 21:51:46 by auplisas         ###   ########.fr       */
+/*   Updated: 2025/04/02 22:57:26 by auplisas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 
 void	handle_key_press(struct mlx_key_data keydata, t_game *game)
 {
-	if (keydata.key == MLX_KEY_C)
-		game->debug_view = !game->debug_view;
 	if (keydata.key == MLX_KEY_W)
 		game->player_data->key_up = true;
 	if (keydata.key == MLX_KEY_S)
