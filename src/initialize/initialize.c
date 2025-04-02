@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initialize.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: azerfaou <azerfaou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: auplisas <auplisas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 01:55:04 by azerfaou          #+#    #+#             */
-/*   Updated: 2025/04/02 01:55:05 by azerfaou         ###   ########.fr       */
+/*   Updated: 2025/04/02 22:19:58 by auplisas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,6 @@ void	flood_map_items(t_game *game)
 	fill_image_pixels(game, game->wall, (uint32_t)ft_pixel(game->floor_color->r,
 			game->floor_color->g, game->floor_color->b, 255));
 	y = 0;
-	printf("Rows: %d\n", game->rows);
-	printf("Columns: %d\n", game->columns);
 	while (y < game->rows)
 	{
 		x = 0;
@@ -62,7 +60,6 @@ void	flood_map_items(t_game *game)
 	}
 }
 
-//TODO too much random values, need to be changed
 void	init_player(t_game *game, t_point *player_data)
 {
 	double	pi_value;
@@ -86,6 +83,7 @@ t_game	*initialize_game_data(char *map_file)
 {
 	t_game	*game;
 
+	(void)map_file;
 	game = ft_calloc(1, sizeof(t_game));
 	game->config = ft_calloc(1, sizeof(t_config));
 	game->debug_view = INIT_DEBUG_VIEW;
@@ -94,9 +92,8 @@ t_game	*initialize_game_data(char *map_file)
 	game->mlx = mlx_init(TMP_VALUE, TMP_VALUE, "Cub3D", true);
 	mlx_get_monitor_size(0, &game->config->s_width, &game->config->s_height);
 	mlx_terminate(game->mlx);
-	game->mlx = \
-		mlx_init(game->config->s_width, game->config->s_height, "Cub3D", true);
-	game->map_file = map_file;
+	game->mlx = mlx_init(game->config->s_width, game->config->s_height, "Cub3D", true);
+	game->map_file = ft_strdup(map_file);
 	parse_map(game);
 	game->config->block_size = calculate_block_size(game->config->s_width,
 			game->config->s_height, game->rows, game->columns);

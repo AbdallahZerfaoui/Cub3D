@@ -6,7 +6,7 @@
 /*   By: auplisas <auplisas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 05:34:00 by macbook           #+#    #+#             */
-/*   Updated: 2025/03/05 22:51:55 by auplisas         ###   ########.fr       */
+/*   Updated: 2025/04/02 21:51:46 by auplisas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	handle_key_press(struct mlx_key_data keydata, t_game *game)
 	{
 		mlx_terminate(game->mlx);
 		free_game(game);
-		exit(1);
+		exit(0);
 	}
 }
 

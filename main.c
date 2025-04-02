@@ -6,7 +6,7 @@
 /*   By: auplisas <auplisas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 05:20:16 by macbook           #+#    #+#             */
-/*   Updated: 2025/04/02 19:41:47 by auplisas         ###   ########.fr       */
+/*   Updated: 2025/04/02 22:26:58 by auplisas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,11 +71,17 @@ int	handle_input_errors(void)
 	return (0);
 }
 
+void	leaks(void)
+{
+	system("leaks cub3d");
+}
+
 int	main(int argc, char **argv)
 {
 	t_game	*game;
 	char	*map_file;
 
+	atexit(leaks);
 	if (argc != 2)
 		return (handle_input_errors());
 	else if (is_valid_cub_file(argv[1]))
@@ -83,6 +89,7 @@ int	main(int argc, char **argv)
 	else
 		map_file = ft_strdup(argv[1]);
 	game = initialize_game_data(map_file);
+	free(map_file);
 	mlx_key_hook(game->mlx, key_hook, game);
 	mlx_loop_hook(game->mlx, ft_player_hook, game);
 	mlx_image_to_window(game->mlx, game->player_data->player, 0, 0);

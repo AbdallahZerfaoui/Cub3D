@@ -3,14 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   ray_casting.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: azerfaou <azerfaou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: auplisas <auplisas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 02:11:38 by azerfaou          #+#    #+#             */
-/*   Updated: 2025/04/02 02:34:08 by azerfaou         ###   ########.fr       */
+/*   Updated: 2025/04/02 22:19:18 by auplisas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../Includes/cub3d.h"
+
+void	free_dda(t_dda *dda)
+{
+	if (!dda)
+		return ;
+	if (dda->ray)
+		free(dda->ray);
+	if (dda->state)
+		free(dda->state);
+	if (dda->hit_result)
+		free(dda->hit_result);
+	if (dda->draw)
+		free(dda->draw);
+	free(dda);
+}
 
 void	draw_single_ray(t_game *game, t_point *player_data, float ray_angle,
 		int ray_count)
@@ -24,7 +39,7 @@ void	draw_single_ray(t_game *game, t_point *player_data, float ray_angle,
 	setup_dda(game, dda, ray_count);
 	perform_dda(game, dda);
 	draw_3d_ray(game, dda, ray_count);
-	free(dda);
+	free_dda(dda);
 }
 
 void	draw_single_ray_debug(t_game *game, t_point *player_data,

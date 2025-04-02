@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: azerfaou <azerfaou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: auplisas <auplisas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 02:46:21 by azerfaou          #+#    #+#             */
-/*   Updated: 2025/04/02 02:47:16 by azerfaou         ###   ########.fr       */
+/*   Updated: 2025/04/02 22:25:19 by auplisas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,6 @@ typedef struct s_textures
 	char			*east_path;
 	char			*floor_color;
 	char			*ceiling_color;
-	mlx_texture_t	*texture;
 	mlx_texture_t	*north_texture;
 	mlx_texture_t	*south_texture;
 	mlx_texture_t	*west_texture;
@@ -88,7 +87,7 @@ typedef struct s_game
 	mlx_t			*mlx;
 	int				columns;
 	int				rows;
-	int				debug_view; // 1: 2D, 0: 3D
+	int debug_view; // 1: 2D, 0: 3D
 	t_config		*config;
 	char			*map_file;
 	char			**map;
@@ -189,6 +188,8 @@ void				draw_single_ray_debug(t_game *game, t_point *player_data,
 						float ray_angle);
 // rays_utils.c
 bool				check_wall(float px, float py, t_game *game);
+int					is_not_valid_color_format(char *color);
+int					check_rgb_values(char **rgb_ceiling, char **rgb_floor);
 // texture_placement.c
 void				draw_wall_slice(t_game *game, int ray_x, t_dda *dda);
 int					ft_sign(double x);
