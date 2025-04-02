@@ -6,7 +6,7 @@
 /*   By: auplisas <auplisas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 19:38:10 by auplisas          #+#    #+#             */
-/*   Updated: 2025/04/02 19:38:39 by auplisas         ###   ########.fr       */
+/*   Updated: 2025/04/02 19:46:08 by auplisas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,34 @@ bool	check_all_textures_set(t_textures *texture_data)
 		return (true);
 }
 
+int	load_texture(char *line, char **path, mlx_texture_t **texture)
+{
+	*path = ft_strtrim(line, " \n");
+	*texture = mlx_load_png(*path);
+	return (*texture == NULL);
+}
+
+int	process_texture_line(t_textures *txtr, char *line)
+{
+	if (ft_strncmp(line, "NO ", 3) == 0 && !txtr->north_path)
+		return (load_texture(line + 3, &txtr->north_path,
+				&txtr->north_texture));
+	else if (ft_strncmp(line, "SO ", 3) == 0 && !txtr->south_path)
+		return (load_texture(line + 3, &txtr->south_path,
+				&txtr->south_texture));
+	else if (ft_strncmp(line, "WE ", 3) == 0 && !txtr->west_path)
+		return (load_texture(line + 3, &txtr->west_path, &txtr->west_texture));
+	else if (ft_strncmp(line, "EA ", 3) == 0 && !txtr->east_path)
+		return (load_texture(line + 3, &txtr->east_path, &txtr->east_texture));
+	else if (ft_strncmp(line, "F ", 2) == 0 && !txtr->floor_color)
+		txtr->floor_color = ft_strtrim(line + 2, " \n");
+	else if (ft_strncmp(line, "C ", 2) == 0 && !txtr->ceiling_color)
+		txtr->ceiling_color = ft_strtrim(line + 2, " \n");
+	else if (!is_only_whitespace(line))
+		return (1);
+	return (0);
+}
+
 int	set_textures(t_textures *txtr, char **map_file)
 {
 	int	i;
@@ -58,42 +86,7 @@ int	set_textures(t_textures *txtr, char **map_file)
 	i = 0;
 	while (!check_all_textures_set(txtr))
 	{
-		printf("EA path: %s\n", map_file[i]);
-		if (ft_strncmp(map_file[i], "NO ", 3) == 0 && !txtr->north_path)
-		{
-			txtr->north_path = ft_strtrim(map_file[i] + 3, " \n");
-			txtr->north_texture = mlx_load_png(txtr->north_path);
-			if (!txtr->north_texture)
-				return (1);
-		}
-		else if (ft_strncmp(map_file[i], "SO ", 3) == 0 && !txtr->south_path)
-		{
-			txtr->south_path = ft_strtrim(map_file[i] + 3, " \n");
-			txtr->south_texture = mlx_load_png(txtr->south_path);
-			if (!txtr->south_texture)
-				return (1);
-		}
-		else if (ft_strncmp(map_file[i], "WE ", 3) == 0 && !txtr->west_path)
-		{
-			txtr->west_path = ft_strtrim(map_file[i] + 3, " \n");
-			txtr->west_texture = mlx_load_png(txtr->west_path);
-			if (!txtr->west_texture)
-				return (1);
-		}
-		else if (ft_strncmp(map_file[i], "EA ", 3) == 0 && !txtr->east_path)
-		{
-			txtr->east_path = ft_strtrim(map_file[i] + 3, " \n");
-			txtr->east_texture = mlx_load_png(txtr->east_path);
-			if (!txtr->east_texture)
-				return (1);
-		}
-		else if (ft_strncmp(map_file[i], "F ", 2) == 0 && !txtr->floor_color)
-			txtr->floor_color = ft_strtrim(map_file[i] + 2, " \n");
-		else if (ft_strncmp(map_file[i], "C ", 2) == 0 && !txtr->ceiling_color)
-			txtr->ceiling_color = ft_strtrim(map_file[i] + 2, " \n");
-		else if (is_only_whitespace(map_file[i]))
-			;
-		else
+		if (process_texture_line(txtr, map_file[i]))
 			return (1);
 		i++;
 	}

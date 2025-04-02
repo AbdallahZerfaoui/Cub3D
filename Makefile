@@ -34,7 +34,7 @@ SRCS := $(MAIN_FILE) $(addprefix src/, $(SRC) $(SRC_PARSING) $(SRC_INIT) $(SRC_R
 OBJS := $(addprefix $(OBJ_DIR)/, $(SRCS:%.c=%.o))
 
 # Base CFLAGS - Add -MMD -MP for dependency generation
-BASE_CFLAGS := -Wall -Werror -Wextra -g -MMD -MP $(addprefix -I, $(INC_DIRS))
+BASE_CFLAGS := -Wall -Werror -Wextra -O3 -MMD -MP $(addprefix -I, $(INC_DIRS))
 CFLAGS := $(BASE_CFLAGS)
 
 # Base LDFLAGS
