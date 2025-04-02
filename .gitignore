@@ -4,6 +4,7 @@ DS_Store
 .vscode
 vscode
 _obj/
+generic_docker/
 
 #Files
 *.o

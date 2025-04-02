@@ -76,7 +76,7 @@ RED := \033[0;31m
 BOLD := \033[1m
 NC := \033[0m
 
-all: mlx_42 art lib $(NAME)
+all: linux_requirements mlx_42 art lib $(NAME)
 
 $(NAME): $(OBJS) lib $(MLX_LIB_PATH)
 	@echo "Linking $(NAME) with flags: $(LDFLAGS)"
@@ -94,6 +94,13 @@ $(OBJ_DIR):
 # Target to ensure MLX library exists before linking main executable
 $(MLX_LIB_PATH): mlx_42
 	@echo "MLX42 library built."
+
+linux_requirements:
+ifeq ($(UNAME_S), Linux)
+	@echo "Running Linux requirements script..."
+	bash linux_requirements.sh
+	@echo "Linux requirements script completed."
+endif
 
 mlx_42:
 	@echo "Building MLX42 submodule..."
@@ -125,7 +132,7 @@ re: fclean all
 submodule_update:
 	git submodule update --remote --merge
 
-bonus: all
+# bonus: all
 
 # Note: The san target re-runs make with different flags
 san: fclean
