@@ -6,7 +6,7 @@
 /*   By: auplisas <auplisas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 05:20:16 by macbook           #+#    #+#             */
-/*   Updated: 2025/04/02 22:31:54 by auplisas         ###   ########.fr       */
+/*   Updated: 2025/04/02 22:41:29 by auplisas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	is_valid_cub_file(char *filename)
 	len = ft_strlen(filename);
 	if (len < 4 || ft_strncmp(filename + len - 4, ".cub", 4) != 0)
 	{
-		printf("Error: Map file must have a .cub extension\n");
+		printf("Error:\n Map file must have a .cub extension\n");
 		return (1);
 	}
 	return (0);
@@ -71,17 +71,17 @@ int	handle_input_errors(void)
 	return (0);
 }
 
-// void	leaks(void)
-// {
-// 	system("leaks cub3d");
-// }
-// atexit(leaks);
+void	leaks(void)
+{
+	system("leaks cub3d");
+}
 
 int	main(int argc, char **argv)
 {
 	t_game	*game;
 	char	*map_file;
 
+	atexit(leaks);
 	if (argc != 2)
 		return (handle_input_errors());
 	else if (is_valid_cub_file(argv[1]))
