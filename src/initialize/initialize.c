@@ -6,7 +6,7 @@
 /*   By: auplisas <auplisas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 01:55:04 by azerfaou          #+#    #+#             */
-/*   Updated: 2025/04/02 22:30:57 by auplisas         ###   ########.fr       */
+/*   Updated: 2025/04/03 21:22:23 by auplisas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,11 +89,11 @@ t_game	*initialize_game_data(char *map_file)
 	game->debug_view = INIT_DEBUG_VIEW;
 	game->player_data = ft_calloc(1, sizeof(t_point));
 	game->texture_data = ft_calloc(1, sizeof(t_textures));
-	game->mlx = mlx_init(TMP_VALUE, TMP_VALUE, "Cub3D", true);
+	game->mlx = mlx_init(TMP_VALUE, TMP_VALUE, "Cub3D", false);
 	mlx_get_monitor_size(0, &game->config->s_width, &game->config->s_height);
 	mlx_terminate(game->mlx);
 	game->mlx = mlx_init(game->config->s_width, game->config->s_height, "Cub3D",
-			true);
+			false);
 	game->map_file = ft_strdup(map_file);
 	parse_map(game);
 	game->config->block_size = calculate_block_size(game->config->s_width,

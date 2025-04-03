@@ -6,7 +6,7 @@
 /*   By: auplisas <auplisas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 05:20:16 by macbook           #+#    #+#             */
-/*   Updated: 2025/04/02 22:53:38 by auplisas         ###   ########.fr       */
+/*   Updated: 2025/04/03 21:34:50 by auplisas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ int	handle_input_errors(void)
 // {
 // 	system("leaks cub3d");
 // }
+
 // atexit(leaks);
 
 int	main(int argc, char **argv)
