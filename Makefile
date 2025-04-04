@@ -192,4 +192,4 @@ debug: $(NAME)
 # Include dependency files
 -include $(OBJS:%.o=%.d)
 
-.PHONY: all art clean fclean re bonus re_sub submodule_rebuild san debug lib mlx_42 submodule_update valgrind cppcheck
+.PHONY: all art clean fclean re re_sub submodule_rebuild san debug lib mlx_42 submodule_update valgrind cppcheck help
