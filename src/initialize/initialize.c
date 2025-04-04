@@ -6,7 +6,7 @@
 /*   By: azerfaou <azerfaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 01:55:04 by azerfaou          #+#    #+#             */
-/*   Updated: 2025/04/04 13:21:10 by azerfaou         ###   ########.fr       */
+/*   Updated: 2025/04/04 13:30:17 by azerfaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,9 @@ void	flood_map_items(t_game *game)
 	game->wall = mlx_new_image(game->mlx, block_size, block_size);
 	fill_image_pixels(game->background,
 		(uint32_t)ft_pixel(game->ceiling_color->r, game->ceiling_color->g,
-			game->ceiling_color->b, 255));
+			game->ceiling_color->b, MAX_RGB_VALUE));
 	fill_image_pixels(game->wall, (uint32_t)ft_pixel(game->floor_color->r,
-			game->floor_color->g, game->floor_color->b, 255));
+			game->floor_color->g, game->floor_color->b, MAX_RGB_VALUE));
 	y = 0;
 	while (y < game->rows)
 	{

@@ -6,7 +6,7 @@
 /*   By: azerfaou <azerfaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 05:37:15 by macbook           #+#    #+#             */
-/*   Updated: 2025/04/04 13:22:11 by azerfaou         ###   ########.fr       */
+/*   Updated: 2025/04/04 13:30:31 by azerfaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ void	draw_square(float x, float y, int size, t_game *game)
 	uint32_t	color;
 	int			i;
 
-	color = (uint32_t)ft_pixel(128, 128, 128, 255);
+	color = (uint32_t)ft_pixel(128, 128, 128, MAX_RGB_VALUE);
 	i = 0;
 	while (i++ < size)
 		mlx_put_pixel(game->player_data->player, x + i, y, color);

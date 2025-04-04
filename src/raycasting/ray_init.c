@@ -6,7 +6,7 @@
 /*   By: azerfaou <azerfaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 02:09:02 by azerfaou          #+#    #+#             */
-/*   Updated: 2025/04/02 02:09:07 by azerfaou         ###   ########.fr       */
+/*   Updated: 2025/04/04 13:28:55 by azerfaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,11 @@ void	setup_ray(t_game *game, t_dda_ray *ray, int x)
 
 void	init_delta_dists(t_dda_state *state, t_dda_ray *ray)
 {
-	double	tolerance;
-
-	tolerance = 1e-6;
-	if (fabs(ray->ray_dir_x) < tolerance)
+	if (fabs(ray->ray_dir_x) < TOLERANCE)
 		state->delta_dist_x = MAX_RAY_DISTANCE;
 	else
 		state->delta_dist_x = fabs(1.0 / ray->ray_dir_x);
-	if (fabs(ray->ray_dir_y) < tolerance)
+	if (fabs(ray->ray_dir_y) < TOLERANCE)
 		state->delta_dist_y = MAX_RAY_DISTANCE;
 	else
 		state->delta_dist_y = fabs(1.0 / ray->ray_dir_y);

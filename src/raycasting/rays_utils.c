@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rays_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: auplisas <auplisas@student.42.fr>          +#+  +:+       +#+        */
+/*   By: azerfaou <azerfaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 04:34:57 by macbook           #+#    #+#             */
-/*   Updated: 2025/04/02 22:42:56 by auplisas         ###   ########.fr       */
+/*   Updated: 2025/04/04 13:31:21 by azerfaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,13 +64,13 @@ int	check_rgb_values(char **rgb_ceiling, char **rgb_floor)
 	while (i < 3)
 	{
 		value = ft_atoi(rgb_ceiling[i]);
-		if (value < 0 || value > 255)
+		if (value < 0 || value > MAX_RGB_VALUE)
 		{
 			printf("Error\nInvalid ceiling RGB value: %d\n", value);
 			return (1);
 		}
 		value = ft_atoi(rgb_floor[i]);
-		if (value < 0 || value > 255)
+		if (value < 0 || value > MAX_RGB_VALUE)
 		{
 			printf("Error\nInvalid floor RGB value: %d\n", value);
 			return (1);

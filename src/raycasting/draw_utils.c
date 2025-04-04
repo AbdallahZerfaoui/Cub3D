@@ -6,7 +6,7 @@
 /*   By: azerfaou <azerfaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 02:10:58 by azerfaou          #+#    #+#             */
-/*   Updated: 2025/04/04 13:08:45 by azerfaou         ###   ########.fr       */
+/*   Updated: 2025/04/04 13:30:56 by azerfaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	draw_floor_slice(t_game *game, int i, int start_y)
 	else
 		j = start_y;
 	color = (uint32_t)ft_pixel(game->floor_color->r, game->floor_color->g,
-			game->floor_color->b, 255);
+			game->floor_color->b, MAX_RGB_VALUE);
 	while (j < s_height)
 	{
 		mlx_put_pixel(game->player_data->player, i, j, color);
@@ -45,7 +45,7 @@ void	draw_ceiling_slice(t_game *game, int i, int ceiling_end)
 
 	j = 0;
 	color = (uint32_t)ft_pixel(game->ceiling_color->r, game->ceiling_color->g,
-			game->ceiling_color->b, 255);
+			game->ceiling_color->b, MAX_RGB_VALUE);
 	while (j < ceiling_end)
 	{
 		mlx_put_pixel(game->player_data->player, i, j, color);

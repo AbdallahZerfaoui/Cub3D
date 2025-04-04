@@ -6,7 +6,7 @@
 /*   By: azerfaou <azerfaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 02:11:38 by azerfaou          #+#    #+#             */
-/*   Updated: 2025/04/04 13:22:35 by azerfaou         ###   ########.fr       */
+/*   Updated: 2025/04/04 13:31:03 by azerfaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	draw_single_ray_debug(t_game *game, t_point *player_data,
 
 	ray_x = player_data->x;
 	ray_y = player_data->y;
-	color = (uint32_t)ft_pixel(128, 128, 128, 255);
+	color = (uint32_t)ft_pixel(128, 128, 128, MAX_RGB_VALUE);
 	cos_angle = cos(ray_angle);
 	sin_angle = sin(ray_angle);
 	while (!check_wall(ray_x, ray_y, game))

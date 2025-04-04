@@ -6,7 +6,7 @@
 /*   By: azerfaou <azerfaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 02:46:21 by azerfaou          #+#    #+#             */
-/*   Updated: 2025/04/04 13:23:00 by azerfaou         ###   ########.fr       */
+/*   Updated: 2025/04/04 13:29:54 by azerfaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,9 @@
 # define ANGLE_OF_VIEW 60
 # define PLAYER_SPEED 4
 # define ROTATION_SPEED 0.09f
+# define TOLERANCE 1.0e-6
 # define MAX_RAY_DISTANCE 1000000
+# define MAX_RGB_VALUE 255
 
 // Includes -- BEGIN
 # include "../MLX42/include/MLX42/MLX42.h"
