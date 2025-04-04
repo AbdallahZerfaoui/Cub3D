@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initialize.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: azerfaou <azerfaou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: auplisas <auplisas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 01:55:04 by azerfaou          #+#    #+#             */
-/*   Updated: 2025/04/04 13:30:17 by azerfaou         ###   ########.fr       */
+/*   Updated: 2025/04/04 15:22:38 by auplisas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,9 +62,6 @@ void	flood_map_items(t_game *game)
 
 void	init_player(t_game *game, t_point *player_data)
 {
-	// double	pi_value;
-
-	// pi_value = atan(1.0) * 4.0;
 	player_data->angle_speed = ROTATION_SPEED;
 	player_data->speed = PLAYER_SPEED;
 	if (player_data->direction == 'N')
