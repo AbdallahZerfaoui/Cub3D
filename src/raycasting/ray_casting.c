@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray_casting.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: auplisas <auplisas@student.42.fr>          +#+  +:+       +#+        */
+/*   By: azerfaou <azerfaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 02:11:38 by azerfaou          #+#    #+#             */
-/*   Updated: 2025/04/02 22:50:47 by auplisas         ###   ########.fr       */
+/*   Updated: 2025/04/04 13:22:35 by azerfaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,12 @@ void	free_dda(t_dda *dda)
 	free(dda);
 }
 
-void	draw_single_ray(t_game *game, t_point *player_data, float ray_angle,
-		int ray_count)
+void	draw_single_ray(t_game *game, int ray_count)
 {
 	t_dda	*dda;
 
-	(void)player_data;
-	(void)ray_angle;
+	// (void)player_data;
+	// (void)ray_angle;
 	dda = (t_dda *)ft_calloc(1, sizeof(t_dda));
 	init_dda(dda);
 	setup_dda(game, dda, ray_count);

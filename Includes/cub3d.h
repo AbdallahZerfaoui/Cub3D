@@ -6,7 +6,7 @@
 /*   By: azerfaou <azerfaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 02:46:21 by azerfaou          #+#    #+#             */
-/*   Updated: 2025/04/04 12:00:27 by azerfaou         ###   ########.fr       */
+/*   Updated: 2025/04/04 13:23:00 by azerfaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,12 +176,11 @@ void				init_player(t_game *game, t_point *player_data);
 void				init_dda(t_dda *dda);
 // initialize_utils.c
 int32_t				ft_pixel(int32_t r, int32_t g, int32_t b, int32_t a);
-void				fill_image_pixels(t_game *game, mlx_image_t *image,
+void				fill_image_pixels(mlx_image_t *image,
 						uint32_t color);
 // RAYCASTING
 // draw_rays.c
-void				draw_single_ray(t_game *game, t_point *player_data,
-						float ray_angle, int ray_count);
+void				draw_single_ray(t_game *game, int ray_count);
 void				draw_single_ray_debug(t_game *game, t_point *player_data,
 						float ray_angle);
 // rays_utils.c

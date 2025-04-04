@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initialize.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: auplisas <auplisas@student.42.fr>          +#+  +:+       +#+        */
+/*   By: azerfaou <azerfaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 01:55:04 by azerfaou          #+#    #+#             */
-/*   Updated: 2025/04/03 21:22:23 by auplisas         ###   ########.fr       */
+/*   Updated: 2025/04/04 13:21:10 by azerfaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,10 @@ void	flood_map_items(t_game *game)
 	block_size = game->config->block_size;
 	game->background = mlx_new_image(game->mlx, block_size, block_size);
 	game->wall = mlx_new_image(game->mlx, block_size, block_size);
-	fill_image_pixels(game, game->background,
+	fill_image_pixels(game->background,
 		(uint32_t)ft_pixel(game->ceiling_color->r, game->ceiling_color->g,
 			game->ceiling_color->b, 255));
-	fill_image_pixels(game, game->wall, (uint32_t)ft_pixel(game->floor_color->r,
+	fill_image_pixels(game->wall, (uint32_t)ft_pixel(game->floor_color->r,
 			game->floor_color->g, game->floor_color->b, 255));
 	y = 0;
 	while (y < game->rows)
@@ -62,19 +62,19 @@ void	flood_map_items(t_game *game)
 
 void	init_player(t_game *game, t_point *player_data)
 {
-	double	pi_value;
+	// double	pi_value;
 
-	pi_value = atan(1.0) * 4.0;
+	// pi_value = atan(1.0) * 4.0;
 	player_data->angle_speed = ROTATION_SPEED;
 	player_data->speed = PLAYER_SPEED;
 	if (player_data->direction == 'N')
-		player_data->angle = pi_value * 1.5f;
+		player_data->angle = M_PI * 1.5f;
 	if (player_data->direction == 'S')
-		player_data->angle = pi_value * 0.5f;
+		player_data->angle = M_PI * 0.5f;
 	if (player_data->direction == 'W')
-		player_data->angle = pi_value;
+		player_data->angle = M_PI;
 	if (player_data->direction == 'E')
-		player_data->angle = pi_value * 2.0f;
+		player_data->angle = M_PI * 2.0f;
 	player_data->player = mlx_new_image(game->mlx, game->config->s_width,
 			game->config->s_height);
 }
@@ -83,7 +83,6 @@ t_game	*initialize_game_data(char *map_file)
 {
 	t_game	*game;
 
-	(void)map_file;
 	game = ft_calloc(1, sizeof(t_game));
 	game->config = ft_calloc(1, sizeof(t_config));
 	game->debug_view = INIT_DEBUG_VIEW;

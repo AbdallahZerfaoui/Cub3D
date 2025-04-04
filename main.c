@@ -6,7 +6,7 @@
 /*   By: azerfaou <azerfaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 05:20:16 by macbook           #+#    #+#             */
-/*   Updated: 2025/04/04 11:57:45 by azerfaou         ###   ########.fr       */
+/*   Updated: 2025/04/04 13:23:46 by azerfaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,23 +31,35 @@ void	ft_player_hook(void *param)
 	float	angle_to_add;
 	float	ray_angle;
 	int		ray_count;
-	float	pi_value;
 
-	pi_value = (float)(atan(1.0) * 4.0);
 	game = (t_game *)param;
 	handle_movement(game, game->player_data);
 	clear_image(game);
 	if (game->debug_view)
 		draw_square(game->player_data->x, game->player_data->y, 4, game);
-	angle_to_add = (ANGLE_OF_VIEW * pi_value / 180) / game->config->s_width;
-	ray_angle = game->player_data->angle - (ANGLE_OF_VIEW * pi_value / 180) / 2;
+	angle_to_add = (ANGLE_OF_VIEW * M_PI / 180) / game->config->s_width;
+	ray_angle = game->player_data->angle - (ANGLE_OF_VIEW * M_PI / 180) / 2;
 	ray_count = 0;
+	// int draw_start = game->config->s_height / 2;
+	// int draw_end = game->config->s_height;
+	// while (ray_count < game->config->s_width)
+	// {
+	// 	draw_ceiling_slice(game, ray_count, draw_start);
+	// 	ray_count++;
+	// }
+	// ray_count = 0;
+	// while (ray_count < game->config->s_width)
+	// {
+	// 	draw_floor_slice(game, ray_count, draw_end);
+	// 	ray_count++;
+	// }
+	// ray_count = 0;
 	while (ray_count < game->config->s_width)
 	{
 		if (!game->debug_view)
 			draw_single_ray_debug(game, game->player_data, ray_angle);
 		else
-			draw_single_ray(game, game->player_data, ray_angle, ray_count);
+			draw_single_ray(game, ray_count);
 		ray_angle = ray_angle + angle_to_add;
 		ray_count++;
 	}

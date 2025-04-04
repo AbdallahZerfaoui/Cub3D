@@ -3,21 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   move.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: auplisas <auplisas@student.42.fr>          +#+  +:+       +#+        */
+/*   By: azerfaou <azerfaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 05:37:15 by macbook           #+#    #+#             */
-/*   Updated: 2025/03/05 17:07:05 by auplisas         ###   ########.fr       */
+/*   Updated: 2025/04/04 13:22:11 by azerfaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../Includes/cub3d.h"
 
-void	rotate_player(t_game *game, t_point *player_data)
+void	rotate_player(t_point *player_data)
 {
-	double	pi_value;
-
-	(void)game;
-	pi_value = atan(1.0) * 4.0;
 	if (player_data->left_rotate)
 	{
 		player_data->angle = player_data->angle - player_data->angle_speed;
@@ -26,13 +22,13 @@ void	rotate_player(t_game *game, t_point *player_data)
 	{
 		player_data->angle = player_data->angle + player_data->angle_speed;
 	}
-	if (player_data->angle > 2 * pi_value)
+	if (player_data->angle > 2 * M_PI)
 	{
 		player_data->angle = 0;
 	}
 	if (player_data->angle < 0)
 	{
-		player_data->angle = 2 * pi_value;
+		player_data->angle = 2 * M_PI;
 	}
 }
 
@@ -72,7 +68,7 @@ void	handle_movement(t_game *game, t_point *player_data)
 
 	updated_x = player_data->x;
 	updated_y = player_data->y;
-	rotate_player(game, player_data);
+	rotate_player(player_data);
 	move_player(player_data, &updated_x, &updated_y);
 	if (check_wall(updated_x, updated_y, game))
 		return ;
