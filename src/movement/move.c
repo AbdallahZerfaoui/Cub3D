@@ -6,7 +6,7 @@
 /*   By: azerfaou <azerfaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 05:37:15 by macbook           #+#    #+#             */
-/*   Updated: 2025/04/04 13:30:31 by azerfaou         ###   ########.fr       */
+/*   Updated: 2025/04/04 16:32:03 by azerfaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,10 +81,31 @@ void	handle_movement(t_game *game, t_point *player_data)
 
 void	clear_image(t_game *game)
 {
+	uint32_t	ceiling_color;
+	uint32_t	floor_color;
+	int			mid_y;
+	int			x;
+	int			y;
+
 	if (!game->player_data->player || !game->player_data->player->pixels)
 		return ;
-	ft_bzero(game->player_data->player->pixels, game->player_data->player->width
-		* game->player_data->player->height * sizeof(int));
+	ceiling_color = (uint32_t)ft_pixel(game->ceiling_color->r,
+			game->ceiling_color->g, game->ceiling_color->b, MAX_RGB_VALUE);
+	floor_color = (uint32_t)ft_pixel(game->floor_color->r,
+			game->floor_color->g, game->floor_color->b, MAX_RGB_VALUE);
+	mid_y = game->config->s_height / 2;
+	y = -1;
+	while (++y < game->config->s_height)
+	{
+		x = -1;
+		while (++x < game->config->s_width)
+		{
+			if (y < mid_y)
+				mlx_put_pixel(game->player_data->player, x, y, ceiling_color);
+			else
+				mlx_put_pixel(game->player_data->player, x, y, floor_color);
+		}
+	}
 }
 
 void	draw_square(float x, float y, int size, t_game *game)

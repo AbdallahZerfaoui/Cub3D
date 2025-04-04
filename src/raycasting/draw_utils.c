@@ -6,7 +6,7 @@
 /*   By: azerfaou <azerfaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 02:10:58 by azerfaou          #+#    #+#             */
-/*   Updated: 2025/04/04 13:30:56 by azerfaou         ###   ########.fr       */
+/*   Updated: 2025/04/04 16:35:12 by azerfaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,11 +51,4 @@ void	draw_ceiling_slice(t_game *game, int i, int ceiling_end)
 		mlx_put_pixel(game->player_data->player, i, j, color);
 		j++;
 	}
-}
-
-void	draw_3d_ray(t_game *game, t_dda *dda, int ray_count)
-{
-	draw_ceiling_slice(game, ray_count, dda->draw->draw_start);
-	draw_wall_slice(game, ray_count, dda);
-	draw_floor_slice(game, ray_count, dda->draw->draw_end);
 }

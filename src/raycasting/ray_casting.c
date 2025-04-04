@@ -6,7 +6,7 @@
 /*   By: azerfaou <azerfaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 02:11:38 by azerfaou          #+#    #+#             */
-/*   Updated: 2025/04/04 13:39:23 by azerfaou         ###   ########.fr       */
+/*   Updated: 2025/04/04 16:35:21 by azerfaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	draw_single_ray(t_game *game, int ray_count)
 	init_dda(dda);
 	setup_dda(game, dda, ray_count);
 	perform_dda(game, dda);
-	draw_3d_ray(game, dda, ray_count);
+	draw_wall_slice(game, ray_count, dda);
 	free_dda(dda);
 }
 
