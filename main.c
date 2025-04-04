@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: auplisas <auplisas@student.42.fr>          +#+  +:+       +#+        */
+/*   By: azerfaou <azerfaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 05:20:16 by macbook           #+#    #+#             */
-/*   Updated: 2025/04/03 21:34:50 by auplisas         ###   ########.fr       */
+/*   Updated: 2025/04/04 11:57:45 by azerfaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,13 +70,6 @@ int	handle_input_errors(void)
 	printf("The correct usage is: ./cub3D [map path]\n");
 	return (0);
 }
-
-// void	leaks(void)
-// {
-// 	system("leaks cub3d");
-// }
-
-// atexit(leaks);
 
 int	main(int argc, char **argv)
 {

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: auplisas <auplisas@student.42.fr>          +#+  +:+       +#+        */
+/*   By: azerfaou <azerfaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 02:46:21 by azerfaou          #+#    #+#             */
-/*   Updated: 2025/04/02 22:31:27 by auplisas         ###   ########.fr       */
+/*   Updated: 2025/04/04 12:00:27 by azerfaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,8 +149,6 @@ typedef struct s_dda
 }					t_dda;
 
 // FNC --BEGIN
-// void				printHello(void);
-// bool				check_wall(float px, float py, t_game *game);
 // PARSING
 // parse_utils.c
 bool				legit_char(char c);
