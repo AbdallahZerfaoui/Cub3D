@@ -6,7 +6,7 @@
 /*   By: azerfaou <azerfaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 02:46:21 by azerfaou          #+#    #+#             */
-/*   Updated: 2025/04/04 13:29:54 by azerfaou         ###   ########.fr       */
+/*   Updated: 2025/04/04 13:59:02 by azerfaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,6 +170,7 @@ bool				check_surrounded_by_walls(char **map);
 bool				neighbor_is_walled(char **map, int i, int j);
 // parsing.c
 void				parse_map(t_game *game);
+void				assign_colors(t_game *game);
 // INITIALIZE
 // initialize.c
 t_game				*initialize_game_data(char *map_file);

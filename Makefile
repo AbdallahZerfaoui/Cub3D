@@ -15,7 +15,7 @@ MAIN_FILE := main.c
 SRC_FREE_FILES := free.c
 SRC_FREE := $(addprefix free/, $(SRC_FREE_FILES))
 
-SRC_PARSING_FILES := parsing.c parsing_utils.c parse_metadata.c parse_map.c
+SRC_PARSING_FILES := parsing.c parsing_utils.c parse_metadata.c parse_map.c assign_colors.c
 SRC_PARSING := $(addprefix parsing/, $(SRC_PARSING_FILES))
 
 SRC_INIT_FILES := initialize.c initialize_utils.c

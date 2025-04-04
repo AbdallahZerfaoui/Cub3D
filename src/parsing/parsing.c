@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: auplisas <auplisas@student.42.fr>          +#+  +:+       +#+        */
+/*   By: azerfaou <azerfaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 05:12:41 by macbook           #+#    #+#             */
-/*   Updated: 2025/04/02 22:42:48 by auplisas         ###   ########.fr       */
+/*   Updated: 2025/04/04 14:00:01 by azerfaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ char	**create_map(char *map_file)
 	if (fd < 0)
 		return (write(1, "Error\nFile N/A\n", 15), exit(EXIT_FAILURE), NULL);
 	array = ft_strdup("");
+	if (array == NULL)
+		return (exit(EXIT_FAILURE), NULL);
 	line = get_next_line(fd);
 	while (line != NULL)
 	{
@@ -32,6 +34,8 @@ char	**create_map(char *map_file)
 	}
 	close(fd);
 	map = ft_split(array, '\n');
+	if (map == NULL)
+		return (free(array), exit(EXIT_FAILURE), NULL);
 	free(array);
 	return (map);
 }
@@ -76,34 +80,6 @@ char	**create_only_map(t_textures *texture_data, char **map_file)
 		new_map[j++] = ft_strdup(map_file[i++]);
 	new_map[j] = NULL;
 	return (new_map);
-}
-
-void	assign_colors(t_game *game)
-{
-	char	**rgb_ceiling;
-	char	**rgb_floor;
-
-	if (is_not_valid_color_format(game->texture_data->ceiling_color)
-		|| is_not_valid_color_format(game->texture_data->floor_color))
-		return (printf("Error\nColors data is not set correctly\n"), exit(1));
-	game->ceiling_color = malloc(sizeof(t_color));
-	game->floor_color = malloc(sizeof(t_color));
-	rgb_ceiling = ft_split(game->texture_data->ceiling_color, ',');
-	rgb_floor = ft_split(game->texture_data->floor_color, ',');
-	game->ceiling_color->r = ft_atoi(rgb_ceiling[0]);
-	game->ceiling_color->g = ft_atoi(rgb_ceiling[1]);
-	game->ceiling_color->b = ft_atoi(rgb_ceiling[2]);
-	game->floor_color->r = ft_atoi(rgb_floor[0]);
-	game->floor_color->g = ft_atoi(rgb_floor[1]);
-	game->floor_color->b = ft_atoi(rgb_floor[2]);
-	if (check_rgb_values(rgb_ceiling, rgb_floor))
-	{
-		free_subarrays(rgb_ceiling);
-		free_subarrays(rgb_floor);
-		exit(1);
-	}
-	free_subarrays(rgb_ceiling);
-	free_subarrays(rgb_floor);
 }
 
 void	parse_map(t_game *game)

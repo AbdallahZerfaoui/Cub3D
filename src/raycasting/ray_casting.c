@@ -6,7 +6,7 @@
 /*   By: azerfaou <azerfaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 02:11:38 by azerfaou          #+#    #+#             */
-/*   Updated: 2025/04/04 13:31:03 by azerfaou         ###   ########.fr       */
+/*   Updated: 2025/04/04 13:39:23 by azerfaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,9 @@ void	draw_single_ray(t_game *game, int ray_count)
 {
 	t_dda	*dda;
 
-	// (void)player_data;
-	// (void)ray_angle;
 	dda = (t_dda *)ft_calloc(1, sizeof(t_dda));
+	if (!dda)
+		return ;
 	init_dda(dda);
 	setup_dda(game, dda, ray_count);
 	perform_dda(game, dda);
